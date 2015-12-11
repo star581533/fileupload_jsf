@@ -5,6 +5,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
+import org.springframework.security.core.AuthenticationException;
 
 /**
  * FileSysException
@@ -37,9 +38,27 @@ public class FileSysException extends RuntimeException {
 		super(genExceptionMessage(message, null), cause);
 	}
 	
+	public FileSysException(Throwable cause){
+		super(genExceptionMessage(cause));
+	}
+	
 	private static String genExceptionMessage(String error, String extMsg){
 		ms(error);
 		return error;
+	}
+	
+	private static String genExceptionMessage(Throwable cause){
+		return handleException(cause);
+	}
+	
+	private static String handleException(Throwable cause){
+		String message = "";
+		if(cause instanceof AuthenticationException){
+			message = "使用者登入錯誤";
+		}
+		FacesMessage faceMessage = new FacesMessage(message);
+		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+		return message;
 	}
 	
 	private static void ms(String exception){	

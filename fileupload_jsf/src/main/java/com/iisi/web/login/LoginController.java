@@ -86,12 +86,12 @@ public class LoginController implements Serializable{
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
 			SecurityContextHolder.getContext().setAuthentication(result);
-//		}catch(AuthenticationException e){
-////			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.ERROR_INPUT, ConstantObject.ERROR_INPUT_USER_PASSWORD));
-////			this.testException(e);
-//			throw new FileSysException("測試使用者登入錯誤");
-////			e.printStackTrace();
-////			return "";		
+		}catch(AuthenticationException e){
+//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.ERROR_INPUT, ConstantObject.ERROR_INPUT_USER_PASSWORD));
+//			this.testException(e);
+			throw new FileSysException("測試使用者登入錯誤");
+//			e.printStackTrace();
+//			return "";		
 		}catch(FileSysException e){
 			System.out.println("-----------------------FileSysException-----------------");
 //			throw e;		
