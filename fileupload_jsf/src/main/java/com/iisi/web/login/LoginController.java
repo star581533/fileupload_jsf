@@ -88,10 +88,11 @@ public class LoginController implements Serializable{
 			SecurityContextHolder.getContext().setAuthentication(result);
 		}catch(AuthenticationException e){
 //			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.ERROR_INPUT, ConstantObject.ERROR_INPUT_USER_PASSWORD));
-//			this.testException(e);
-			throw new FileSysException("測試使用者登入錯誤");
+			this.testException(e);
+//			throw new FileSysException("測試使用者登入錯誤");
+//			throw new FileSysException(e);
 //			e.printStackTrace();
-//			return "";		
+			return "";		
 		}catch(FileSysException e){
 			System.out.println("-----------------------FileSysException-----------------");
 //			throw e;		
