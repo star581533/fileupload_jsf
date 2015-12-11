@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans 
+       		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       		http://www.springframework.org/schema/context 
+       		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+        	http://www.springframework.org/schema/tx 
+        	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+
+	
+	<!-- Package needed to be scanned for annotation -->
+	<context:component-scan base-package="com.iisi.*" />
+	
+	<!-- Use annotation for configuration -->
+	<context:annotation-config />
+	<context:spring-configured />
+	
+	<!-- ********************FileUpload DB******************** -->	
+	<!-- mysql db -->
+ 	<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName">
+			<value>com.mysql.jdbc.Driver</value>
+		</property>
+		<property name="url">
+			<value>jdbc:mysql://localhost:3306/fileupload</value>
+		</property>
+		<property name="username">
+			<value>root</value>
+		</property>
+		<property name="password">
+			<value>123456</value>
+		</property>
+	</bean>
+	
+	<!--  -->
+	<bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="annotatedClasses">
+			<list>  
+				<value>com.iisi.api.model.FileData</value>
+				<value>com.iisi.api.model.ImageIndex</value>
+				<value>com.iisi.api.model.LoginLog</value>
+				<value>com.iisi.api.model.Office</value>
+				<value>com.iisi.api.model.OperationLog</value>
+				<value>com.iisi.api.model.Role</value>
+				<value>com.iisi.api.model.User</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.MySQLDialect
+				</prop>
+				<!-- 要印出Hibernate中SQL的條件要加上log4j -->
+				<!-- 顯示 SQL 語法 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<!-- 顯示 SQL 語法格式化 -->
+				<prop key="hibernate.format_sql">true</prop>
+				<!-- 加入註釋至產生出的 SQL 語法 -->	
+				<prop key="hibernate.use_sql_comments">true</prop>
+			</props>
+		</property>
+		
+	</bean>
+	
+	<!-- ********************Project DB******************** -->
+	<!-- Data Source Declaration 
+	<bean id="DataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+		<property name="driverClass" value="com.mysql.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/project" />
+		<property name="user" value="root" />
+		<property name="password" value="123456" />
+		<property name="maxPoolSize" value="2" />
+		<property name="maxStatements" value="0" />
+		<property name="minPoolSize" value="1" />
+	</bean>
+	-->	
+	<!-- Session Factory Declaration
+	<bean id="SessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+		<property name="dataSource" ref="DataSource" />
+		<property name="packagesToScan">
+			<list>
+				<value>spring.model</value>
+				<value>spring.service</value>
+			</list>
+		</property>
+		<property name="hibernateProperties">
+			<props>
+				<prop key="hibernate.dialect">
+					org.hibernate.dialect.Oracle10gDialect
+				</prop>
+				<prop key="hibernate.show_sql">
+					true
+				</prop>
+			</props>
+		</property>
+	</bean>
+	 -->
+	
+	<!-- Enable the configuration of transactional behavior based on annotations -->
+	<tx:annotation-driven transaction-manager="txManager"/>
+
+	<!-- Transaction Manager is defined -->
+	<bean id="txManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="SessionFactory" />
+	</bean>
+
+</beans>

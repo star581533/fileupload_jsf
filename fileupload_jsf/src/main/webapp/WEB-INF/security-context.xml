@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans
+    xmlns:sec="http://www.springframework.org/schema/security"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:beans="http://www.springframework.org/schema/beans"
+    xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
+    http://www.springframework.org/schema/security
+    http://www.springframework.org/schema/security/spring-security-3.2.xsd">
+
+    <!-- Enable method level Spring Security by annotations  -->
+    <sec:global-method-security pre-post-annotations="enabled" /> 
+    
+    <!-- 將Primefaces css 安全性設定為none，畫面上原本的Primefaces css亦可使用 -->
+    <sec:http security="none" pattern="/javax.faces.resource/**" />
+    
+    <sec:http auto-config="true" use-expressions="true">
+
+        <!-- Page level Spring Security : Intercept access to resources in /pages/secure/** 
+        <sec:intercept-url pattern="/pages/secure/**" access="hasRole('ROLE_MODERATOR')" />
+        -->
+		<sec:intercept-url pattern="/pages/secure/work/**" access="hasAnyRole('ADMIN','QUERYGROUP','QUERY')" />
+		<sec:intercept-url pattern="/pages/secure/**" access="hasAnyRole('ADMIN')" />		
+
+        <!-- Page level Spring Security : Permit access to resources in /pages/unsecure/** -->
+        <sec:intercept-url pattern="/pages/unsecure/**" access="permitAll"/>
+
+        <!-- Page level Spring Security : Intercept access to resources in /** 
+        <sec:intercept-url pattern="/**" access="hasRole('ROLE_MODERATOR')"/>
+        -->
+        
+        <sec:intercept-url pattern="/**" access="hasAnyRole('ADMIN','QUERYGROUP','QUERY')"/>
+
+        <!-- 
+              若要使用Primefaces的css，要新建立一個http放置
+        Page level Spring Security : Enable Primefaces
+        <sec:intercept-url pattern="/javax.faces.resource/**" access="permitAll" />
+         -->
+          
+        <!-- Define login page for Spring Security      
+        <sec:form-login login-page="/pages/unsecure/login.xhtml"/>
+        --> 
+		<sec:form-login login-page="/pages/unsecure/login.xhtml"/>
+
+        <!-- Define logout properties for Spring Security -->
+        <sec:logout 
+        	invalidate-session="true" 
+        	logout-success-url="/"
+        	logout-url="/j_spring_security_logout" />
+
+        	
+    </sec:http>
+   
+    <!-- Set customUserDetailsService class as the authentication Manager for Spring Security-->
+    <sec:authentication-manager alias="authenticationManager">
+        <sec:authentication-provider user-service-ref="customUserDetailsService">
+            <sec:password-encoder hash="plaintext"></sec:password-encoder>
+        </sec:authentication-provider>
+    </sec:authentication-manager>
+	
+	<!--  
+	<beans:bean id="loginController" name="loginController" class="com.iisi.web.login.LoginController" scope="prototype">
+        <beans:property name="authenticationManager" ref="authenticationManager"></beans:property>
+    </beans:bean>
+-->
+    
+    <!-- 
+    <sec:authentication-manager alias="authenticationManager">
+    	<sec:authentication-provider user-service-ref="userDetailsService" />
+    </sec:authentication-manager>
+    
+
+    <beans:bean id="userDetailsService" class="org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl">
+    	<beans:property name="dataSource" ref="DataSource" />
+    </beans:bean>
+     -->
+</beans:beans>
