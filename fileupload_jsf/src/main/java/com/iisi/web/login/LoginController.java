@@ -13,12 +13,14 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.execption.FileSysException;
@@ -48,7 +50,12 @@ public class LoginController implements Serializable{
 	@ManagedProperty(value="#{authenticationManager}")
 	private AuthenticationManager authenticationManager = null;
 	
-	private FacesContext context;
+	private FacesContext context = null;
+	
+	private User user = null;
+	
+	@Autowired
+	private transient UserDataComponent userDataComponent;
 	
 	@PostConstruct
 	public void init(){
@@ -64,16 +71,26 @@ public class LoginController implements Serializable{
 		//檢核使用者帳號
 		if(null == dto.getUserId() || dto.getUserId().length() == 0){
 //			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
-//			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
-//			this.testException(new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID));
+			throw new FileSysException("W", ConstantObject.WARN_MSG_INPUT_USER_ID);
 		}
 		//檢核使用者密碼
 		if(null == dto.getPassword() || dto.getPassword().length() == 0){
 //			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_PWD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_PWD);
-//			this.testException(new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_PWD));
+			throw new FileSysException("W",ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
+		
+//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
+//		user = (User)request.getSession().getAttribute("user");
+//		
+//		System.out.println("user = " + user);
+//		
+//		
+//		if(user != null){
+//			if(user.getLoginFail().equals("3")){
+//				throw new FileSysException("W",ConstantObject.WARN_MSG_ACCOUNT_LOCK);	
+//			}
+//		}
+
 	}
 	
 	/**
@@ -85,33 +102,41 @@ public class LoginController implements Serializable{
 			this.verify();
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
-			SecurityContextHolder.getContext().setAuthentication(result);
+			SecurityContextHolder.getContext().setAuthentication(result);		
+			
+			//利用Authentication取得使用者資料。
 		}catch(AuthenticationException e){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.ERROR_INPUT, ConstantObject.ERROR_INPUT_USER_PASSWORD));
-			this.testException(e);
-//			throw new FileSysException("測試使用者登入錯誤");
-//			throw new FileSysException(e);
-//			e.printStackTrace();
+//			if(user != null){
+//				int failCount = Integer.parseInt(user.getLoginFail());
+//				user.setLoginFail(String.valueOf(failCount++));
+//				userDataComponent.updateUserData(user);
+//			}
+			this.handleException(e);
 			return "";		
 		}catch(FileSysException e){
-			System.out.println("-----------------------FileSysException-----------------");
-//			throw e;		
 			e.printStackTrace();
 			return "";
 		}catch(Exception e){
-			throw new FileSysException(ConstantObject.ERROR_USER_LOGIN);
+//			throw new FileSysException(ConstantObject.ERROR_USER_LOGIN);
+			this.handleException(e);
 		}
 		return MenuService.INDEX;
 	}
 	
-	private void testException(Throwable exception){
+	/**
+	 * 登入例外處理(未來想辦法要整合進FileSysException中)
+	 * @param exception
+	 */
+	private void handleException(Throwable exception){
 		//http://www.java-tutorial.ch/java-server-faces/jsf-2-exception-handling-and-formatting
 		String message = "";
 		
 		if(exception instanceof FileSysException){
 			message = exception.getMessage();
+		}else if(exception instanceof AuthenticationException){
+			message = ConstantObject.ERROR_INPUT_USER_PASSWORD;
 		}else{
-			message = "An unexpected error occured !";
+			message = ConstantObject.ERROR_USER_LOGIN;
 		}
 		
 		FacesMessage faceMessage = new FacesMessage(message);

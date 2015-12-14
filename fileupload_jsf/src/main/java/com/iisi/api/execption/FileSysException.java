@@ -2,6 +2,7 @@
 package com.iisi.api.execption;
 
 import javax.faces.application.FacesMessage;
+import javax.faces.application.FacesMessage.Severity;
 import javax.faces.context.FacesContext;
 
 import org.apache.commons.lang3.reflect.FieldUtils;
@@ -27,11 +28,10 @@ public class FileSysException extends RuntimeException {
 	
 	public FileSysException(String message){
 		super(genExceptionMessage(message, null));
-//		System.out.println("-------------------------------------start-----------------------------------");
-//		FacesMessage faceMessage = new FacesMessage(message);
-//		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
-//		
-//		System.out.println("-------------------------------------end-----------------------------------");
+	}
+	
+	public FileSysException(String error, String message){
+		super(genExceptionMessage(error, message));
 	}
 	
 	public FileSysException(String message, Throwable cause){
@@ -43,7 +43,7 @@ public class FileSysException extends RuntimeException {
 	}
 	
 	private static String genExceptionMessage(String error, String extMsg){
-		ms(error);
+		setMessage(error, extMsg);
 		return error;
 	}
 	
@@ -61,30 +61,31 @@ public class FileSysException extends RuntimeException {
 		return message;
 	}
 	
-	private static void ms(String exception){	
-		System.out.println("-------------------------------------ms start-----------------------------------");
-		try{
-			System.out.println("--------growl start");
-//			FieldUtils.writeDeclaredField("aa", "message",  "bb", true);
-			System.out.println("--------growl end");
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+	private static void setMessage(String title, String msg){	
+//		try{
+//			System.out.println("--------growl start");
+////			FieldUtils.writeDeclaredField("aa", "message",  "bb", true);
+//			System.out.println("--------growl end");
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 		
-		FacesMessage faceMessage = new FacesMessage(exception);
-		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
-		System.out.println("-------------------------------------ms end-----------------------------------");
-	}
-	
-	private void testException(Throwable exception){
-		String message = "";
-		if(exception instanceof FileSysException){
-			message = exception.getMessage();
+		Severity severity = null;
+		
+		if(title.equals("W")){
+			severity = FacesMessage.SEVERITY_WARN;
+		}else if(title.equals("E")){
+			severity = FacesMessage.SEVERITY_ERROR;
+		}else if(title.equals("I")){
+			severity = FacesMessage.SEVERITY_INFO;
 		}else{
-			message = "An unexpected error occured !";
+			severity = FacesMessage.SEVERITY_FATAL;
 		}
 		
-		FacesMessage faceMessage = new FacesMessage(message);
+		FacesMessage faceMessage = new FacesMessage(severity, "",msg);
 		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
+		
+//		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
 	}
+
 }

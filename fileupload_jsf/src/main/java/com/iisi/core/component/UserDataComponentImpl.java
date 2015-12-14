@@ -94,4 +94,10 @@ public class UserDataComponentImpl implements UserDataComponent{
 		return roles.get(0);
 	}
 
+
+	@Override
+	public void updateUserData(User user) {
+		dbFactory.update(user);
+	}
+
 }

@@ -129,6 +129,16 @@ public interface ConstantObject {
 	 */
 	public static final String WARN_MSG_INPUT_ROLEID = "請輸入使用者權限";
 	
+	/**
+	 * 警告訊息-帳號已被鎖住，請洽系統管理員
+	 */
+	public static final String WARN_MSG_ACCOUNT_LOCK = "帳號已被鎖住，請洽系統管理員";
+	
+	/**
+	 * 警告訊息-密碼輸入錯誤%s次，若連續輸入3次錯誤的密碼，將鎖定帳號
+	 */
+	public static final String WARN_MSG_INPUT_PASSWORD_ERR = "密碼輸入錯誤%s次，若連續輸入3次錯誤的密碼，將鎖定帳號";
+	
 		
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	警告訊息   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */
 	

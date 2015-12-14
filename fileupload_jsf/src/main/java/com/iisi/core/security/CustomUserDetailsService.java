@@ -23,14 +23,12 @@ import com.iisi.api.model.Role;
 @Service("customUserDetailsService")
 @Transactional(readOnly=true)
 public class CustomUserDetailsService implements UserDetailsService {
-
     
     @Autowired
 	private transient UserDataComponent userDataComponent;
 
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
        
-//        spring.model.User domainUser = userDAO.getUser(login);
     	UserDTO dto = new UserDTO();
     	dto.setUserId(login);
     	
@@ -41,13 +39,11 @@ public class CustomUserDetailsService implements UserDetailsService {
         boolean credentialsNonExpired = true;
         boolean accountNonLocked = true;
         
-        FacesContext context = FacesContext.getCurrentInstance();
-		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();		
-		request.getSession().setAttribute("user", domainUser);
+//        FacesContext context = FacesContext.getCurrentInstance();
+//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();		
+//		request.getSession().setAttribute("user", domainUser);
         
         return new User(
-//            domainUser.getLogin(),
-//            domainUser.getPassword(),
         	domainUser.getUserId(),
         	domainUser.getUserPwd(),
             enabled,

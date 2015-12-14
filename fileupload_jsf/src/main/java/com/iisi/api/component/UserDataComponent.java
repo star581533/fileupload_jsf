@@ -48,4 +48,10 @@ public interface UserDataComponent {
 	 * @return
 	 */
 	public Role getRole(String role);
+	
+	/**
+	 * 更新使用者資料
+	 * @param user
+	 */
+	public void updateUserData(User user);
 }
