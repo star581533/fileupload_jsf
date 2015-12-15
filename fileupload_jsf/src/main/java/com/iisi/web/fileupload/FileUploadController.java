@@ -26,10 +26,6 @@ import javax.faces.context.FacesContext;
 
 
 
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.primefaces.model.UploadedFile;
 
 import com.iisi.api.constant.ConstantMethod;
@@ -39,7 +35,7 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileUpload.FileUploadService;
 import com.iisi.core.utils.DateUtils;
 import com.iisi.core.utils.FileSysUtils;
-import com.iisi.web.check.Checker;
+
 
 
 @ManagedBean
@@ -74,7 +70,7 @@ public class FileUploadController implements Serializable {
 		
 		
 		dto = new FileUploadDTO();		
-		dto.setUser(Checker.getUser());		
+//		dto.setUser(Checker.getUser());		
 	}
 		
 	public void uploadData(){

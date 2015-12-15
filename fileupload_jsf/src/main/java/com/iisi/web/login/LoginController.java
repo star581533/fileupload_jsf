@@ -10,8 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,6 +18,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
@@ -105,6 +107,14 @@ public class LoginController implements Serializable{
 			SecurityContextHolder.getContext().setAuthentication(result);		
 			
 			//利用Authentication取得使用者資料。
+			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			System.out.println("userDetails = " + userDetails);
+			System.out.println("userDetails = " + userDetails.getUsername());
+			System.out.println("userDetails = " + userDetails.getPassword());
+			
+			ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
+			HttpSession session = attr.getRequest().getSession(true);
+			System.out.println(session.getId());
 		}catch(AuthenticationException e){
 //			if(user != null){
 //				int failCount = Integer.parseInt(user.getLoginFail());

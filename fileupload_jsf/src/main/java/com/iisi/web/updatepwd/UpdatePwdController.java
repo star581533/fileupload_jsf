@@ -10,25 +10,17 @@ import javax.faces.bean.RequestScoped;
 
 
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
-
-
-
-
-
-
-
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdatePwdDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
-import com.iisi.api.model.User;
+
 import com.iisi.api.updatePwd.UpdatePwdService;
-import com.iisi.web.check.Checker;
+
 
 
 @ManagedBean
@@ -111,10 +103,11 @@ public class UpdatePwdController implements Serializable {
 	
 	private void setDto(){
 		dto = new UpdatePwdDTO();
-		User user = Checker.getUser();
-		if(user != null){			
-			dto.setUserId(user.getUserId());
-			dto.setOfficeId(user.getOfficeId());
+		
+		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		
+		if(userId != null){			
+			dto.setUserId(userId);
 		}else{
 			this.error();
 		}

@@ -25,7 +25,7 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
 import com.iisi.api.model.FileData;
 import com.iisi.core.utils.FileSysUtils;
-import com.iisi.web.check.Checker;
+
 
 @ManagedBean
 @ViewScoped
@@ -48,7 +48,7 @@ public class FileQueryController implements Serializable {
 	@PostConstruct
 	public void init(){
 		dto = new FileQueryDTO();
-		dto.setUser(Checker.getUser());	
+//		dto.setUser(Checker.getUser());	
 	}
 	
 	public void doQuery(){
