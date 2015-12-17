@@ -10,6 +10,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
 import com.iisi.api.model.User;
+import com.iisi.api.security.FileSysUtil;
+import com.iisi.api.security.UserInfo;
 import com.iisi.core.security.SecurityUtils;
 
 @ManagedBean(name="loginController")
@@ -53,9 +56,7 @@ public class LoginController implements Serializable{
 	private AuthenticationManager authenticationManager = null;
 	
 	private FacesContext context = null;
-	
-	private User user = null;
-	
+		
 	@Autowired
 	private transient UserDataComponent userDataComponent;
 	
@@ -104,23 +105,13 @@ public class LoginController implements Serializable{
 			this.verify();
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
-			SecurityContextHolder.getContext().setAuthentication(result);		
-			
-			//利用Authentication取得使用者資料。
-			UserDetails userDetails = (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			System.out.println("userDetails = " + userDetails);
-			System.out.println("userDetails = " + userDetails.getUsername());
-			System.out.println("userDetails = " + userDetails.getPassword());
-			
-			ServletRequestAttributes attr = (ServletRequestAttributes)RequestContextHolder.currentRequestAttributes();
-			HttpSession session = attr.getRequest().getSession(true);
-			System.out.println(session.getId());
+			SecurityContextHolder.getContext().setAuthentication(result);								
 		}catch(AuthenticationException e){
 //			if(user != null){
 //				int failCount = Integer.parseInt(user.getLoginFail());
 //				user.setLoginFail(String.valueOf(failCount++));
 //				userDataComponent.updateUserData(user);
-//			}
+//			}			
 			this.handleException(e);
 			return "";		
 		}catch(FileSysException e){

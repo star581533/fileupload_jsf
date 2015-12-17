@@ -37,7 +37,7 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 	public void updatePassword(UpdatePwdDTO dto) {
 		UserDTO userDto = new UserDTO();
 		userDto.setUserId(dto.getUserId());
-		userDto.setOfficeId(dto.getOfficeId());
+//		userDto.setOfficeId(dto.getOfficeId());
 		List<User> users = userDataComponent.queryOneUser(userDto);
 		
 		try{

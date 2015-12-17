@@ -11,15 +11,17 @@ import javax.faces.bean.RequestScoped;
 
 import javax.faces.context.FacesContext;
 
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdatePwdDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
-
+import com.iisi.api.security.FileSysUtil;
+import com.iisi.api.security.UserInfo;
 import com.iisi.api.updatePwd.UpdatePwdService;
+import com.iisi.core.security.UserUtil;
 
 
 
@@ -37,6 +39,9 @@ public class UpdatePwdController implements Serializable {
 	private UpdatePwdService service;
 	
 	private UpdatePwdDTO dto;
+	
+	@ManagedProperty(value="#{fileSysUtil}")
+	private transient FileSysUtil fileSysUtil;
 
 	
 	@PostConstruct
@@ -104,7 +109,12 @@ public class UpdatePwdController implements Serializable {
 	private void setDto(){
 		dto = new UpdatePwdDTO();
 		
-		String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+		UserInfo userInfo = this.fileSysUtil.getUser();
+		String userId = userInfo.getUsername();
+		String officeId = userInfo.getOfficeId();
+		
+		System.out.println("userId = " + userId);
+		System.out.println("officeId = " + officeId);
 		
 		if(userId != null){			
 			dto.setUserId(userId);
@@ -127,6 +137,14 @@ public class UpdatePwdController implements Serializable {
 
 	public void setService(UpdatePwdService service) {
 		this.service = service;
+	}
+
+	public FileSysUtil getFileSysUtil() {
+		return fileSysUtil;
+	}
+
+	public void setFileSysUtil(FileSysUtil fileSysUtil) {
+		this.fileSysUtil = fileSysUtil;
 	}
 	
 }
