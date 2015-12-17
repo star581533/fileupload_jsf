@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.faces.bean.ManagedProperty;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,7 @@ import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
+import com.iisi.api.operationLog.OperationLogComponent;
 import com.iisi.api.operationLog.OperationLogService;
 import com.iisi.core.utils.DateUtils;
 
@@ -28,6 +31,9 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	
 	@Autowired
 	private DBFactory dbFactory;
+	
+	@ManagedProperty(value="#{operationLogComponent}")
+	private OperationLogComponent operationLogComponent;
 	
 	@Override
 	public List<OperationLog> getOperationLogList(OperationLogQueryDTO dto) {
@@ -58,8 +64,27 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		List<OperationLog> operationLogs = (List<OperationLog>)dbFactory.query(params, 
 				sql.toString(), OperationLog.class);
 		
+		OperationLog operationLog = new OperationLog();
+		operationLog.setLogDate(DateUtils.getNowDate());
+		operationLog.setLogTime(DateUtils.getNowTime());
+//		operationLog.setOfficeId(officeId);
+//		operationLog.setOperationContent(operationContent);
+//		operationLog.setType(type);
+//		operationLog.setUserId(userId);
+//		operationLog.setUserName(userName);
+		
+		operationLogComponent.insertOperationLog(operationLog);
+		
 		LOG.debug("************************* OperationLogServiceImpl getOperationLogList end *************************");
 		return operationLogs;
+	}
+
+	public OperationLogComponent getOperationLogComponent() {
+		return operationLogComponent;
+	}
+
+	public void setOperationLogComponent(OperationLogComponent operationLogComponent) {
+		this.operationLogComponent = operationLogComponent;
 	}
 
 }
