@@ -17,8 +17,4 @@ public final class UserUtil {
 		}
 		throw new IllegalStateException("UserInfo object is not available in context.");
 	}
-	
-//	public static ExecutantType getExecutant(){
-//		HttpSession session = Sessionu
-//	}
 }

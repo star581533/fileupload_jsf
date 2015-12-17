@@ -106,16 +106,16 @@ public class UpdatePwdController implements Serializable {
 		}
 	}
 	
+	/**
+	 * 設定畫面預設值
+	 */
 	private void setDto(){
 		dto = new UpdatePwdDTO();
 		
+		//取得使用者資料
 		UserInfo userInfo = this.fileSysUtil.getUser();
 		String userId = userInfo.getUsername();
-		String officeId = userInfo.getOfficeId();
-		
-		System.out.println("userId = " + userId);
-		System.out.println("officeId = " + officeId);
-		
+
 		if(userId != null){			
 			dto.setUserId(userId);
 		}else{

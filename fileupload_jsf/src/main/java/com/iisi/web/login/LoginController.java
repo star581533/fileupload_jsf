@@ -81,19 +81,6 @@ public class LoginController implements Serializable{
 //			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_PWD));
 			throw new FileSysException("W",ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
-		
-//		HttpServletRequest request = (HttpServletRequest)context.getExternalContext().getRequest();
-//		user = (User)request.getSession().getAttribute("user");
-//		
-//		System.out.println("user = " + user);
-//		
-//		
-//		if(user != null){
-//			if(user.getLoginFail().equals("3")){
-//				throw new FileSysException("W",ConstantObject.WARN_MSG_ACCOUNT_LOCK);	
-//			}
-//		}
-
 	}
 	
 	/**
@@ -106,12 +93,7 @@ public class LoginController implements Serializable{
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
 			SecurityContextHolder.getContext().setAuthentication(result);								
-		}catch(AuthenticationException e){
-//			if(user != null){
-//				int failCount = Integer.parseInt(user.getLoginFail());
-//				user.setLoginFail(String.valueOf(failCount++));
-//				userDataComponent.updateUserData(user);
-//			}			
+		}catch(AuthenticationException e){			
 			this.handleException(e);
 			return "";		
 		}catch(FileSysException e){
