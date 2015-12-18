@@ -14,7 +14,14 @@ public class UserInfo extends User{
 
 	/* */
 	private static final long serialVersionUID = 1L;
+	
 	private String officeId;
+	
+	private String userId;
+	
+	private String userName;
+	
+	private String roleId;
 	
 	public UserInfo(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired,
 			boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
@@ -34,4 +41,30 @@ public class UserInfo extends User{
 	public void setOfficeId(String officeId) {
 		this.officeId = officeId;
 	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getRoleId() {
+		return roleId;
+	}
+
+	public void setRoleId(String roleId) {
+		this.roleId = roleId;
+	}
+	
+	
 }

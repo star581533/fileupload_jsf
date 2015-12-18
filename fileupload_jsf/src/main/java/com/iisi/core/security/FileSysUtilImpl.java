@@ -16,7 +16,7 @@ public class FileSysUtilImpl implements FileSysUtil {
 
 	@Override
 	public String getUserId() {
-		return getUser().getUsername();
+		return getUser().getUserId();
 	}
 
 	@Override

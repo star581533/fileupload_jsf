@@ -13,7 +13,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
+import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
@@ -57,6 +59,7 @@ public class FileQueryController implements Serializable {
 			dto.setFiles(fileQueryService.getFileList(dto));
 			System.out.println("size = " + dto.getFiles());
 			this.setTempFiles();
+			
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){
@@ -80,23 +83,28 @@ public class FileQueryController implements Serializable {
 				output.setUserId(file.getUserId());
 				output.setUserName(file.getUserName());
 				output.setSubject(file.getSubject());
+				output.setImageId(file.getImageId());
+				output.setList(file.getList());
 				outputs.add(output);
 			}
 			dto.setOutputs(outputs);
 		}
 	}
-
-	public void downloadFile(FileData data){
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		String directory = externalContext.getInitParameter("uploadDirectory");
-		
+	
+	public void downloadFile(ActionEvent event){		
 		String directory = FileSysUtils.getUploadInitDir();
 		
 		File fileDir = new File(directory);
 		String path = fileDir.getAbsolutePath();
 		
-		String fileName = data.getImageId() + ".jpg";
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+		UIComponent component = event.getComponent();
+				
+		String list = (String)component.getAttributes().get("list");		
+		String imageId = (String)component.getAttributes().get("imageId");
+		String fileName = (String)component.getAttributes().get("fileName");
+
+		String imageName = imageId + ".jpg";
+		String filePath = path + File.separator + list + File.separator+ imageName;
 		System.out.println("filePath = " + filePath);
 				
 	    File result = new File(filePath);
@@ -107,7 +115,7 @@ public class FileQueryController implements Serializable {
 		    InputStream stream;
 			try {
 				stream = new FileInputStream(result.getAbsolutePath());
-				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+				file = new DefaultStreamedContent(stream, "image/jpg", fileName);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}	
@@ -115,6 +123,39 @@ public class FileQueryController implements Serializable {
 	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
 	    }
 	}
+	
+	
+	
+
+//	public void downloadFile(FileData data){
+////		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+////		String directory = externalContext.getInitParameter("uploadDirectory");
+//		
+//		String directory = FileSysUtils.getUploadInitDir();
+//		
+//		File fileDir = new File(directory);
+//		String path = fileDir.getAbsolutePath();
+//		
+//		String fileName = data.getImageId() + ".jpg";
+//		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+//		System.out.println("filePath = " + filePath);
+//				
+//	    File result = new File(filePath);
+//	    
+//	    System.out.println("result.exists() = " + result.exists());
+//	    
+//	    if(result.exists()){
+//		    InputStream stream;
+//			try {
+//				stream = new FileInputStream(result.getAbsolutePath());
+//				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			}	
+//	    }else{
+//	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+//	    }
+//	}
 	
 	public void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
@@ -138,26 +179,20 @@ public class FileQueryController implements Serializable {
 	/**
 	 * 處理畫面中Header的CheckBox動作
 	 */
-	public void selectAll(){
-		System.out.println("================this.checkAllBox : " + this.checkAllBox);
-		this.setCheckAll(this.checkAllBox);
-	}
-	
-	public void doPrint(){
-		for(FileOutputDTO output : dto.getOutputs()){
-			System.out.println("output.isCheckBoxAll() = " + output.isCheckBoxAll() + ", output.getUploadDate() = " + output.getUploadDate());
-		}
-	}
-	
+//	public void selectAll(){
+//		System.out.println("================this.checkAllBox : " + this.checkAllBox);
+//		this.setCheckAll(this.checkAllBox);
+//	}
+		
 	/**
 	 * 將Header的CheckBox動作，放入各個Row的CheckBox
 	 * @param bool
 	 */
-	private void setCheckAll(boolean bool){
-		for(FileOutputDTO output : dto.getOutputs()){
-			output.setCheckBoxAll(bool);
-		}
-	}
+//	private void setCheckAll(boolean bool){
+//		for(FileOutputDTO output : dto.getOutputs()){
+//			output.setCheckBoxAll(bool);
+//		}
+//	}
 
 	public FileQueryDTO getDto() {
 		return dto;

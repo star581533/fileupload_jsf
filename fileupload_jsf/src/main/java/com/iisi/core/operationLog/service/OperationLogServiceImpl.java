@@ -17,6 +17,8 @@ import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.operationLog.OperationLogComponent;
 import com.iisi.api.operationLog.OperationLogService;
+import com.iisi.api.security.FileSysUtil;
+import com.iisi.api.security.UserInfo;
 import com.iisi.core.utils.DateUtils;
 
 @Service("operationLogService")
@@ -35,43 +37,64 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	@ManagedProperty(value="#{operationLogComponent}")
 	private OperationLogComponent operationLogComponent;
 	
+	@ManagedProperty(value="#{fileSysUtil}")
+	private FileSysUtil fileSysUtil;
+	
 	@Override
 	public List<OperationLog> getOperationLogList(OperationLogQueryDTO dto) {
 		LOG.debug("************************* OperationLogServiceImpl getOperationLogList start *************************");
-		
+		StringBuilder operationContent = new StringBuilder();		
 		StringBuilder sql = new StringBuilder();
 		List<String> params = new ArrayList<String>();
 		
 		sql.append("select * from operationLog where logdate between ? and ? ");
-		params.add(DateUtils.adToRocDate(dto.getStartDate()));
-		params.add(DateUtils.adToRocDate(dto.getEndDate()));
+		
+		String startDate = DateUtils.adToRocDate(dto.getStartDate());
+		String endDate = DateUtils.adToRocDate(dto.getEndDate());
+		params.add(startDate);
+		params.add(endDate);
+		
+		operationContent.append("sLogDate=").append(startDate).append(",");
+		operationContent.append("eLogDate=").append(endDate).append(",");
 		
 		if(!ConstantMethod.verifyColumn(dto.getOfficeId())){
 			sql.append("and officeid = ? ");
 			params.add(dto.getOfficeId());
+			operationContent.append("officeId=").append(dto.getOfficeId()).append(",");
 		}
 		
 		if(!ConstantMethod.verifyColumn(dto.getUserId())){
 			sql.append("and userid = ? ");
 			params.add(dto.getUserId());
+			operationContent.append("userId=").append(dto.getUserId()).append(",");
 		}
 		
 		if(!ConstantMethod.verifyColumn(dto.getUserName())){
 			sql.append("and username = ? ");
 			params.add(dto.getUserName());
+			operationContent.append("userName=").append(dto.getUserName()).append(",");
+		}
+		
+		if(!ConstantMethod.verifyColumn(dto.getType())){
+			if(!dto.getType().equals("AL")){
+				sql.append("and type = ? ");
+				params.add(dto.getType());
+			}
+			operationContent.append("type=").append(dto.getType()).append(",");
 		}
 				
 		List<OperationLog> operationLogs = (List<OperationLog>)dbFactory.query(params, 
 				sql.toString(), OperationLog.class);
 		
+		UserInfo userInfo = this.fileSysUtil.getUser();
+		
+		
 		OperationLog operationLog = new OperationLog();
-		operationLog.setLogDate(DateUtils.getNowDate());
-		operationLog.setLogTime(DateUtils.getNowTime());
-//		operationLog.setOfficeId(officeId);
-//		operationLog.setOperationContent(operationContent);
-//		operationLog.setType(type);
-//		operationLog.setUserId(userId);
-//		operationLog.setUserName(userName);
+		operationLog.setOfficeId(userInfo.getOfficeId());
+		operationLog.setOperationContent(operationContent.toString());
+		operationLog.setType("OQ");
+		operationLog.setUserId(userInfo.getUserId());
+		operationLog.setUserName(userInfo.getUserName());
 		
 		operationLogComponent.insertOperationLog(operationLog);
 		
@@ -87,4 +110,11 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		this.operationLogComponent = operationLogComponent;
 	}
 
+	public FileSysUtil getFileSysUtil() {
+		return fileSysUtil;
+	}
+
+	public void setFileSysUtil(FileSysUtil fileSysUtil) {
+		this.fileSysUtil = fileSysUtil;
+	}
 }

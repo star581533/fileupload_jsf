@@ -21,6 +21,28 @@
             /WEB-INF/security-context.xml
         </param-value>
     </context-param>
+    
+    <context-param>
+		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
+		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>
+		<param-value>server</param-value>
+	</context-param>	
+	<context-param>
+		<param-name>primefaces.UPLOADER</param-name>
+		<param-value>auto</param-value>
+	</context-param>		
+	<!-- web中檔案存放位置 -->
+	<context-param>
+	  	<param-name>uploadDirectory</param-name>
+  		<param-value>/upload</param-value>
+  	</context-param>
+  	
+    <!-- 
+  	<context-param>
+	  	<param-name>uploadDirectory</param-name>
+  		<param-value>D:/upload</param-value>
+  	</context-param>
+  	-->
 
     <!-- Spring -->
     <listener>
@@ -31,6 +53,12 @@
             org.springframework.web.context.request.RequestContextListener
         </listener-class>
     </listener>
+    
+    <listener>
+		<listener-class>
+			com.sun.faces.config.ConfigureListener
+		</listener-class>
+	</listener>
  
     <!-- Spring Security -->
     <filter>

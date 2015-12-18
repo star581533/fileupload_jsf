@@ -48,6 +48,25 @@
 						</tr>
 						<tr>
 							<td>
+								<h:outputText value="作業名稱：" />
+							</td>
+							<td>
+								<p:selectOneMenu id="type" value="#{operationLogQueryController.dto.type}">
+									<f:selectItem itemLabel="全部"	itemValue="AL" />
+									<f:selectItem itemLabel="檔案上傳"	itemValue="FU" />
+									<f:selectItem itemLabel="檔案查詢"	itemValue="FQ" />
+									<f:selectItem itemLabel="檔案刪除"	itemValue="FD" />
+									<f:selectItem itemLabel="新增使用者"	itemValue="NU" />
+									<f:selectItem itemLabel="修改使用者資料"	itemValue="MU" />
+									<f:selectItem itemLabel="帳號查詢"	itemValue="AQ" />
+									<f:selectItem itemLabel="密碼修改"	itemValue="PM" />
+									<f:selectItem itemLabel="簽到退紀錄查詢"	itemValue="LQ" />
+									<f:selectItem itemLabel="操作紀錄查詢"	itemValue="OQ" />
+								</p:selectOneMenu>
+							</td>
+						</tr>
+						<tr>
+							<td>
 								<h:outputText value="使用者帳號：" />
 							</td>
 							<td>

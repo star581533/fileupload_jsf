@@ -98,6 +98,10 @@ public class CustomUserDetailsService implements UserDetailsService {
     			getAuthorities(domainUser.getRoleId()));
     	
     	userInfo.setOfficeId(domainUser.getOfficeId());
+    	userInfo.setUserId(domainUser.getUserId());
+    	userInfo.setUserName(domainUser.getUserName());
+    	userInfo.setRoleId(domainUser.getRoleId());
+    	
     	return userInfo;
     }
    

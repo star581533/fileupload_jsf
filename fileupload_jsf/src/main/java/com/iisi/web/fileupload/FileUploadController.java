@@ -4,27 +4,16 @@ package com.iisi.web.fileupload;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-
-
-
-
-
-
-
 
 import org.primefaces.model.UploadedFile;
 
@@ -33,6 +22,8 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileUpload.FileUploadService;
+import com.iisi.api.security.FileSysUtil;
+import com.iisi.api.security.UserInfo;
 import com.iisi.core.utils.DateUtils;
 import com.iisi.core.utils.FileSysUtils;
 
@@ -54,23 +45,12 @@ public class FileUploadController implements Serializable {
 	@ManagedProperty(value="#{fileUploadService}")
 	private FileUploadService service;
 	
+	@ManagedProperty(value="#{fileSysUtil}")
+	private FileSysUtil fileSysUtil;
+	
 	@PostConstruct
-	public void init(){
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		ExternalContext externalContext = facesContext.getExternalContext();
-////		HttpServletResponse response = (HttpServletResponse)externalContext.getResponse();
-////		response.setContentType("multipart/form-data");
-////		
-//		
-//		HttpServletRequest request = (HttpServletRequest)externalContext.getRequest();
-//		request.setAttribute("enctype", "multipart/form-data");
-//		
-//		System.out.println("1-------------------------request.getContentType() = " + request.getContentType());
-//		
-		
-		
-		dto = new FileUploadDTO();		
-//		dto.setUser(Checker.getUser());		
+	public void init(){		
+		dto = new FileUploadDTO();			
 	}
 		
 	public void uploadData(){
@@ -89,6 +69,9 @@ public class FileUploadController implements Serializable {
 		}
 	}
 	
+	/**
+	 * 驗證畫面資料
+	 */
 	private void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		//類型
@@ -121,6 +104,7 @@ public class FileUploadController implements Serializable {
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
 		}
+				
 		//檔名
 		if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
 			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
@@ -128,6 +112,9 @@ public class FileUploadController implements Serializable {
 		}	
 	}
 	
+	/**
+	 * 將檔案上傳
+	 */
 	public void sendFile(){			
 //		//取得環境執行物件
 //		FacesContext facesContext = FacesContext.getCurrentInstance();
@@ -141,17 +128,25 @@ public class FileUploadController implements Serializable {
 		File file = new File(directory);
 		//完整路徑
 		String path = file.getAbsolutePath();
-			
+		
+		System.out.println("path = " + path);
+	
+		UserInfo userInfo = this.fileSysUtil.getUser();
+		String userId = userInfo.getUserId();
+		String officeId = userInfo.getOfficeId();
+		
 		//建立會使用到目錄
 		List<String> dirPaths = new ArrayList<String>();
 		dirPaths.add(path);
 		dirPaths.add(DateUtils.getNowYear());
-		dirPaths.add(dto.getUser().getOfficeId());
-		dirPaths.add(dto.getUser().getUserId());
+		dirPaths.add(officeId);
+		dirPaths.add(userId);
+//		dirPaths.add(dto.getUser().getOfficeId());
+//		dirPaths.add(dto.getUser().getUserId());
 		
 		dto.setUploadFile(this.uploadedFile);		
 		dto.setFullPath(FileSysUtils.genDirPath(dirPaths));		
-		dto.setFilePath(DateUtils.getNowYear() + File.separator + dto.getUser().getOfficeId() + File.separator + dto.getUser().getUserId());
+		dto.setFilePath(DateUtils.getNowYear() + File.separator + officeId + File.separator + userId);
 		
 		//取得檔案名稱
 		String fileName = uploadedFile.getFileName();
@@ -208,4 +203,14 @@ public class FileUploadController implements Serializable {
 	public void setService(FileUploadService service) {
 		this.service = service;
 	}
+
+	public FileSysUtil getFileSysUtil() {
+		return fileSysUtil;
+	}
+
+	public void setFileSysUtil(FileSysUtil fileSysUtil) {
+		this.fileSysUtil = fileSysUtil;
+	}
+	
+	
 }

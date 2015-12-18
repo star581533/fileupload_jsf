@@ -34,11 +34,13 @@ public class FileQueryDTO implements Serializable {
 	
 	private User user;
 	
-	private List<FileData> temps;
+	private DownloadFileInfoDTO downloadFileInfo;
 	
+//	private List<FileData> temps;
+//	
 	private List<FileOutputDTO> outputs;
-	
-	private List<FileOutputDTO> outputTemps;
+//	
+//	private List<FileOutputDTO> outputTemps;
 	
 	public String getType() {
 		return type;
@@ -120,14 +122,24 @@ public class FileQueryDTO implements Serializable {
 		this.user = user;
 	}
 
-	public List<FileData> getTemps() {
-		return temps;
+
+
+public DownloadFileInfoDTO getDownloadFileInfo() {
+		return downloadFileInfo;
 	}
 
-	public void setTemps(List<FileData> temps) {
-		this.temps = temps;
+	public void setDownloadFileInfo(DownloadFileInfoDTO downloadFileInfo) {
+		this.downloadFileInfo = downloadFileInfo;
 	}
 
+	//	public List<FileData> getTemps() {
+//		return temps;
+//	}
+//
+//	public void setTemps(List<FileData> temps) {
+//		this.temps = temps;
+//	}
+//
 	public List<FileOutputDTO> getOutputs() {
 		return outputs;
 	}
@@ -135,12 +147,14 @@ public class FileQueryDTO implements Serializable {
 	public void setOutputs(List<FileOutputDTO> outputs) {
 		this.outputs = outputs;
 	}
-
-	public List<FileOutputDTO> getOutputTemps() {
-		return outputTemps;
-	}
-
-	public void setOutputTemps(List<FileOutputDTO> outputTemps) {
-		this.outputTemps = outputTemps;
-	} 	
+//
+//	public List<FileOutputDTO> getOutputTemps() {
+//		return outputTemps;
+//	}
+//
+//	public void setOutputTemps(List<FileOutputDTO> outputTemps) {
+//		this.outputTemps = outputTemps;
+//	} 
+	
+	
 }

@@ -130,28 +130,17 @@
 							<td>
 								<p:commandButton value="查詢" action="#{fileQueryController.doQuery}" update="@form"/>
 		   						<p:commandButton value="重設" ajax="false"/>
-		   						<p:commandButton value="列印" action="#{fileQueryController.doPrint}"/>
 							</td>
 						</tr>
 					</table>
 				</p:fieldset>
 				<p:fieldset legend="檔案資訊" id="resultList" rendered="#{fileQueryController.dto.outputs != null}">
-					<p:dataTable widgetVar="dataTableFiles" 
-						var="file" value="#{fileQueryController.dto.outputs}" rows="10"
-						selection="#{fileQueryController.dto.outputTemps}" 
+					<p:dataTable var="file" value="#{fileQueryController.dto.outputs}" rows="10"
+						selection="#{fileQueryController.dto.downloadFileInfo}" 
 						paginator="true"
 						rowsPerPageTemplate="5,10,15"
-						rowKey="#{file.uploadDate}">
-							
-						<p:column headerText="">
-							<f:facet name="header">
-								<p:selectBooleanCheckbox value="#{fileQueryController.checkAllBox}">
-									<p:ajax event="change" listener="#{fileQueryController.selectAll}" update="@form" />
-								</p:selectBooleanCheckbox>
-							</f:facet>
-							<p:selectBooleanCheckbox value="#{file.checkBoxAll}" />
-						</p:column>	
-																										
+						rowKey="#{file.uploadDate}#{file.uploadTime}">
+																								
 						<p:column headerText="日期">
 							<h:outputText value="#{file.uploadDate}" />
 						</p:column>
@@ -178,8 +167,11 @@
 						</p:column>
 						<p:column headerText="">
 							<p:commandButton value="Download" 
-								ajax="false" 
-								actionListener="#{fileQueryController.downloadFile(file)}" icon="ui-icon-arrowthick-1-s">
+								ajax="false"
+								actionListener="#{fileQueryController.downloadFile}" icon="ui-icon-arrowthick-1-s">
+								<f:attribute name="list" value="#{file.list}" />
+								<f:attribute name="imageId" value="#{file.imageId}" />
+								<f:attribute name="fileName" value="#{file.fileName}" />
 								<!-- f:setPropertyActionListener 可以試試這個 -->
 								<p:fileDownload value="#{fileQueryController.file}" />
 							</p:commandButton>

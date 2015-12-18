@@ -62,6 +62,10 @@ public class FileOutputDTO {
 	 */
 	private String userName;
 	
+	private String imageId;
+	
+	private String list;
+	
 	private String subject;
 
 	public boolean isCheckBoxAll() {
@@ -159,5 +163,21 @@ public class FileOutputDTO {
 	public void setSubject(String subject) {
 		this.subject = subject;
 	}
-			
+
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
+	}
+
+	public String getList() {
+		return list;
+	}
+
+	public void setList(String list) {
+		this.list = list;
+	}
+		
 }

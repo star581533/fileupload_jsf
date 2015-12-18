@@ -34,6 +34,8 @@ public class OperationLogQueryDTO implements Serializable {
 	
 	private String dateEnd;
 	
+	private String type;
+	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy/mm/dd");
 
 	public String getOfficeData() {
@@ -114,6 +116,14 @@ public class OperationLogQueryDTO implements Serializable {
 
 	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
+	}
+	
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public void splitOfficeData(String data){
