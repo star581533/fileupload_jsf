@@ -25,9 +25,7 @@ import com.iisi.api.execption.FileSysException;
 @RequestScoped
 public class AddUserController implements Serializable {
 
-	/**
-	 * 
-	 */
+	/** */
 	private static final long serialVersionUID = 1L;
 
 	private AddUserDTO dto;
