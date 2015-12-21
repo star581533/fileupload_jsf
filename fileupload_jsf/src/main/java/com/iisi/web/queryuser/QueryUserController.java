@@ -15,6 +15,7 @@ import java.io.Serializable;
 
 
 
+
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ApplicationScoped;
@@ -35,6 +36,7 @@ import javax.faces.event.ActionEvent;
 
 import javax.inject.Inject;
 
+import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.QueryUserDTO;
 import com.iisi.api.domain.UserDataDTO;
@@ -56,17 +58,6 @@ public class QueryUserController implements Serializable{
 	
 	private String officeAll;
 					
-
-	public QueryUserService getQueryUserService() {
-		return queryUserService;
-	}
-
-
-	public void setQueryUserService(QueryUserService queryUserService) {
-		this.queryUserService = queryUserService;
-	}
-
-
 	@ManagedProperty(value="#{queryUserService}")
 	private QueryUserService queryUserService;	
 	
@@ -95,17 +86,23 @@ public class QueryUserController implements Serializable{
 	public void userDataLink(ActionEvent event){
 
 	}
-		
-	private void verifyData(){	
-		FacesContext context = FacesContext.getCurrentInstance();		
-		//在職狀態
-		if(dto.getState() == null || dto.getState().length() == 0){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_STATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_STATE);
-		}	
-	}
 	
+	/**
+	 * 資料驗證
+	 */
+	private void verifyData(){	
+		//在職狀態
+//		if(dto.getState() == null || dto.getState().length() == 0){
+		if(ConstantMethod.verifyColumn(dto.getState())){
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_STATE);
+		}	
+	}	
 
+	/**
+	 * 導向修改使用者資料畫面
+	 * @param user
+	 * @return
+	 */
 	public String userForward(User user){		
 		return MenuService.UPDATE_USER + "&id=" + user.getUserId() +"&officeid=" + user.getOfficeId();
 	}
@@ -128,4 +125,15 @@ public class QueryUserController implements Serializable{
 	public void setOfficeAll(String officeAll) {
 		this.officeAll = officeAll;
 	}
+	
+
+	public QueryUserService getQueryUserService() {
+		return queryUserService;
+	}
+
+
+	public void setQueryUserService(QueryUserService queryUserService) {
+		this.queryUserService = queryUserService;
+	}
+
 }

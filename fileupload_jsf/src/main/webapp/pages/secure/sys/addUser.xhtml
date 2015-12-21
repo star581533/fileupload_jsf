@@ -49,7 +49,6 @@
 								<p:inputText id="userId" value="#{addUserController.dto.userId}">
 									<p:ajax event="change" update="@form" listener="#{addUserController.userDataListener}" /> 
 								</p:inputText>
-								<p:outputLabel value="#{addUserController.dto.userConfirm}" />
 							</td>
 						</tr>
 						<tr>
@@ -75,8 +74,13 @@
 							</td>
 						</tr>
 						<tr>
+							<td colspan="2" style="text-align:center">
+								<p:outputLabel value="#{addUserController.dto.userConfirm}" />
+							</td>
+						</tr>
+						<tr>
 							<td colspan="2" align="center">
-								<p:commandButton value="確定" action="#{addUserController.doSave}" update="growl" ajax="true"/>
+								<p:commandButton value="確定" action="#{addUserController.doSave}" update="@form" ajax="true"/>
 				   				<p:commandButton value="重設" ajax="false"/>
 							</td>
 						</tr>

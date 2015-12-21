@@ -42,8 +42,10 @@ public class AddUserController implements Serializable {
 		dto = new AddUserDTO();
 	}
 	
+	/**
+	 * 新增使用者資料
+	 */
 	public void doSave(){		
-		System.out.println("doSave");
 		try{
 			this.verifyData();
 			
@@ -51,6 +53,7 @@ public class AddUserController implements Serializable {
 				this.addUserService.doSave(dto);
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "新增成功", "使用者新增成功"));
 				RequestContext.getCurrentInstance().update("growl");
+				dto = new AddUserDTO();
 			}else{
 				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "新增失敗", "使用者資料已存在"));
 				throw new FileSysException("資料已存在");
@@ -62,25 +65,28 @@ public class AddUserController implements Serializable {
 		}
 	}
 	
+	/**
+	 * 資料驗證
+	 */
 	private void verifyData(){		
-		FacesContext context = FacesContext.getCurrentInstance();
+		//驗證使用者代碼
 		if(ConstantMethod.verifyColumn(dto.getUserId())){
-			context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USER_ID);
 		}else{
 			this.addUserService.checkUser(dto);
 			if(dto.getUserCount() > 0){
-				context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.AGAIN_INPUT_DATA, ConstantObject.ERROR_MSG_USER_EXIST));
-				throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_ID);
+				throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.ERROR_MSG_USER_EXIST);
 			}
 		}
-		
+		//驗證使用者姓名
 		if(ConstantMethod.verifyColumn(dto.getUserName())){
-			context.addMessage("Error", new FacesMessage(FacesMessage.SEVERITY_ERROR, ConstantObject.INPUT_DATA, ConstantObject.ERROR_MSG_USER_EXIST));
-			throw new FileSysException(ConstantObject.ERROR_MSG_USER_EXIST);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USERNAME);
 		}			
 	}
-	
+
+	/**
+	 * 檢查使用者帳號是否存在
+	 */
 	public void userDataListener(){
 		this.addUserService.checkUser(dto);		
 		if(dto.getUserCount() > 0){
@@ -113,4 +119,5 @@ public class AddUserController implements Serializable {
 	public void setAddUserService(AddUserService addUserService) {
 		this.addUserService = addUserService;
 	}
+	
 }

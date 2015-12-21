@@ -15,6 +15,7 @@
 			</title>
 		</h:head>		
 		<h:form>
+			<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="userPanel" header="修改使用者資料">
 				<p:fieldset id="updateUser" legend="使用者資料">
 					<table>
@@ -73,7 +74,7 @@
 						</tr>
 						<tr>
 							<td>
-								<p:commandButton value="確定" action="#{updateUserController.doUpdate}" ajax="true"/>
+								<p:commandButton value="確定" action="#{updateUserController.doUpdate}" ajax="true" update="@form"/>
 		  						<p:commandButton value="重設" actionListener="#{updateUserController.doReset}" update="updateUser" ajax="false"/>
 							</td>
 						</tr>

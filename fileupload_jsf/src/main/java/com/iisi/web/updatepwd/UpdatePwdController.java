@@ -68,41 +68,36 @@ public class UpdatePwdController implements Serializable {
 		}
 	}
 	
+	/**
+	 * 驗證資料
+	 */
 	private void verifyData(){	
-		FacesContext context = FacesContext.getCurrentInstance();
-
+//		FacesContext context = FacesContext.getCurrentInstance();
+		//新密碼
+		if(ConstantMethod.verifyColumn(dto.getNewPassWord())){
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_NEW_PASSWORD);
+		}		
+		//確認密碼
+		if(ConstantMethod.verifyColumn(dto.getConfirmPassWord())){
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_CONFIRM_PASSWORD);
+		}
+		//比對新密碼與確認密碼要相同
+		if(!ConstantMethod.compareTwoColumn(dto.getNewPassWord(), dto.getConfirmPassWord())){
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_NEW_CONFIRM_PASSWORD);
+		}		
+		//比對新舊密碼是否相同
+		if(ConstantMethod.compareTwoColumn(dto.getOldPassWord(), dto.getNewPassWord())){
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USER_PWD);
+		}
+		//舊密碼
 		if(ConstantMethod.verifyColumn(dto.getOldPassWord())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD);
+//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD));
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD);
 		}else{
 			//比對畫面舊密碼與資料庫密碼是否相同
 			if(!service.checkUserPassword(dto)){
-				context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.ERROR_INPUT, "舊密碼輸入不正確"));
-				throw new FileSysException("舊密碼輸入不正確");
+				throw new FileSysException(ConstantObject.UPPER_CASE_W, "舊密碼輸入不正確");
 			}
-		}
-					
-		if(ConstantMethod.verifyColumn(dto.getNewPassWord())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_NEW_PASSWORD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_NEW_PASSWORD);
-		}
-		
-		if(ConstantMethod.verifyColumn(dto.getConfirmPassWord())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CONFIRM_PASSWORD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_CONFIRM_PASSWORD);
-		}
-			
-		
-		//比對新密碼與確認密碼要相同
-		if(!ConstantMethod.compareTwoColumn(dto.getNewPassWord(), dto.getConfirmPassWord())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_NEW_CONFIRM_PASSWORD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_NEW_CONFIRM_PASSWORD);
-		}
-		
-		//比對新舊密碼是否相同
-		if(ConstantMethod.compareTwoColumn(dto.getOldPassWord(), dto.getNewPassWord())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_PWD));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
 	}
 	
@@ -115,9 +110,11 @@ public class UpdatePwdController implements Serializable {
 		//取得使用者資料
 		UserInfo userInfo = this.fileSysUtil.getUser();
 		String userId = userInfo.getUsername();
+		String officeId = userInfo.getOfficeId();
 
 		if(userId != null){			
 			dto.setUserId(userId);
+			dto.setOfficeId(officeId);
 		}else{
 			this.error();
 		}

@@ -20,6 +20,8 @@ public class UpdateUserDTO implements Serializable {
 	private String state;
 	
 	private User user;
+	
+	private String resetFlag;
 
 	public String getOfficeId() {
 		return officeId;
@@ -60,4 +62,13 @@ public class UpdateUserDTO implements Serializable {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+	public String getResetFlag() {
+		return resetFlag;
+	}
+
+	public void setResetFlag(String resetFlag) {
+		this.resetFlag = resetFlag;
+	}
+	
 }

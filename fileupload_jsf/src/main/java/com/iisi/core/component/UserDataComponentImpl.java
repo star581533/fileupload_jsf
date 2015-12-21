@@ -35,6 +35,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 
 	@Override
 	public int countSingleUser(UserDTO dto) {
+//		int count = this.queryOfficeUser(dto).size();
 		int count = this.queryOneUser(dto).size();
 		return count;
 	}
@@ -98,6 +99,24 @@ public class UserDataComponentImpl implements UserDataComponent{
 	@Override
 	public void updateUserData(User user) {
 		dbFactory.update(user);
+	}
+
+
+	@Override
+	public List<User> queryOfficeUser(UserDTO dto) {
+		List<String> params = new ArrayList<String>();
+		StringBuilder sql = new StringBuilder();
+		
+		sql.append("select * from user where userid = ? and officeid = ? ");		
+		params.add(dto.getUserId());
+		params.add(dto.getOfficeId());
+		
+		System.out.println("userId = " + dto.getUserId());
+		System.out.println("officeId = " + dto.getOfficeId());
+		
+
+		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		return users;
 	}
 
 }

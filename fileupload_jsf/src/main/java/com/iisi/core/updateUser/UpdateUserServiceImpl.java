@@ -2,15 +2,18 @@ package com.iisi.core.updateUser;
 
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.UserDataComponent;
+import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.UpdateUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
 import com.iisi.api.updateUser.UpdateUserService;
+import com.iisi.core.security.SecurityUtils;
 
 @Service("updateUserService")
 public class UpdateUserServiceImpl implements UpdateUserService {
@@ -45,8 +48,20 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
 	@Override
 	public void doUpdate(UpdateUserDTO dto) {
+		User user = dto.getUser();
+		user.setUserName(dto.getUser().getUserName());
+		if(StringUtils.equals(dto.getResetFlag(), ConstantObject.UPPER_CASE_Y)){
+			user.setUserPwd(SecurityUtils.getMD5(dto.getUser().getUserId()));
+		}	
+		user.setOfficeId(dto.getUser().getOfficeId());
+		user.setState(dto.getUser().getState());
 		
-		dbFactory.update(dto.getUser());
-	}	
+		System.out.println("user.getUserPwd() = " + user.getUserPwd());
+		System.out.println("user.getUserName() = " + user.getUserName());
+		System.out.println("user.getOfficeId() = " + user.getOfficeId());
+		System.out.println("user.getState() = " + user.getState());
+		
+		dbFactory.update(user);
+	}
 	
 }

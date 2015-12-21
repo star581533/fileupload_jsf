@@ -32,6 +32,7 @@ public class QueryUserServiceImpl implements QueryUserService, Serializable {
 		UserDTO userDto = new UserDTO();
 		
 		if(ConstantMethod.verifyColumn(dto.getOfficeId())){
+			//不為全部時，依狀態加入查詢
 			if(!dto.getState().equals(ConstantObject.UPPER_CASE_A)){
 				userDto.setState(dto.getState());	
 			}			

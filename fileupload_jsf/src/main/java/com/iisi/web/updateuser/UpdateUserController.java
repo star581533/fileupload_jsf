@@ -3,6 +3,7 @@ package com.iisi.web.updateuser;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.primefaces.context.RequestContext;
 
+import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdateUserDTO;
 import com.iisi.api.updateUser.UpdateUserService;
 
@@ -36,35 +38,41 @@ public class UpdateUserController implements Serializable {
 	}
 	
 	public void doPwdReset(){
-		
+		dto.setResetFlag(ConstantObject.UPPER_CASE_Y);
 	}
 	
 	public void doReset(){
-		String userId = dto.getUserId();
-		String officeId = dto.getOfficeId();
 		dto = new UpdateUserDTO();
-		this.queryUser(userId, officeId);
+		this.getWebParameUserId();
 	}
 	
 	public void doUpdate(){
-		service.doQuery(dto);
+//		service.doQuery(dto);
+		service.doUpdate(dto);
+		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "更新成功", "使用者資料更新成功"));
+		RequestContext.getCurrentInstance().update("growl");
 	}
 	
+	/**
+	 * 從Web上取得User資料
+	 */
 	private void getWebParameUserId(){
 		HttpServletRequest request = (HttpServletRequest)FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String userId = request.getParameter("id");
 		String officeId = request.getParameter("officeid");
 		this.queryUser(userId, officeId);
-
 	}
 	
+	/**
+	 * 查詢使用者資料
+	 * @param userId
+	 * @param officeId
+	 */
 	private void queryUser(String userId, String officeId){
 		dto.setUserId(userId);
 		dto.setOfficeId(officeId);		
 		this.service.doQuery(dto);
 	}
-
-	
 
 	public UpdateUserDTO getDto() {
 		return dto;

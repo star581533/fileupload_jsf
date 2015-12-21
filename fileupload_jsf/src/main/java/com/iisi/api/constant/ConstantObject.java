@@ -122,7 +122,7 @@ public interface ConstantObject {
 	/**
 	 * 警告訊息-請輸入在職狀態
 	 */
-	public static final String WARN_MSG_INPUT_STATE = "在職狀態";
+	public static final String WARN_MSG_INPUT_STATE = "請選擇在職狀態";
 	
 	/**
 	 * 警告訊息-請輸入使用者權限
@@ -183,6 +183,11 @@ public interface ConstantObject {
 	 * 錯誤訊息-使用者登入失敗
 	 */
 	public static final String ERROR_USER_LOGIN = "使用者登入失敗";
+	
+	/**
+	 * 錯誤訊息-使用者密碼更新失敗
+	 */
+	public static final String ERROR_MSG_UPDATE_PASSWORD = "使用者密碼更新失敗";
 	
 	
 	/** ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑	錯誤訊息   ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑ */

@@ -23,11 +23,18 @@ public interface UserDataComponent {
 	public int countSingleUser(UserDTO dto);
 	
 	/**
-	 * 查詢某科別使用者
+	 * 查詢某科別所有使用者
 	 * @param dto UserDTO
 	 * @return List<User>
 	 */
 	public List<User> queryOfficeUsers(UserDTO dto);
+	
+	/**
+	 * 查詢某科別指定的使用者
+	 * @param dto
+	 * @return
+	 */
+	public List<User> queryOfficeUser(UserDTO dto);
 	
 	/**
 	 * 查詢所有使用者資料
