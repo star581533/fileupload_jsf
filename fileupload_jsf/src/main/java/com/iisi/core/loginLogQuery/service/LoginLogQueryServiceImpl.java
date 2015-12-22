@@ -1,6 +1,7 @@
 package com.iisi.core.loginLogQuery.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,8 @@ import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.loginLogQuery.LoginLogQueryService;
 import com.iisi.api.model.LoginLog;
+import com.iisi.api.report.AbstractReport;
+import com.iisi.core.report.PdfReport;
 import com.iisi.core.utils.DateUtils;
 
 @Service("loginLogQueryService")
@@ -18,6 +21,8 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 
 	@Autowired
 	private DBFactory dbFactory;
+	
+	private AbstractReport pdfReport;
 	
 	@Override
 	public List<LoginLog> getLoginLogList(LoginLogQueryDTO dto) {
@@ -47,6 +52,13 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 		List<LoginLog> loginLogs = (List<LoginLog>)dbFactory.query(params, sql.toString(), LoginLog.class);
 		
 		return loginLogs;
+	}
+
+	@Override
+	public void doPrint(LoginLogQueryDTO dto) {
+		pdfReport = new PdfReport();
+		String path = "D:\\GitHub\\fileupload_jsf\\fileupload_jsf\\src\\main\\resources\\reports\\LoginLog.jasper";
+		pdfReport.print(dto.getLoginLogs(), path, "", new HashMap());
 	}
 
 }

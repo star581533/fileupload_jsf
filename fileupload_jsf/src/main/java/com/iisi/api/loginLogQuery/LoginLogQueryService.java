@@ -12,4 +12,7 @@ public interface LoginLogQueryService {
 	 * @return
 	 */
 	public List<LoginLog> getLoginLogList(LoginLogQueryDTO dto);
+	
+	
+	public void doPrint(LoginLogQueryDTO dto);
 }
