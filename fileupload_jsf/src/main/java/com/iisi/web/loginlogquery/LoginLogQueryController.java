@@ -1,10 +1,7 @@
 package com.iisi.web.loginlogquery;
 
 import java.io.Serializable;
-
-
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -17,7 +14,9 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.loginLogQuery.LoginLogQueryService;
-import com.iisi.api.model.LoginLog;
+import com.iisi.api.report.AbstractReport;
+import com.iisi.core.report.PdfReport;
+import com.iisi.core.report.XlsReport;
 
 @ManagedBean
 @ViewScoped
@@ -34,6 +33,8 @@ public class LoginLogQueryController implements Serializable {
 	private LoginLogQueryService loginLogQueryService;
 	
 	private String officeAll;	
+	
+	private AbstractReport report;
 	
 	@PostConstruct
 	public void init(){
@@ -54,6 +55,12 @@ public class LoginLogQueryController implements Serializable {
 	
 	public void doPrint(){
 		this.loginLogQueryService.doPrint(dto);
+	}
+	
+	public void doPrintXls(){
+		report = new XlsReport();
+		String path = "/resources/reports/LoginLog.jasper";
+		report.print(dto.getLoginLogs(), path, "LoginLog.xls", new HashMap());
 	}
 	
 	public void verifyData(){

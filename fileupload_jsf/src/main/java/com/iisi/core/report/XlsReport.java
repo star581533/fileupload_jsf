@@ -3,28 +3,43 @@ package com.iisi.core.report;
 import java.util.List;
 import java.util.Map;
 
-import com.iisi.api.report.AbstractReport;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
+
+import com.iisi.api.report.AbstractReport;
+import com.iisi.api.report.ReportType;
 
 public class XlsReport extends AbstractReport {
 
 	@Override
-	public void print(List<?> lists, String path, String reportName,  Map<String, Object> map) {
-		try{			
-			String printFileName = JasperFillManager.fillReportToFile(path, map, new JRBeanCollectionDataSource(lists));
+	public void print(List<?> lists, String reportPath, String reportName,  Map<String, Object> map) {
+		try{		
+			this.setJasperReportData(reportPath, map, lists);
+			this.getResponseAndSetContent(reportName, ReportType.XLS);
+			
+			FacesContext.getCurrentInstance().responseComplete();
+						
 			JRXlsExporter exporter = new JRXlsExporter();
-			exporter.setParameter(JRExporterParameter.INPUT_FILE_NAME, printFileName);
-			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
-	                  reportName);
-//			exporter.setParameter(JRExporterParameter.OUTPUT_FILE_NAME,
-//	                  "D:\\GitHub\\fileupload_jsf\\fileupload_jsf\\src\\main\\resources\\reports\\LoginLog.xls");
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream); 
 			exporter.exportReport();
+			
+			streamClose();
+			
+			FacesContext.getCurrentInstance().getResponseComplete();
 		}catch(JRException e){
+			e.printStackTrace();
+		}catch(Exception e){
 			e.printStackTrace();
 		}
 	}

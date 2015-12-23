@@ -67,7 +67,8 @@
 						<tr>
 							<td>
 								<p:commandButton value="查詢" action="#{loginLogQueryController.doQuery}" update="@form"/>
-								<p:commandButton value="列印" action="#{loginLogQueryController.doPrint}" />
+								<p:commandButton value="列印PDF" action="#{loginLogQueryController.doPrint}" ajax="false" />
+								<p:commandButton value="列印XLS" action="#{loginLogQueryController.doPrintXls}" ajax="false" />
 							</td>
 						</tr>
 					</table>

@@ -14,6 +14,7 @@ import com.iisi.api.loginLogQuery.LoginLogQueryService;
 import com.iisi.api.model.LoginLog;
 import com.iisi.api.report.AbstractReport;
 import com.iisi.core.report.PdfReport;
+import com.iisi.core.report.XlsReport;
 import com.iisi.core.utils.DateUtils;
 
 @Service("loginLogQueryService")
@@ -22,7 +23,8 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 	@Autowired
 	private DBFactory dbFactory;
 	
-	private AbstractReport pdfReport;
+	private AbstractReport report;
+	
 	
 	@Override
 	public List<LoginLog> getLoginLogList(LoginLogQueryDTO dto) {
@@ -56,9 +58,9 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 
 	@Override
 	public void doPrint(LoginLogQueryDTO dto) {
-		pdfReport = new PdfReport();
-		String path = "D:\\GitHub\\fileupload_jsf\\fileupload_jsf\\src\\main\\resources\\reports\\LoginLog.jasper";
-		pdfReport.print(dto.getLoginLogs(), path, "", new HashMap());
+		report = new PdfReport();
+		String path = "/resources/reports/LoginLog.jasper";
+		report.print(dto.getLoginLogs(), path, "LoginLog.pdf", new HashMap());
 	}
 
 }
