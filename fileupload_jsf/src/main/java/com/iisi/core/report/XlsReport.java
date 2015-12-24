@@ -19,6 +19,11 @@ import net.sf.jasperreports.engine.export.JRXlsExporter;
 import com.iisi.api.report.AbstractReport;
 import com.iisi.api.report.ReportType;
 
+/**
+ * 列印XLS
+ * @author 1104611
+ *
+ */
 public class XlsReport extends AbstractReport {
 
 	@Override
