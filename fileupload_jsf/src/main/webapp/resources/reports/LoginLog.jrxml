@@ -16,6 +16,11 @@
 		<band height="35" splitType="Stretch">
 			<staticText>
 				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="555" height="35"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="24" isBold="true" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -27,6 +32,11 @@
 		<band height="19" splitType="Stretch">
 			<staticText>
 				<reportElement x="0" y="0" width="87" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -34,6 +44,11 @@
 			</staticText>
 			<staticText>
 				<reportElement x="87" y="0" width="85" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -41,6 +56,11 @@
 			</staticText>
 			<staticText>
 				<reportElement x="172" y="0" width="87" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -48,6 +68,11 @@
 			</staticText>
 			<staticText>
 				<reportElement x="259" y="0" width="91" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -55,6 +80,11 @@
 			</staticText>
 			<staticText>
 				<reportElement x="350" y="0" width="101" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -62,6 +92,12 @@
 			</staticText>
 			<staticText>
 				<reportElement x="451" y="0" width="104" height="19"/>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
 				<textElement textAlignment="Center">
 					<font fontName="標楷體" size="12" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
@@ -71,45 +107,70 @@
 	</pageHeader>
 	<detail>
 		<band height="20" splitType="Stretch">
-			<textField>
-				<reportElement x="0" y="0" width="87" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="87" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{loginDate}]]></textFieldExpression>
 			</textField>
-			<textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
 				<reportElement stretchType="RelativeToBandHeight" x="172" y="0" width="87" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{userId}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="87" y="0" width="85" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="87" y="0" width="85" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{loginTime}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="259" y="0" width="91" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="259" y="0" width="91" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{userName}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="350" y="0" width="101" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="350" y="0" width="101" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{officeId}]]></textFieldExpression>
 			</textField>
-			<textField>
-				<reportElement x="451" y="0" width="104" height="20"/>
-				<textElement>
-					<font pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H"/>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="451" y="0" width="104" height="20"/>
+				<box>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="標楷體" pdfFontName="C:\Windows\Fonts\kaiu.ttf" pdfEncoding="Identity-H" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{inOutMark}]]></textFieldExpression>
 			</textField>

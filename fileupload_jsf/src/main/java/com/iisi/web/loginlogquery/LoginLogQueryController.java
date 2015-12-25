@@ -33,14 +33,17 @@ public class LoginLogQueryController implements Serializable {
 	private LoginLogQueryService loginLogQueryService;
 	
 	private String officeAll;	
-	
-	private AbstractReport report;
-	
+		
 	@PostConstruct
 	public void init(){
 		dto = new LoginLogQueryDTO();
+		String reportPath = "/resources/reports/LoginLog.jasper";
+		dto.setReportPath(reportPath);
 	}
 
+	/**
+	 * 查詢資料
+	 */
 	public void doQuery(){
 		try{
 			this.verifyData();
@@ -53,16 +56,23 @@ public class LoginLogQueryController implements Serializable {
 		
 	}
 	
+	/**
+	 * 列印PDF報表
+	 */
 	public void doPrint(){
-		this.loginLogQueryService.doPrint(dto);
+		this.loginLogQueryService.doPrintPdf(dto);
 	}
 	
+	/**
+	 * 列印XLS報表
+	 */
 	public void doPrintXls(){
-		report = new XlsReport();
-		String path = "/resources/reports/LoginLog.jasper";
-		report.print(dto.getLoginLogs(), path, "LoginLog.xls", new HashMap());
+		this.loginLogQueryService.doPrintXls(dto);
 	}
 	
+	/**
+	 * 驗證欄位
+	 */
 	public void verifyData(){
 		FacesContext context = FacesContext.getCurrentInstance();
 		//起始日

@@ -57,10 +57,15 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 	}
 
 	@Override
-	public void doPrint(LoginLogQueryDTO dto) {
+	public void doPrintPdf(LoginLogQueryDTO dto) {
 		report = new PdfReport();
-		String path = "/resources/reports/LoginLog.jasper";
-		report.print(dto.getLoginLogs(), path, "LoginLog.pdf", new HashMap());
+		report.print(dto.getLoginLogs(), dto.getReportPath(), "LoginLog.pdf", new HashMap());		
+	}
+
+	@Override
+	public void doPrintXls(LoginLogQueryDTO dto) {
+		report = new XlsReport();
+		report.print(dto.getLoginLogs(), dto.getReportPath(), "LoginLog.xls", new HashMap());
 	}
 
 }

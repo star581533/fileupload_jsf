@@ -13,6 +13,15 @@ public interface LoginLogQueryService {
 	 */
 	public List<LoginLog> getLoginLogList(LoginLogQueryDTO dto);
 	
+	/**
+	 * 列印PDF
+	 * @param dto
+	 */
+	public void doPrintPdf(LoginLogQueryDTO dto);
 	
-	public void doPrint(LoginLogQueryDTO dto);
+	/**
+	 * 列印XLS
+	 * @param dto
+	 */
+	public void doPrintXls(LoginLogQueryDTO dto);
 }

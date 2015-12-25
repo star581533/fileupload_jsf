@@ -33,7 +33,7 @@ public class XlsReport extends AbstractReport {
 			this.getResponseAndSetContent(reportName, ReportType.XLS);
 			
 			FacesContext.getCurrentInstance().responseComplete();
-						
+			//製出Excel			
 			JRXlsExporter exporter = new JRXlsExporter();
 			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
 			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, outputStream); 

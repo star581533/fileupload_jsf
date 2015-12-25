@@ -32,6 +32,8 @@ public class LoginLogQueryDTO implements Serializable {
 	
 	private String dateEnd;
 	
+	private String reportPath;
+	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy/mm/dd");
 	
 	private List<LoginLog> loginLogs;
@@ -114,6 +116,14 @@ public class LoginLogQueryDTO implements Serializable {
 
 	public void setDateEnd(String dateEnd) {
 		this.dateEnd = dateEnd;
+	}
+	
+	public String getReportPath() {
+		return reportPath;
+	}
+
+	public void setReportPath(String reportPath) {
+		this.reportPath = reportPath;
 	}
 
 	public void splitOfficeData(String data){

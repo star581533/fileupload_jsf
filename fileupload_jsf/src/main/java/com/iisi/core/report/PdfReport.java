@@ -38,7 +38,7 @@ public class PdfReport extends AbstractReport{
 			this.getResponseAndSetContent(reportName, ReportType.PDF);
 			
 			FacesContext.getCurrentInstance().responseComplete();
-			
+			//產出PDF
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			JasperExportManager.exportReportToPdfStream(jasperPrint, baos);			
 			outputStream.write(baos.toByteArray());
