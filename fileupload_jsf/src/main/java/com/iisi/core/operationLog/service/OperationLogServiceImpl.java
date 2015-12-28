@@ -2,6 +2,7 @@ package com.iisi.core.operationLog.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.faces.bean.ManagedProperty;
@@ -17,8 +18,11 @@ import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.operationLog.OperationLogComponent;
 import com.iisi.api.operationLog.OperationLogService;
+import com.iisi.api.report.AbstractReport;
 import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
+import com.iisi.core.report.PdfReport;
+import com.iisi.core.report.XlsReport;
 import com.iisi.core.utils.DateUtils;
 
 @Service("operationLogService")
@@ -39,6 +43,8 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	
 	@ManagedProperty(value="#{fileSysUtil}")
 	private FileSysUtil fileSysUtil;
+	
+	private AbstractReport report;
 	
 	@Override
 	public List<OperationLog> getOperationLogList(OperationLogQueryDTO dto) {
@@ -86,17 +92,16 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		List<OperationLog> operationLogs = (List<OperationLog>)dbFactory.query(params, 
 				sql.toString(), OperationLog.class);
 		
-		UserInfo userInfo = this.fileSysUtil.getUser();
-		
-		
-		OperationLog operationLog = new OperationLog();
-		operationLog.setOfficeId(userInfo.getOfficeId());
-		operationLog.setOperationContent(operationContent.toString());
-		operationLog.setType("OQ");
-		operationLog.setUserId(userInfo.getUserId());
-		operationLog.setUserName(userInfo.getUserName());
-		
-		operationLogComponent.insertOperationLog(operationLog);
+//		UserInfo userInfo = this.fileSysUtil.getUser();		
+//		
+//		OperationLog operationLog = new OperationLog();
+//		operationLog.setOfficeId(userInfo.getOfficeId());
+//		operationLog.setOperationContent(operationContent.toString());
+//		operationLog.setType("OQ");
+//		operationLog.setUserId(userInfo.getUserId());
+//		operationLog.setUserName(userInfo.getUserName());
+//		
+//		operationLogComponent.insertOperationLog(operationLog);
 		
 		LOG.debug("************************* OperationLogServiceImpl getOperationLogList end *************************");
 		return operationLogs;
@@ -117,4 +122,17 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	public void setFileSysUtil(FileSysUtil fileSysUtil) {
 		this.fileSysUtil = fileSysUtil;
 	}
+
+	@Override
+	public void doPrintPdf(OperationLogQueryDTO dto) {
+		report = new PdfReport();
+		report.print(dto.getOperationLogs(), dto.getReportPath(), "OperationLog.pdf", new HashMap());
+	}
+
+	@Override
+	public void doPrintXls(OperationLogQueryDTO dto) {
+		report = new XlsReport();
+		report.print(dto.getOperationLogs(), dto.getReportPath(), "OperationLog.xls", new HashMap());
+	}
+	
 }

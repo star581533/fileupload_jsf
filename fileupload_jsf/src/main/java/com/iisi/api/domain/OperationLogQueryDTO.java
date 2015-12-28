@@ -36,6 +36,8 @@ public class OperationLogQueryDTO implements Serializable {
 	
 	private String type;
 	
+	private String reportPath;
+	
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy/mm/dd");
 
 	public String getOfficeData() {
@@ -124,6 +126,14 @@ public class OperationLogQueryDTO implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+	
+	public String getReportPath() {
+		return reportPath;
+	}
+
+	public void setReportPath(String reportPath) {
+		this.reportPath = reportPath;
 	}
 
 	public void splitOfficeData(String data){

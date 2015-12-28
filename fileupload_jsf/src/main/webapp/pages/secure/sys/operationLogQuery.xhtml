@@ -5,7 +5,9 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:fn="http://java.sun.com/jsp/jstl/functions">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">	
@@ -89,6 +91,16 @@
 					</table>
 				</p:fieldset>
 				<p:fieldset id="resultList" legend="" rendered="#{operationLogQueryController.dto.operationLogs != null}">
+					<c:if test="#{fn:length(operationLogQueryController.dto.operationLogs) > 0}">
+						<table>
+							<tr>
+								<td>
+									<p:commandButton value="列印PDF" action="#{operationLogQueryController.doPrintPdf}" ajax="false" />
+									<p:commandButton value="列印XLS" action="#{operationLogQueryController.doPrintXls}" ajax="false"/>
+								</td>
+							</tr>
+						</table>
+					</c:if>
 					<p:dataTable var="operationLog" value="#{operationLogQueryController.dto.operationLogs}" rows="10"
 						paginator="true"
 						rowsPerPageTemplate="5,10,15">
