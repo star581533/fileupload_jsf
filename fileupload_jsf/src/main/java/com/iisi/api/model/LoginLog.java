@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.iisi.core.utils.FileSysUtils;
+
 @IdClass(LoginLogPK.class)
 @Entity
 @Table(name="loginlog")
@@ -19,40 +21,41 @@ public class LoginLog implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * ¤u§@µù°O
+	 * å·¥ä½œè¨»è¨˜
 	 */
 	private String inOutMark;
 	
 	/**
-	 * §@·~¤é´Á
+	 * ä½œæ¥­æ—¥æœŸ
 	 */
 	private String loginDate;
 	
 	/**
-	 * §@·~®É¶¡
+	 * ä½œæ¥­æ™‚é–“
 	 */
 	private String loginTime;
 	
 	/**
-	 * ³æ¦ì¥N¸¹
+	 * å–®ä½ä»£ç¢¼
 	 */
 	private String officeId;
 	
 	/**
-	 * Åv­­¥N¸¹
+	 * æ¬Šé™ä»£ç¢¼
 	 */
 	private String roleId;
 	
 	/**
-	 * ¨Ï¥ÎªÌ±b¸¹
+	 * ä½¿ç”¨è€…å¸³è™Ÿ
 	 */
 	private String userId;
 	
 	/**
-	 * ¨Ï¥ÎªÌ©m¦W
+	 * ä½¿ç”¨è€…å§“å
 	 */
 	private String userName;
 
+	
 	@Id
 	@Column(name="logindate", unique=false, nullable=false, length=7)
 	public String getLoginDate() {
@@ -134,4 +137,5 @@ public class LoginLog implements Serializable{
 		
 		return sb.toString();
 	}	
+	
 }

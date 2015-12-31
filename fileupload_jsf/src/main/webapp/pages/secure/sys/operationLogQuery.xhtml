@@ -90,9 +90,9 @@
 						</tr>
 					</table>
 				</p:fieldset>
-				<p:fieldset id="resultList" legend="" rendered="#{operationLogQueryController.dto.operationLogs != null}">
-					<c:if test="#{fn:length(operationLogQueryController.dto.operationLogs) > 0}">
-						<table>
+				<p:fieldset id="resultList" legend="" rendered="#{operationLogQueryController.dto.operationLogPrints != null}">
+					<c:if test="#{fn:length(operationLogQueryController.dto.operationLogPrints) > 0}">
+						<table align="center">
 							<tr>
 								<td>
 									<p:commandButton value="列印PDF" action="#{operationLogQueryController.doPrintPdf}" ajax="false" />
@@ -101,14 +101,15 @@
 							</tr>
 						</table>
 					</c:if>
-					<p:dataTable var="operationLog" value="#{operationLogQueryController.dto.operationLogs}" rows="10"
+					<p:dataTable var="operationLog" value="#{operationLogQueryController.dto.operationLogPrints}" rows="10"
 						paginator="true"
-						rowsPerPageTemplate="5,10,15">
+						rowsPerPageTemplate="5,10,15"
+						style="text-align:center">
 						<p:column headerText="作業日期">
-							<h:outputText value="#{operationLog.logDate}" />
+							<h:outputText value="#{operationLog.logDateForm}" />
 						</p:column>
 						<p:column headerText="作業時間">
-							<h:outputText value="#{operationLog.logTime}" />
+							<h:outputText value="#{operationLog.logTimeForm}" />
 						</p:column>
 						<p:column headerText="使用者帳號">
 							<h:outputText value="#{operationLog.userId}" />
@@ -117,12 +118,12 @@
 							<h:outputText value="#{operationLog.userName}" />
 						</p:column>
 						<p:column headerText="科別">
-							<h:outputText value="#{operationLog.officeId}" />
+							<h:outputText value="#{operationLog.officeName}" />
 						</p:column>
 						<p:column headerText="作業名稱">
-							<h:outputText value="#{operationLog.type}" />
+							<h:outputText value="#{operationLog.typeName}" />
 						</p:column>
-						<p:column headerText="作業內容">
+						<p:column headerText="作業內容" style="text-align:left">
 							<h:outputText value="#{operationLog.operationContent}" />
 						</p:column>					
 					</p:dataTable>

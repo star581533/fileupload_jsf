@@ -8,6 +8,9 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.iisi.api.constant.ConstantMethod;
+import com.iisi.core.utils.FileSysUtils;
+
 @IdClass(OperationLogPK.class)
 @Entity
 @Table(name="operationlog")
@@ -19,40 +22,40 @@ public class OperationLog implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	/**
-	 * ¾Ş§@¤é´Á
+	 * æ“ä½œæ—¥æœŸ
 	 */
 	private String logDate;
 	
 	/**
-	 * ¾Ş§@®É¶¡
+	 * æ“ä½œæ™‚é–“
 	 */
 	private String logTime;
 	
 	/**
-	 * ³æ¦ì¥N¸¹
+	 * å–®ä½ä»£ç¢¼
 	 */
 	private String officeId;
 	
 	/**
-	 * ¾Ş§@¤º®e
+	 * æ“ä½œå…§å®¹
 	 */
 	private String operationContent;
 	
 	/**
-	 * §@·~¦WºÙ
+	 * ä½œæ¥­åç¨±
 	 */
 	private String type;
 	
 	/**
-	 * ¨Ï¥ÎªÌ±b¸¹
+	 * ä½¿ç”¨è€…å¸³è™Ÿ
 	 */
 	private String userId;
 	
 	/**
-	 * ¨Ï¥ÎªÌ©m¦W
+	 * ä½¿ç”¨è€…å§“å
 	 */
 	private String userName;
-
+	
 	@Id
 	@Column(name="logdate", unique=false, nullable=false, length=7)
 	public String getLogDate() {
@@ -119,7 +122,7 @@ public class OperationLog implements Serializable{
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

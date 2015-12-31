@@ -73,8 +73,8 @@
 						</tr>
 					</table>
 				</p:fieldset>
-				<p:fieldset legend="" id="resultTable" rendered="#{loginLogQueryController.dto.loginLogs != null}">
-					<c:if test="#{fn:length(loginLogQueryController.dto.loginLogs) > 0}">
+				<p:fieldset legend="" id="resultTable" rendered="#{loginLogQueryController.dto.loginLogPrints != null}">
+					<c:if test="#{fn:length(loginLogQueryController.dto.loginLogPrints) > 0}">
 						<table align="center">
 							<tr>
 								<td>
@@ -84,26 +84,27 @@
 							</tr>
 						</table>
 					</c:if>					
-					<p:dataTable var="loginLog" value="#{loginLogQueryController.dto.loginLogs}" rows="10"
+					<p:dataTable var="loginLogPrint" value="#{loginLogQueryController.dto.loginLogPrints}" rows="10"
 						paginator="true"
-						rowsPerPageTemplate="5,10,15">
+						rowsPerPageTemplate="5,10,15" 
+						style="text-align:center">
 						<p:column headerText="作業日期">
-							<h:outputText value="#{loginLog.loginDate}" />
+							<h:outputText value="#{loginLogPrint.loginDateForm}" />
 						</p:column>
 						<p:column headerText="作業時間">
-							<h:outputText value="#{loginLog.loginTime}" />
+							<h:outputText value="#{loginLogPrint.loginTimeForm}" />
 						</p:column>
 						<p:column headerText="使用者帳號">
-							<h:outputText value="#{loginLog.userId}" />
+							<h:outputText value="#{loginLogPrint.userId}" />
 						</p:column>
 						<p:column headerText="使用者姓名">
-							<h:outputText value="#{loginLog.userName}" />
+							<h:outputText value="#{loginLogPrint.userName}" />
 						</p:column>
 						<p:column headerText="單位名稱">
-							<h:outputText value="#{loginLog.officeId}" />
+							<h:outputText value="#{loginLogPrint.officeName}" />
 						</p:column>
 						<p:column headerText="簽到/簽退">
-							<h:outputText value="#{loginLog.inOutMark}" />
+							<h:outputText value="#{loginLogPrint.inOutMarkName}" />
 						</p:column>
 					</p:dataTable>				
 				</p:fieldset>

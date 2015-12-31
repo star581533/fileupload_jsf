@@ -1,8 +1,10 @@
 //http://blog.csdn.net/foamflower/article/details/4121611
 package com.iisi.core.dbFactory.service;
 
+import java.io.Serializable;
 import java.util.List;
 //http://www.blogjava.net/dreamstone/archive/2007/07/29/133071.html
+
 
 
 
@@ -23,7 +25,7 @@ import com.iisi.api.execption.FileSysException;
 
 @Component
 @Qualifier("dbFactory")
-public class DBFactoryImpl implements DBFactory{
+public class DBFactoryImpl implements DBFactory, Serializable{
 	
 	//http://blog.csdn.net/augus6/article/details/9745451
 	//http://www.ayblogs.com/m/?post=293

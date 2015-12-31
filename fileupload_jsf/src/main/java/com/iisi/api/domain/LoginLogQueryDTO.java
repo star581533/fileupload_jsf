@@ -6,6 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import com.iisi.api.model.LoginLog;
+import com.iisi.api.model.LoginLogPrint;
+
 
 public class LoginLogQueryDTO implements Serializable {
 
@@ -37,7 +39,9 @@ public class LoginLogQueryDTO implements Serializable {
 	private SimpleDateFormat sf = new SimpleDateFormat("yyyy/mm/dd");
 	
 	private List<LoginLog> loginLogs;
-
+	
+	private List<LoginLogPrint> loginLogPrints;
+	
 	public String getOfficeData() {
 		return officeData;
 	}
@@ -124,6 +128,14 @@ public class LoginLogQueryDTO implements Serializable {
 
 	public void setReportPath(String reportPath) {
 		this.reportPath = reportPath;
+	}
+		
+	public List<LoginLogPrint> getLoginLogPrints() {
+		return loginLogPrints;
+	}
+
+	public void setLoginLogPrints(List<LoginLogPrint> loginLogPrints) {
+		this.loginLogPrints = loginLogPrints;
 	}
 
 	public void splitOfficeData(String data){

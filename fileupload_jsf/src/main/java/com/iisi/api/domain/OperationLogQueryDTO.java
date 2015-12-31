@@ -2,10 +2,12 @@ package com.iisi.api.domain;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import com.iisi.api.model.OperationLog;
+import com.iisi.api.model.OperationLogPrint;
 
 public class OperationLogQueryDTO implements Serializable {
 
@@ -29,6 +31,12 @@ public class OperationLogQueryDTO implements Serializable {
 	private String userName;
 	
 	private List<OperationLog> operationLogs;
+	
+	private List<OperationLogPrint> operationLogPrints;
+	
+	private ArrayList<OperationLog> testLogs;
+	
+	private ArrayList<OperationLogPrint> printLogs;
 	
 	private String dateStart;
 	
@@ -134,6 +142,30 @@ public class OperationLogQueryDTO implements Serializable {
 
 	public void setReportPath(String reportPath) {
 		this.reportPath = reportPath;
+	}
+	
+	public List<OperationLogPrint> getOperationLogPrints() {
+		return operationLogPrints;
+	}
+
+	public void setOperationLogPrints(List<OperationLogPrint> operationLogPrints) {
+		this.operationLogPrints = operationLogPrints;
+	}
+	
+	public ArrayList<OperationLog> getTestLogs() {
+		return testLogs;
+	}
+
+	public void setTestLogs(ArrayList<OperationLog> testLogs) {
+		this.testLogs = testLogs;
+	}
+
+	public ArrayList<OperationLogPrint> getPrintLogs() {
+		return printLogs;
+	}
+
+	public void setPrintLogs(ArrayList<OperationLogPrint> printLogs) {
+		this.printLogs = printLogs;
 	}
 
 	public void splitOfficeData(String data){

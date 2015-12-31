@@ -1,5 +1,6 @@
 package com.iisi.web.operationlogquery;
 
+import java.io.File;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
@@ -16,6 +17,7 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.operationLog.OperationLogService;
+import com.iisi.core.utils.FileSysUtils;
 
 
 @ManagedBean
@@ -34,17 +36,20 @@ public class OperationLogQueryController implements Serializable{
 	@ManagedProperty(value="#{operationLogService}")
 	private OperationLogService operationLogService;
 		
+	private final String REPORT_NAME = "OperationLog.jasper";
+	
 	@PostConstruct
 	public void init(){
 		dto = new OperationLogQueryDTO();
-		dto.setReportPath("/resources/reports/OperationLog.jasper");
+		String reportPath = FileSysUtils.getReportPathDir() + File.separator + this.REPORT_NAME;
+		dto.setReportPath(reportPath);
 	}
 	
 	public void doQuery(){
 		LOG.debug("************************* OperationLogQueryController doQuery start *************************");
 		try{
 			this.verifyData();
-			dto.setOperationLogs(operationLogService.getOperationLogList(dto));	
+			this.operationLogService.getOperationLogList(dto);	
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){

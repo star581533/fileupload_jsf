@@ -2,10 +2,9 @@ package com.iisi.core.operationLog.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-
-import javax.faces.bean.ManagedProperty;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +15,8 @@ import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
-import com.iisi.api.operationLog.OperationLogComponent;
+import com.iisi.api.model.OperationLogPrint;
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.operationLog.OperationLogService;
 import com.iisi.api.report.AbstractReport;
 import com.iisi.api.security.FileSysUtil;
@@ -38,16 +38,16 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	@Autowired
 	private DBFactory dbFactory;
 	
-	@ManagedProperty(value="#{operationLogComponent}")
+	@Autowired
 	private OperationLogComponent operationLogComponent;
 	
-	@ManagedProperty(value="#{fileSysUtil}")
+	@Autowired
 	private FileSysUtil fileSysUtil;
 	
 	private AbstractReport report;
 	
 	@Override
-	public List<OperationLog> getOperationLogList(OperationLogQueryDTO dto) {
+	public void getOperationLogList(OperationLogQueryDTO dto) {
 		LOG.debug("************************* OperationLogServiceImpl getOperationLogList start *************************");
 		StringBuilder operationContent = new StringBuilder();		
 		StringBuilder sql = new StringBuilder();
@@ -92,47 +92,58 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		List<OperationLog> operationLogs = (List<OperationLog>)dbFactory.query(params, 
 				sql.toString(), OperationLog.class);
 		
-//		UserInfo userInfo = this.fileSysUtil.getUser();		
-//		
-//		OperationLog operationLog = new OperationLog();
-//		operationLog.setOfficeId(userInfo.getOfficeId());
-//		operationLog.setOperationContent(operationContent.toString());
-//		operationLog.setType("OQ");
-//		operationLog.setUserId(userInfo.getUserId());
-//		operationLog.setUserName(userInfo.getUserName());
-//		
-//		operationLogComponent.insertOperationLog(operationLog);
+		dto.setOperationLogs(operationLogs);
+		
+		this.setOperationLogPrint(dto);
+		
+		UserInfo userInfo = this.fileSysUtil.getUser();		
+		
+		OperationLog operationLog = new OperationLog();
+		operationLog.setOfficeId(userInfo.getOfficeId());
+		operationLog.setOperationContent(operationContent.toString());
+		operationLog.setType("OQ");
+		operationLog.setUserId(userInfo.getUserId());
+		operationLog.setUserName(userInfo.getUserName());
+		
+		operationLogComponent.insertOperationLog(operationLog);
 		
 		LOG.debug("************************* OperationLogServiceImpl getOperationLogList end *************************");
-		return operationLogs;
 	}
-
-	public OperationLogComponent getOperationLogComponent() {
-		return operationLogComponent;
+			
+	/**
+	 * 填入畫面中顯示值
+	 * @param dto
+	 */
+	private void setOperationLogPrint(OperationLogQueryDTO dto){
+		List<OperationLogPrint> operationLogPrints = new ArrayList<OperationLogPrint>();
+		if(dto.getOperationLogs().size() > 0){
+			for(OperationLog operationLog : dto.getOperationLogs()){
+				OperationLogPrint operationLogPrint = new OperationLogPrint();
+				operationLogPrint.setLogDate(operationLog.getLogDate());
+				operationLogPrint.setLogTime(operationLog.getLogTime());
+				operationLogPrint.setOfficeId(operationLog.getOfficeId());
+				operationLogPrint.setOperationContent(operationLog.getOperationContent());
+				operationLogPrint.setType(operationLog.getType());
+				operationLogPrint.setUserId(operationLog.getUserId());
+				operationLogPrint.setUserName(operationLog.getUserName());
+				operationLogPrints.add(operationLogPrint);
+			}
+		}
+		dto.setOperationLogPrints(operationLogPrints);
 	}
-
-	public void setOperationLogComponent(OperationLogComponent operationLogComponent) {
-		this.operationLogComponent = operationLogComponent;
-	}
-
-	public FileSysUtil getFileSysUtil() {
-		return fileSysUtil;
-	}
-
-	public void setFileSysUtil(FileSysUtil fileSysUtil) {
-		this.fileSysUtil = fileSysUtil;
-	}
-
+	
 	@Override
 	public void doPrintPdf(OperationLogQueryDTO dto) {
 		report = new PdfReport();
-		report.print(dto.getOperationLogs(), dto.getReportPath(), "OperationLog.pdf", new HashMap());
+		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.pdf", new HashMap());
 	}
 
 	@Override
 	public void doPrintXls(OperationLogQueryDTO dto) {
 		report = new XlsReport();
-		report.print(dto.getOperationLogs(), dto.getReportPath(), "OperationLog.xls", new HashMap());
+		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.xls", new HashMap());
 	}
+	
+	
 	
 }
