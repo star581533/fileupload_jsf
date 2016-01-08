@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedProperty;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.db.DBFactory;
 import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.fileUpload.FileUploadService;
@@ -19,6 +20,9 @@ public class FileUploadServiceImpl implements FileUploadService{
 
 	@Autowired
 	private DBFactory dbFactory;
+	
+	@Autowired
+	private OperationLogComponent operationLogComponent;
 			
 	@Override
 	public void doSave(FileUploadDTO dto) {
@@ -41,6 +45,10 @@ public class FileUploadServiceImpl implements FileUploadService{
 		fileData.setUploadTime(DateUtils.getNowTime());
 		fileData.setUserId(user.getUserId());
 		fileData.setUserName(user.getUserName());
+		
+		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_UPLOAD, fileData.toString());
+		
+		
 		dbFactory.insert(fileData);
 	}
 }
