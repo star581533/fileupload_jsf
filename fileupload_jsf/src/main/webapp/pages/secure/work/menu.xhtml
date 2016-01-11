@@ -2,8 +2,7 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui"
-	xmlns:sec="http://www.springframework.org/security/tags">
+	xmlns:p="http://primefaces.org/ui">
 
 <h:head />	
 	<h:form id="menu">
@@ -27,18 +26,13 @@
 			
 			<p:submenu label="帳號管理">
 				<p:menuitem value="密碼修改" action="#{menuController.updatePwd}" icon="ui-icon-arrowrefresh-1-w" />
-				<sec:authorize access="hasAnyRole('ADMIN')">
-					<p:menuitem value="新增使用者" action="#{menuController.addUser}" icon="ui-icon-disk" />
-					<p:menuitem value="帳號查詢" action="#{menuController.queryUser}" icon="ui-icon-search" />
-				</sec:authorize>								
+				<p:menuitem value="新增使用者" action="#{menuController.addUser}" rendered="#{menuController.roleView}" icon="ui-icon-disk" />
+				<p:menuitem value="帳號查詢" action="#{menuController.queryUser}" rendered="#{menuController.roleView}" icon="ui-icon-search" />						
 			</p:submenu>
-			
-			<sec:authorize access="hasAnyRole('ADMIN')">
-				<p:submenu label="紀錄查詢">
-					<p:menuitem value="簽到/簽退紀錄查詢" action="#{menuController.loginLogQuery}" icon="ui-icon-search" />
-					<p:menuitem value="操作紀錄查詢" action="#{menuController.operationLogQuery}" icon="ui-icon-search" />
-				</p:submenu>
-			</sec:authorize>	
+			<p:submenu label="紀錄查詢" rendered="#{menuController.roleView}">
+				<p:menuitem value="簽到/簽退紀錄查詢" action="#{menuController.loginLogQuery}" icon="ui-icon-search" />
+				<p:menuitem value="操作紀錄查詢" action="#{menuController.operationLogQuery}" icon="ui-icon-search" />
+			</p:submenu>
 		</p:menu>	
 		
 	</h:form>

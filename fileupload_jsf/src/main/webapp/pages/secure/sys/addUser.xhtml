@@ -5,7 +5,8 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:fu="http://iisigroup.com/tag/ui">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 
@@ -23,7 +24,7 @@
 					<table width="100%">
 						<tr>
 							<td align="right">
-								<font color="red" size="1">*</font>
+								<fu:requiredSymbol />
 								<h:outputText value="科別：" />
 							</td>
 							<td align="left">
@@ -42,7 +43,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<font color="red" size="1">*</font>
+								<fu:requiredSymbol />
 								<h:outputText value="使用者帳號："  />
 							</td>
 							<td align="left">
@@ -53,7 +54,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<font color="red" size="1">*</font>
+								<fu:requiredSymbol />
 								<h:outputText value="使用者姓名：" />
 							</td>
 							<td align="left">
@@ -62,7 +63,7 @@
 						</tr>
 						<tr>
 							<td align="right">
-								<font color="red" size="1">*</font>
+								<fu:requiredSymbol />
 								<h:outputText value="使用者權限" />
 							</td>
 							<td align="left">

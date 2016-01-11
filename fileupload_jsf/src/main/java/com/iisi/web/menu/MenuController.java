@@ -8,12 +8,20 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
 
+
+
+
+
 import org.primefaces.model.menu.DefaultMenuItem;
 import org.primefaces.model.menu.DefaultMenuModel;
 import org.primefaces.model.menu.DefaultSubMenu;
 import org.primefaces.model.menu.MenuModel;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
+import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.menu.MenuService;
+import com.iisi.api.security.UserInfo;
 
 @ManagedBean
 @RequestScoped
@@ -22,6 +30,8 @@ public class MenuController {
 	private MenuModel model;
 	
 	private String userName;
+	
+	private boolean roleView;
 		
 	@PostConstruct
 	public void init(){
@@ -82,6 +92,15 @@ public class MenuController {
 		FacesContext context = FacesContext.getCurrentInstance();		
 		this.setUserName(context.getExternalContext().getRemoteUser());
 		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		UserInfo userInfo = (UserInfo)auth.getPrincipal();
+		
+		if(userInfo.getRoleId().equals(ConstantObject.ONE)){
+			this.setRoleView(true);
+		}else{
+			this.setRoleView(false);
+		}
+		System.out.println(roleView);
 	}
 	
 	public String addUser(){
@@ -139,5 +158,13 @@ public class MenuController {
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
+
+	public boolean isRoleView() {
+		return roleView;
+	}
+
+	public void setRoleView(boolean roleView) {
+		this.roleView = roleView;
+	}
+
 }

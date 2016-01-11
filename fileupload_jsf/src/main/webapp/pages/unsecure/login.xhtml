@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
@@ -37,8 +36,7 @@
 					<p:column>						
 						<h:inputText id="userId" value="#{loginController.dto.userId}" />	
 					</p:column>
-				</p:row>
-  	
+				</p:row> 	
 				<p:row>
 					<p:column style="text-align: right">
 						<p:outputLabel value="密碼："/>	
@@ -46,7 +44,7 @@
 					<p:column>
 						<p:password id="password" value="#{loginController.dto.password}" />	
 					</p:column>
-				</p:row>			    
+				</p:row>		    
 			    <p:row>		
 			    	<p:column colspan="2" style="text-align: center">
 			    		<p:commandButton 
@@ -56,9 +54,7 @@
 			    			update="growl"/>
 						<p:commandButton value="取消" actionListener="#{loginController.cancelButton}" update="user"/>
 			    		<!--  			    		-->
-			    		<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />
-
-			    		
+			    		<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />			    		
 			    	</p:column>			    	
 			    </p:row>
 			</p:panelGrid>			
