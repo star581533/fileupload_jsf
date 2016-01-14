@@ -1,0 +1,28 @@
+<html xmlns="http://www.w3.org/1999/xhtml"   
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:ui="http://java.sun.com/jsf/facelets"
+   xmlns:p="http://primefaces.org/ui"
+   xmlns:composite="http://java.sun.com/jsf/composite">
+<head>
+<title>Calendar/DateTime</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+</head>
+	<h:body>
+		<composite:interface>
+			<composite:attribute name="calDateValue" />
+		</composite:interface>
+		<composite:implementation>
+			<h:panelGroup>
+				<h:outputText value="民國" />
+				<p:inputText value="" maxlength="3" style="width:42px;" />
+				<h:outputText value="年" />
+				<p:inputText value="" maxlength="2" style="width:42px;"/>
+				<h:outputText value="月" />
+				<p:inputText value="" maxlength="2" style="width:42px;"/>
+				<h:outputText value="日" />
+				
+				<h:inputHidden value="#{cc.attrs.calDateValue}" />
+			</h:panelGroup>
+		</composite:implementation>
+	</h:body>
+</html>
