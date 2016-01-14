@@ -10,7 +10,7 @@
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:fn="http://java.sun.com/jsp/jstl/functions"
-	xmlns:fu="http://iisigroup.com/tag/ui">
+	xmlns:fu="http://java.sun.com/jsf/composite/fu">
 
 <ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
 	<ui:define name="content">		
@@ -24,11 +24,19 @@
 			<p:panel id="loginLogQueryController" header="簽到/簽退紀錄查詢">
 				<p:fieldset legend="簽到/簽退紀錄查詢">
 					<table width="100%">
+						<!-- 
+						<tr>
+							<td>
+								<ezcomp:LabelAndField opLabelId="fNLabel" opLabelName="First Name" fieldId="fnInput" bindTo="#{loginLogQueryController.dto.startDate}" />
+							</td>
+						</tr>
+						 -->
 						<tr>
 							<td>
 								<fu:requiredSymbol />
 								<h:outputText value="日期區間：" />
 							</td>
+						
 							<td>
 								<p:calendar id="startDate" showOn="button" value="#{loginLogQueryController.dto.startDate}" />~
 								<p:calendar id="endDate" showOn="button" value="#{loginLogQueryController.dto.endDate}" />
@@ -68,10 +76,11 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 								<p:commandButton value="查詢" action="#{loginLogQueryController.doQuery}" update="@form"/>
 							</td>
 						</tr>
+						
 					</table>
 				</p:fieldset>
 				<p:fieldset legend="" id="resultTable" rendered="#{loginLogQueryController.dto.loginLogPrints != null}">
