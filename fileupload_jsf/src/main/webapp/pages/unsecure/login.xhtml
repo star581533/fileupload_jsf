@@ -13,10 +13,7 @@
 		<h:head>
 			<title>使用者登入</title>			
 		</h:head>		
-		<h:form id="loginForm">
-			<!--  -->
-			<p:growl id="growl" showDetail="true" autoUpdate="true" sticky="true"  />
-			
+		<h:form id="loginForm">			
 			<p:panelGrid id="user" style="margin-top:100px;margin-left:350px">			
 				<f:facet name="header">
 					<p:row>
@@ -44,8 +41,7 @@
 			    		<p:commandButton 
 			    			value="登入" 
 			    			action="#{loginController.login}" 
-			    			ajax="true"
-			    			update="growl"/>
+			    			ajax="true"/>
 						<p:commandButton value="取消" actionListener="#{loginController.cancelButton}" update="user"/>
 			    		<!--  			    		-->
 			    		<p:messages id="message" showDetail="true" autoUpdate="true" closable="true" />			    		
