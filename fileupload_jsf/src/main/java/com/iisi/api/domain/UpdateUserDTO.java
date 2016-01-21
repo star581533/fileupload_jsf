@@ -13,6 +13,8 @@ public class UpdateUserDTO implements Serializable {
 	
 	private String officeId;
 	
+	private String officeName;
+	
 	private String userId;
 	
 	private String userName;
@@ -29,6 +31,14 @@ public class UpdateUserDTO implements Serializable {
 
 	public void setOfficeId(String officeId) {
 		this.officeId = officeId;
+	}
+	
+	public String getOfficeName() {
+		return officeName;
+	}
+
+	public void setOfficeName(String officeName) {
+		this.officeName = officeName;
 	}
 
 	public String getUserId() {

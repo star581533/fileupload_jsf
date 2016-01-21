@@ -1,6 +1,3 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <ui:composition 
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
@@ -8,56 +5,12 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fu="http://java.sun.com/jsf/composite/fu"
-	template="/WEB-INF/templates/BasicTemplate.xhtml">
-	
-	<h:outputScript library="js" name="common.js" target="head" />
-	
-	<ui:define name="content">			
-		<h:head>
-			<script type="text/javascript">
-			$(document).ready(function() {
-				alert("Init");
-			});
-		
-			function start() {
-				alert("start");
-			    PF('statusDialog').show();
-			}
-			 
-			function stop() {
-			    PF('statusDialog').hide();
-			}
-			/*
-			$(window).load(function () {
-		        $(document).delegate(".checkall", "click", function(event) {
-		        	
-		              $(this).closest("table").find(':checkbox').attr('checked', this.checked);
-		        });
-		    });
-			
-			$(document).ready(function checkAll(){
-				$('#checkAll').on('click', function(){
-					alert("checkAll");
-					//selects all records on the displayed page if pagination is supported.
-					//dataTableFiles.selectAllRowsOnPage();
-					//or you can select all the rows across all pages.	
-					//dataTableFiles.selectAllRows();
-				});
-			});
-			*/
-			
-			function checkBoxAll(){
-				alert("1");
-				$('#checkAll').on('click', function(){
-					alert("checkAll");
-				}
-			}
-				
+	template="/WEB-INF/templates/default.xhtml">
+
+	<ui:define name="right">			
+		<script type="text/javascript">
 		
 		</script>
-			<title>檔案查詢</title>
-		</h:head>	
-		<h:form>
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="fileQueryController" header="檔案查詢">			
 				<p:fieldset legend="檔案查詢">
@@ -179,7 +132,6 @@
 						</p:column>
 					</p:dataTable>				
 				</p:fieldset>
-			</p:panel>
-		</h:form>			
+			</p:panel>			
 	</ui:define>
 </ui:composition>

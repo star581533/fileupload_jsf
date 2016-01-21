@@ -72,6 +72,8 @@ public class FileSysException extends RuntimeException {
 		
 		Severity severity = null;
 		
+		System.out.println("title = " + title);
+		
 		if(title.equals("W")){
 			severity = FacesMessage.SEVERITY_WARN;
 		}else if(title.equals("E")){
@@ -84,7 +86,7 @@ public class FileSysException extends RuntimeException {
 		
 		FacesMessage faceMessage = new FacesMessage(severity, "",msg);
 		FacesContext.getCurrentInstance().addMessage(null, faceMessage);
-		
+//		FacesContext.getCurrentInstance().responseComplete();
 //		context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
 	}
 

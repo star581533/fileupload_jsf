@@ -1,27 +1,16 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
-	xmlns:fu="http://java.sun.com/jsf/composite/fu">
+	xmlns:fu="http://java.sun.com/jsf/composite/fu"
+	template="/WEB-INF/templates/default.xhtml">
 
-<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">
-
-	<ui:define name="content">
-		<h:head>
-			<title>
-				<h:outputText value="新增使用者" />
-			</title>
-		</h:head>
-
-		<h:form>	
-			<p:growl id="growl" showDetail="true" sticky="true" />		
+	<ui:define name="right">
+		<p:growl id="growl" showDetail="true" sticky="true" />		
 			<p:panel id="addUserPanel" header="新增使用者">
 				<p:fieldset id="addUserForm" legend="新增使用者">
-					<table width="100%">
+					<table>
 						<tr>
 							<td align="right">
 								<fu:requiredSymbol />
@@ -87,11 +76,6 @@
 						</tr>
 					</table>
 				</p:fieldset>			
-			</p:panel>	
-							
-		</h:form>
-		
+			</p:panel>			
 	</ui:define>
-
 </ui:composition>
-</html>

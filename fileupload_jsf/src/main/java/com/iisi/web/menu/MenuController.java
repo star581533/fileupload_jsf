@@ -100,7 +100,6 @@ public class MenuController {
 		}else{
 			this.setRoleView(false);
 		}
-		System.out.println(roleView);
 	}
 	
 	public String addUser(){

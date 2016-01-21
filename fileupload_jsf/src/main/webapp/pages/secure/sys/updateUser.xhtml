@@ -1,21 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml"
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-
-<ui:composition template="/WEB-INF/templates/BasicTemplate.xhtml">	
-	<ui:define name="content">	
-		<h:head>
-			<title>
-				<h:outputText value="修改使用者資料" />		
-			</title>
-		</h:head>		
-		<h:form>
-			<p:growl id="growl" showDetail="true" sticky="true" />
+	xmlns:p="http://primefaces.org/ui" 
+	template="/WEB-INF/templates/default.xhtml">	
+	
+	<ui:define name="right">	
+		<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="userPanel" header="修改使用者資料">
 				<p:fieldset id="updateUser" legend="使用者資料">
 					<table>
@@ -40,6 +31,8 @@
 								<h:outputText value="科別：" />
 							</td>
 							<td>
+								<h:outputText  value="#{updateUserController.dto.officeName}"/>
+								<!-- 
 								<p:selectOneMenu id="officeId" value="#{updateUserController.dto.user.officeId}">
 									<f:selectItem itemLabel="系統管理員" itemValue="000" />
 								   	<f:selectItem itemLabel="戶籍行政科" itemValue="001" />
@@ -50,6 +43,7 @@
 								   	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
 								   	<f:selectItem itemLabel="戶政司" itemValue="111" />      
 							    </p:selectOneMenu>
+							     -->
 							</td>
 						</tr>
 						<tr>
@@ -81,7 +75,5 @@
 					</table>
 				</p:fieldset>
 			</p:panel>
-		</h:form>
 	</ui:define>
 </ui:composition>
-</html>

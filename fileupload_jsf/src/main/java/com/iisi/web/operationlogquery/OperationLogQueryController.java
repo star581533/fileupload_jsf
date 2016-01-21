@@ -62,11 +62,11 @@ public class OperationLogQueryController implements Serializable{
 	private void verifyData(){
 		//起始日
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
-			throw new FileSysException(ConstantObject.UPPER_CASE_X, ConstantObject.WARN_MSG_INPUT_START_DATE);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//迄止日
 		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
-			throw new FileSysException(ConstantObject.UPPER_CASE_X, ConstantObject.WARN_MSG_INPUT_END_DATE);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}	
 	}
 	

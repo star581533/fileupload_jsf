@@ -15,6 +15,8 @@ import org.primefaces.context.RequestContext;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdateUserDTO;
 import com.iisi.api.updateUser.UpdateUserService;
+import com.iisi.core.utils.FileSysUtils;
+import com.iisi.core.utils.PropertiesContent;
 
 
 @ManagedBean
@@ -34,7 +36,8 @@ public class UpdateUserController implements Serializable {
 	@PostConstruct
 	public void init(){
 		dto = new UpdateUserDTO();
-		this.getWebParameUserId();
+		this.getWebParameUserId();		
+		dto.setOfficeName(FileSysUtils.getProperties("office.properties", dto.getUser().getOfficeId()));
 	}
 	
 	public void doPwdReset(){

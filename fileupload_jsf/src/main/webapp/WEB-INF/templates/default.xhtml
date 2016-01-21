@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html 
-	xmlns="http://www.w3.org/1999/xhtml"
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
@@ -15,28 +14,46 @@
 	
 </h:head>
 <f:view>
-	<h:body>
-		<p:growl id="growl" showDetail="true" autoUpdate="false" sticky="true"  life="3000" />
-		<table id="fuSystemTableForm" width="100%">
+	<h:body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0"
+		marginheight="0">
+		<p:growl id="growl2" showDetail="true" autoUpdate="false" sticky="false" escape="false" life="3000" />
+		<!-- document start -->
+		<table id="fuSystemTableForm">
 			<tr>
-				<td colspan="2">
+				<td colspan="2" id="headerBanner">
 					<p:outputPanel>
-						<h:form id="headerForm">
+						<h:form id="headerForm" prependId="false">
 							<ui:include src="/WEB-INF/templates/header.xhtml" />
 						</h:form>
 					</p:outputPanel>
 				</td>
-			</tr>
-			<!-- menu tree -->
+			</tr>			
 			<tr>
-				<td id="funewleft">
-					<ui:include src="/pages/secure/work/menu.xhtml" />
-				</td>	
-				<td id="funewcontent">				
+				<!-- menu tree -->
+				<td id="funewleft" valign="top">
+					<table>
+						<ui:include src="/pages/secure/work/menu.xhtml" />
+					</table>
+				</td>
+				<!-- content -->	
+				<td id="funewcontent" valign="top">
+					<table width="100%">
+						<tr>
+							<td id="funewcontentForm">
+								<h:form id="masterForm" prependId="false">
+									<ui:insert name="right" />
+								</h:form>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<ui:include src="/WEB-INF/templates/footer.xhtml" />
+							</td>
+						</tr>
+					</table>				
 				</td>			
 			</tr>		
 		</table>
 	</h:body>
 </f:view>
-<ui:include src="/WEB-INF/templates/footer.xhtml" />
 </html>
