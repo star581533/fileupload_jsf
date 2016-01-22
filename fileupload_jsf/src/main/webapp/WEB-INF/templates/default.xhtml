@@ -8,6 +8,7 @@
 	>
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 	<title>歡迎光臨</title>
 	
 	<h:outputStylesheet library="css" name="default.css" target="head" />
@@ -40,7 +41,10 @@
 					<table width="100%">
 						<tr>
 							<td id="funewcontentForm">
-								<h:form id="masterForm" prependId="false">
+								<!-- 
+								enctype="multipart/form-data"，此作法放這是因為要讓檔案能夠上傳，好一點的方法應該是要放在上傳的那個作業中，就可不用寫在共同檔中
+								 -->
+								<h:form id="masterForm" prependId="false" enctype="multipart/form-data">
 									<ui:insert name="right" />
 								</h:form>
 							</td>

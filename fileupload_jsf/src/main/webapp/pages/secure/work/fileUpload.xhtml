@@ -4,12 +4,9 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:p="http://primefaces.org/ui"
 	xmlns:fu="http://java.sun.com/jsf/composite/fu"
-	template="/WEB-INF/templates/BasicTemplate.xhtml">
-	<ui:define name="content">			 
-		<h:head>
-			<title>檔案上傳</title>
-		</h:head>	
-		<h:form enctype="multipart/form-data">		
+	template="/WEB-INF/templates/default.xhtml">
+	<ui:define name="right">			 
+		
 			<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="fileUpload" header="檔案上傳">			
 				<table>
@@ -98,6 +95,5 @@
 					</tr>
 				</table>
 			</p:panel>
-		</h:form>
 	</ui:define>
 </ui:composition>
