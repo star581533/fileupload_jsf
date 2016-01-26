@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pm="http://primefaces.org/mobile">
+	
+	<f:view renderKitId="PRIMEFACES_MOBILE" />
+
+	<h:head>
+	
+	</h:head>
+	
+	<h:body>
+		<pm:page>
+			<pm:header title="Title"></pm:header>
+			
+			<pm:content>
+				<h2 class="first">Basic</h2>
+				<p:menu>
+					<p:menuitem value="Link 1" url="http://www.google.com" />
+					<p:menuitem value="Link 2" url="http://tw.yahoo.com" />
+					<p:menuitem value="Link 3" url="#" />
+				</p:menu>
+				
+				<h2>Grouping</h2>
+				<p:menu>
+					<p:submenu label="Sports">
+						<p:menuitem value="ESPN" url="http://www.espn.com"/>
+					</p:submenu>
+				</p:menu>
+				
+				<h2>Customized</h2>
+				<p:menu styleClass="ui-listview-inset ui-corner-all ui-group-theme-b">
+					<p:submenu label="Sports">
+						<p:menuitem value="ESPN" url="http://www.espn.com" icon="ui-icon-gear" />
+					</p:submenu>
+				</p:menu>
+				
+				<p:toolbar>
+					<f:facet name="left">
+						<p:commandButton type="button" value="New" icon="ui-icon-plus" />
+						<p:commandButton type="button" value="List" icon="ui-icon-bullets" />
+						<p:commandButton type="button" value="Delete" icon="ui-icon-minus" />
+					</f:facet>
+					<f:facet name="right">
+						<p:commandButton type="button" value="Settings" icon="ui-icon-gear" />
+					</f:facet>
+				</p:toolbar>
+			</pm:content>
+			
+			<pm:footer title="Footer"></pm:footer>
+		</pm:page>
+	</h:body>
+</html>
