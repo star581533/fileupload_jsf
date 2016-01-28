@@ -72,7 +72,6 @@ public class UpdatePwdController implements Serializable {
 	 * 驗證資料
 	 */
 	private void verifyData(){	
-//		FacesContext context = FacesContext.getCurrentInstance();
 		//新密碼
 		if(ConstantMethod.verifyColumn(dto.getNewPassWord())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_NEW_PASSWORD);
@@ -91,7 +90,6 @@ public class UpdatePwdController implements Serializable {
 		}
 		//舊密碼
 		if(ConstantMethod.verifyColumn(dto.getOldPassWord())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD);
 		}else{
 			//比對畫面舊密碼與資料庫密碼是否相同

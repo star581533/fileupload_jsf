@@ -55,13 +55,16 @@ public class FileUploadController implements Serializable {
 		
 	public void uploadData(){
 		try{
-			System.out.println("uploadData");
 			//驗證
 			this.verifyData();
 			//傳檔
 			this.sendFile();
 			//寫值到DB
 			service.doSave(dto);
+			
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "上傳成功", "檔案上傳成功"));
+			
+			dto = new FileUploadDTO();
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){
@@ -73,41 +76,32 @@ public class FileUploadController implements Serializable {
 	 * 驗證畫面資料
 	 */
 	private void verifyData(){
-//		FacesContext context = FacesContext.getCurrentInstance();
 		//類型
 		if(ConstantMethod.verifyColumn(dto.getType())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
 		//密件
 		if(ConstantMethod.verifyColumn(dto.getSecret())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SECRET));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_SECRET);
 		}
 		//日期
 		if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DATE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_DATE);
 		}
 		//分類號
 		if(ConstantMethod.verifyColumn(dto.getClassNum())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_CLASSNUM));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_CLASSNUM);
 		}
 		//公文文號
 		if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
 		}
 		//主旨
 		if(ConstantMethod.verifyColumn(dto.getSubject())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_SUBJECT));
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
-		}
-				
+		}				
 		//檔名
 		if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_FILE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_FILE);
 		}	
 	}
@@ -116,13 +110,6 @@ public class FileUploadController implements Serializable {
 	 * 將檔案上傳
 	 */
 	public void sendFile(){			
-//		//取得環境執行物件
-//		FacesContext facesContext = FacesContext.getCurrentInstance();
-//		//利用externalContext取得指定物件
-//		ExternalContext externalContext = facesContext.getExternalContext();		
-//		//取得web.xml中所設定目錄
-//		String directory = externalContext.getInitParameter("uploadDirectory");
-		
 		String directory = FileSysUtils.getUploadInitDir();
 		
 		File file = new File(directory);
@@ -141,8 +128,6 @@ public class FileUploadController implements Serializable {
 		dirPaths.add(DateUtils.getNowYear());
 		dirPaths.add(officeId);
 		dirPaths.add(userId);
-//		dirPaths.add(dto.getUser().getOfficeId());
-//		dirPaths.add(dto.getUser().getUserId());
 		
 		dto.setUploadFile(this.uploadedFile);		
 		dto.setFullPath(FileSysUtils.genDirPath(dirPaths));		
@@ -151,7 +136,6 @@ public class FileUploadController implements Serializable {
 		//取得檔案名稱
 		String fileName = uploadedFile.getFileName();
 		//以亂數改檔名
-//		String serverName = UUID.randomUUID().toString() + fileName.substring(fileName.lastIndexOf("."));
 		dto.setImageId(DateUtils.getNowDate()+DateUtils.getNowTimeAndMicroSec());
 		String serverName = dto.getImageId() + fileName.substring(fileName.lastIndexOf("."));
 		

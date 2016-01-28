@@ -35,60 +35,6 @@ public class MenuController {
 		
 	@PostConstruct
 	public void init(){
-		model = new DefaultMenuModel();
-		
-		DefaultSubMenu fileMenu = new DefaultSubMenu("檔案處理");
-		
-		DefaultMenuItem item = new DefaultMenuItem("檔案上傳");
-		item.setCommand("#{menuController.fileUpload}");
-		item.setIcon("ui-icon-disk");
-		item.setAjax(false);
-		fileMenu.addElement(item);
-		
-		item = new DefaultMenuItem("檔案查詢");
-		item.setCommand("#{menuController.fileQuery}");
-		item.setIcon("ui-icon-search");
-		fileMenu.addElement(item);
-		
-		item = new DefaultMenuItem("檔案刪除");
-		item.setCommand("#{menuController.fileDelete}");
-		item.setIcon("ui-icon-close");
-		fileMenu.addElement(item);
-		
-		model.addElement(fileMenu);	
-		
-		DefaultSubMenu accountMenu = new DefaultSubMenu("帳號管理");
-		item = new DefaultMenuItem("密碼修改");
-		item.setCommand("#{menuController.updatePwd}");
-		item.setIcon("ui-icon-arrowrefresh-1-w");
-		accountMenu.addElement(item);
-		
-		item = new DefaultMenuItem("新增使用者");
-		item.setCommand("#{menuController.addUser}");
-		item.setIcon("ui-icon-disk");
-		accountMenu.addElement(item);
-		
-		item = new DefaultMenuItem("帳號查詢");
-		item.setCommand("#{menuController.queryUser}");
-		item.setIcon("ui-icon-search");
-		accountMenu.addElement(item);
-		
-		model.addElement(accountMenu);
-		
-		DefaultSubMenu logQueryMenu = new DefaultSubMenu("紀錄查詢");
-		item = new DefaultMenuItem("簽到/簽退紀錄查詢");
-		item.setCommand("#{menuController.loginLogQuery}");
-		item.setIcon("ui-icon-search");
-		logQueryMenu.addElement(item);
-		
-		item = new DefaultMenuItem("操作紀錄查詢");
-		item.setCommand("#{menuController.operationLogQuery}");
-		item.setIcon("ui-icon-search");
-		logQueryMenu.addElement(item);
-		
-		model.addElement(logQueryMenu);
-		
-		
 		FacesContext context = FacesContext.getCurrentInstance();		
 		this.setUserName(context.getExternalContext().getRemoteUser());
 		

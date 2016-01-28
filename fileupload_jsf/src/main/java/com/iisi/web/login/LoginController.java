@@ -73,12 +73,10 @@ public class LoginController implements Serializable{
 		context = FacesContext.getCurrentInstance();
 		//檢核使用者帳號
 		if(null == dto.getUserId() || dto.getUserId().length() == 0){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_ID));
 			throw new FileSysException("W", ConstantObject.WARN_MSG_INPUT_USER_ID);
 		}
 		//檢核使用者密碼
 		if(null == dto.getPassword() || dto.getPassword().length() == 0){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_USER_PWD));
 			throw new FileSysException("W",ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
 	}

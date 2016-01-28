@@ -92,7 +92,6 @@ public class QueryUserController implements Serializable{
 	 */
 	private void verifyData(){	
 		//在職狀態
-//		if(dto.getState() == null || dto.getState().length() == 0){
 		if(ConstantMethod.verifyColumn(dto.getState())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_STATE);
 		}	

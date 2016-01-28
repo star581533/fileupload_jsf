@@ -50,7 +50,6 @@ public class FileQueryController implements Serializable {
 	@PostConstruct
 	public void init(){
 		dto = new FileQueryDTO();
-//		dto.setUser(Checker.getUser());	
 	}
 	
 	public void doQuery(){
@@ -125,75 +124,21 @@ public class FileQueryController implements Serializable {
 	}
 	
 	
-	
-
-//	public void downloadFile(FileData data){
-////		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-////		String directory = externalContext.getInitParameter("uploadDirectory");
-//		
-//		String directory = FileSysUtils.getUploadInitDir();
-//		
-//		File fileDir = new File(directory);
-//		String path = fileDir.getAbsolutePath();
-//		
-//		String fileName = data.getImageId() + ".jpg";
-//		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
-//		System.out.println("filePath = " + filePath);
-//				
-//	    File result = new File(filePath);
-//	    
-//	    System.out.println("result.exists() = " + result.exists());
-//	    
-//	    if(result.exists()){
-//		    InputStream stream;
-//			try {
-//				stream = new FileInputStream(result.getAbsolutePath());
-//				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			}	
-//	    }else{
-//	    	throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
-//	    }
-//	}
-	
 	public void verifyData(){
-//		FacesContext context = FacesContext.getCurrentInstance();
 		//類型
 		if(null == dto.getType() || dto.getType().length() == 0){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
 		//起始日
 		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//迄止日
 		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
-//			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}
 	}
 	
-	/**
-	 * 處理畫面中Header的CheckBox動作
-	 */
-//	public void selectAll(){
-//		System.out.println("================this.checkAllBox : " + this.checkAllBox);
-//		this.setCheckAll(this.checkAllBox);
-//	}
-		
-	/**
-	 * 將Header的CheckBox動作，放入各個Row的CheckBox
-	 * @param bool
-	 */
-//	private void setCheckAll(boolean bool){
-//		for(FileOutputDTO output : dto.getOutputs()){
-//			output.setCheckBoxAll(bool);
-//		}
-//	}
-
 	public FileQueryDTO getDto() {
 		return dto;
 	}

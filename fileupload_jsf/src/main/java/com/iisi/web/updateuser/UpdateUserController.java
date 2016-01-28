@@ -50,7 +50,6 @@ public class UpdateUserController implements Serializable {
 	}
 	
 	public void doUpdate(){
-//		service.doQuery(dto);
 		service.doUpdate(dto);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "更新成功", "使用者資料更新成功"));
 		RequestContext.getCurrentInstance().update("growl");
