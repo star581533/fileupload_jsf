@@ -69,7 +69,6 @@ public class FileDeleteController implements Serializable {
 		File fileDir = new File(directory);
 		String path = fileDir.getAbsolutePath();
 		
-//		String path = externalContext.getRealPath("/upload");
 		String fileName = data.getImageId() + ".jpg";
 		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
 		System.out.println("filePath = " + filePath);
@@ -94,9 +93,6 @@ public class FileDeleteController implements Serializable {
 	public void deleteFile(FileData data){
 		dto.setFile(data);	
 		
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-////		String path = externalContext.getRealPath("/upload");
-//		String directory = externalContext.getInitParameter("uploadDirectory");
 		String directory = FileSysUtils.getUploadInitDir();
 		
 		File fileDir = new File(directory);
@@ -120,30 +116,23 @@ public class FileDeleteController implements Serializable {
 			}				
 		}else{
 			System.out.println("檔案不存在");
-		}		
-		
-		
+		}	
 		
 		dto.setFiles(service.doQuery(dto));
-//		RequestContext.getCurrentInstance().update("resultList");
 	}
 	
 	private void verifyData(){	
-		FacesContext context = FacesContext.getCurrentInstance();
 		//類型
 		if(ConstantMethod.verifyColumn(dto.getType())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_TYPE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_TYPE);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
 		//日期區間-起
 		if(ConstantMethod.verifyColumn(dto.getStartDate().toString())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_START_DATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_START_DATE);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//日期區間-迄
 		if(ConstantMethod.verifyColumn(dto.getEndDate().toString())){
-			context.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, ConstantObject.INPUT_DATA, ConstantObject.WARN_MSG_INPUT_END_DATE));
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_END_DATE);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}	
 	}
 
