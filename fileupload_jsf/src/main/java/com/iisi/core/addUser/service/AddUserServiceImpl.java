@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 import com.iisi.api.addUser.AddUserService;
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
@@ -26,7 +27,7 @@ public class AddUserServiceImpl implements AddUserService{
 	private transient UserDataComponent userDataComponent;
 	
 	@Autowired
-	private transient DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	@Override
 	public void checkUser(AddUserDTO dto) {
@@ -51,7 +52,9 @@ public class AddUserServiceImpl implements AddUserService{
 			user.setRoleId(dto.getRoleId());
 			user.setCreateDate(DateUtils.getNowDate());
 			user.setCreateTime(DateUtils.getNowTime());			
-			dbFactory.insert(user);
+
+			DBSMain dbsMain = this.dbFactory.getDbsMain();
+			dbsMain.insert(user);
 			LOG.debug("============================AddUserServiceImpl doSave end!===============================");
 		}catch(FileSysException e){
 			e.printStackTrace();

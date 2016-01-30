@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.login.LoginService;
 import com.iisi.api.model.Role;
@@ -18,8 +17,8 @@ import com.iisi.api.model.User;
 public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
-	private DBFactory dbFactory;
-
+	private transient DbFactory dbFactory;
+	
 	@Override
 	public void queryUser(LoginDTO dto) {
 		StringBuilder sql = new StringBuilder();
@@ -27,8 +26,9 @@ public class LoginServiceImpl implements LoginService {
 
 		List<String> params = new ArrayList<String>();
 		params.add(dto.getUserId());
-		
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+				
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		List<User> users = (List<User>) dbsMain.query(params, sql.toString(), User.class);		
 		
 		if(users.size() == 0){
 			dto.setCheckLogin(false);
@@ -56,7 +56,8 @@ public class LoginServiceImpl implements LoginService {
 		System.out.println(sql.toString());
 		System.out.println("user Id = " + dto.getUserId());
 		
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		List<User> users = (List<User>) dbsMain.query(params, sql.toString(), User.class);
 		
 		if(users.size() == 0){
 			return null;
@@ -71,7 +72,10 @@ public class LoginServiceImpl implements LoginService {
 		sql.append("select * from role where roleid = ? ");
 		List<String> params = new ArrayList<String>();
 		params.add(role);
-		List<Role> roles = (List<Role>)dbFactory.query(params, sql.toString(), Role.class);
+	
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		List<Role> roles = (List<Role>)dbsMain.query(params, sql.toString(), Role.class);
+		
 		return roles.get(0);
 	}	
 

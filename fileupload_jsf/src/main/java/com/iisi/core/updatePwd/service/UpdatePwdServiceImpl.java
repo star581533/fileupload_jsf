@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UpdatePwdDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
@@ -27,7 +28,7 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 	private transient UserDataComponent userDataComponent;
 	
 	@Autowired
-	private transient DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	
 	@Override
@@ -41,7 +42,8 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 			if(users.size() != 0){
 				User user = users.get(0);
 				user.setUserPwd(SecurityUtils.getMD5(dto.getNewPassWord()));
-				dbFactory.update(user);
+				DBSMain dbsMain = dbFactory.getDbsMain();
+				dbsMain.update(user);
 			}
 			LOG.debug("============================UpdatePwdServiceImpl updatePassword end!===============================");
 		}catch(FileSysException e){

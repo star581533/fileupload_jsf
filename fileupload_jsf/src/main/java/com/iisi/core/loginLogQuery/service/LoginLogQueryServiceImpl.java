@@ -9,7 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.constant.ConstantMethod;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.loginLogQuery.LoginLogQueryService;
 import com.iisi.api.model.LoginLog;
@@ -21,9 +22,9 @@ import com.iisi.core.utils.DateUtils;
 
 @Service("loginLogQueryService")
 public class LoginLogQueryServiceImpl implements LoginLogQueryService {
-
+	
 	@Autowired
-	private DBFactory dbFactory;
+	private DbFactory dbFactory;
 	
 	private AbstractReport report;
 	
@@ -64,8 +65,12 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 			params.add(dto.getUserName());
 			operationContent.append("userName=").append(dto.getUserName());
 		}
+			
+		DBSMain dbsMain = dbFactory.getDbsMain();
 		
-		List<LoginLog> loginLogs = (List<LoginLog>)dbFactory.query(params, sql.toString(), LoginLog.class);
+		List<LoginLog> loginLogs = (List<LoginLog>) dbsMain.query(params, sql.toString(), LoginLog.class);
+		
+		System.out.println(loginLogs.size());
 		
 		dto.setLoginLogs(loginLogs);
 		

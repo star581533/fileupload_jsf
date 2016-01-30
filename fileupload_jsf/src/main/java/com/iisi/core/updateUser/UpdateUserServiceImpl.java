@@ -8,7 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UpdateUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
@@ -22,9 +23,9 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 	private transient UserDataComponent userDataComponent;
 	
 	private UpdateUserDTO dto;
-	
+		
 	@Autowired
-	private DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	@Override
 	public void doQuery(UpdateUserDTO dto) {
@@ -61,7 +62,9 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 		System.out.println("user.getOfficeId() = " + user.getOfficeId());
 		System.out.println("user.getState() = " + user.getState());
 		
-		dbFactory.update(user);
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		dbsMain.update(user);
+		
 	}
 	
 }

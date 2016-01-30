@@ -1,16 +1,14 @@
 package com.iisi.core.fileUpload.service;
 
-import javax.faces.bean.ManagedProperty;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.OperationLogComponent;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.fileUpload.FileUploadService;
 import com.iisi.api.model.FileData;
-import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
 import com.iisi.core.security.UserUtil;
 import com.iisi.core.utils.DateUtils;
@@ -19,11 +17,11 @@ import com.iisi.core.utils.DateUtils;
 public class FileUploadServiceImpl implements FileUploadService{
 
 	@Autowired
-	private DBFactory dbFactory;
-	
-	@Autowired
 	private OperationLogComponent operationLogComponent;
 			
+	@Autowired
+	private transient DbFactory dbFactory;
+	
 	@Override
 	public void doSave(FileUploadDTO dto) {
 		UserInfo user = UserUtil.getUser();		
@@ -48,7 +46,7 @@ public class FileUploadServiceImpl implements FileUploadService{
 		
 		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_UPLOAD, fileData.toString());
 		
-		
-		dbFactory.insert(fileData);
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		dbsMain.insert(fileData);
 	}
 }

@@ -8,7 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.constant.ConstantMethod;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.FileDeleteDTO;
 import com.iisi.api.fileDelete.FileDeleteService;
 import com.iisi.api.model.FileData;
@@ -16,9 +17,9 @@ import com.iisi.core.utils.DateUtils;
 
 @Service("fileDeleteService")
 public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
-
+	
 	@Autowired
-	private DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	@Override
 	public List<FileData> doQuery(FileDeleteDTO dto) {
@@ -57,8 +58,9 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 			sql.append("and government = ? ");
 			params.add(dto.getGovernment());
 		}
-		
-		List<FileData> files = (List<FileData>)dbFactory.query(params, sql.toString(), FileData.class);
+			
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		List<FileData> files = (List<FileData>)dbsMain.query(params, sql.toString(), FileData.class);
 		
 		return files;
 	}
@@ -66,7 +68,10 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 	@Override
 	public void doDelete(FileDeleteDTO dto) {
 		FileData file = dto.getFile();
-		dbFactory.delete(file);
+
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		dbsMain.delete(file);
+		
 	}
 
 }

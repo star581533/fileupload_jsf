@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.constant.ConstantMethod;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.OperationLogPrint;
@@ -36,7 +37,7 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	private static final Logger LOG = LoggerFactory.getLogger(OperationLogServiceImpl.class);	
 	
 	@Autowired
-	private DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	@Autowired
 	private OperationLogComponent operationLogComponent;
@@ -88,9 +89,10 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 			}
 			operationContent.append("type=").append(dto.getType()).append(",");
 		}
-				
-		List<OperationLog> operationLogs = (List<OperationLog>)dbFactory.query(params, 
-				sql.toString(), OperationLog.class);
+		
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		
+		List<OperationLog> operationLogs = (List<OperationLog>) dbsMain.query(params, sql.toString(), OperationLog.class);
 		
 		dto.setOperationLogs(operationLogs);
 		

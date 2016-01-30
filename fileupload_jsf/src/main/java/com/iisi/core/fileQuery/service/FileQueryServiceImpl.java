@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.constant.ConstantMethod;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.FileQueryDTO;
 import com.iisi.api.fileQuery.FileQueryService;
 import com.iisi.api.model.FileData;
@@ -24,11 +25,12 @@ public class FileQueryServiceImpl implements FileQueryService, Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	@Autowired
-	private DBFactory dbFactory;
+		
 	@Autowired
 	private OperationLogComponent operationLogComponent; 
+	
+	@Autowired
+	private transient DbFactory dbFactory;
 	
 	@Override
 	public List<FileData> getFileList(FileQueryDTO dto) {
@@ -82,8 +84,8 @@ public class FileQueryServiceImpl implements FileQueryService, Serializable {
 			content.append("subject=").append(dto.getSubject());
 		}
 				
-		
-		List<FileData> files = (List<FileData>) dbFactory.query(params, sql.toString(), FileData.class);
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		List<FileData> files = (List<FileData>) dbsMain.query(params, sql.toString(), FileData.class);
 		
 		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, content.toString());
 		

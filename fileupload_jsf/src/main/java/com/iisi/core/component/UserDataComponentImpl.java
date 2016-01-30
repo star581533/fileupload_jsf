@@ -8,16 +8,19 @@ import org.springframework.stereotype.Component;
 
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantMethod;
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.Role;
 import com.iisi.api.model.User;
 
 @Component("userDataComponent")
 public class UserDataComponentImpl implements UserDataComponent{
-
+	
 	@Autowired
-	private DBFactory dbFactory;
+	private transient DbFactory dbFactory;
+	
+	private DBSMain dbsMain;
 	
 	@Override
 	public List<User> queryOneUser(UserDTO dto){
@@ -27,7 +30,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		List<String> params = new ArrayList<String>();
 		params.add(dto.getUserId());
 		
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 	
 		return users;
 	}
@@ -53,7 +56,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 			params.add(dto.getState());
 		}
 		
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		return users;
 	}
 
@@ -68,7 +71,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 			params.add(dto.getState());
 		}	
 		System.out.println("query All User sql = " + sql.toString());
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		
 		return users;
 
@@ -79,7 +82,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from role");
 		
-		List<Role> roles = (List<Role>)dbFactory.query(new ArrayList<String>(), sql.toString(), Role.class);
+		List<Role> roles = (List<Role>)getDbsMain().query(new ArrayList<String>(), sql.toString(), Role.class);
 		return roles;
 	}
 
@@ -91,14 +94,14 @@ public class UserDataComponentImpl implements UserDataComponent{
 		List<String> params = new ArrayList<String>();
 		params.add(role);
 		
-		List<Role> roles = (List<Role>)dbFactory.query(params, sql.toString(), Role.class);
+		List<Role> roles = (List<Role>)getDbsMain().query(params, sql.toString(), Role.class);
 		return roles.get(0);
 	}
 
 
 	@Override
 	public void updateUserData(User user) {
-		dbFactory.update(user);
+		getDbsMain().update(user);
 	}
 
 
@@ -115,8 +118,15 @@ public class UserDataComponentImpl implements UserDataComponent{
 		System.out.println("officeId = " + dto.getOfficeId());
 		
 
-		List<User> users = (List<User>) dbFactory.query(params, sql.toString(), User.class);
+		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		return users;
+	}
+	
+	private DBSMain getDbsMain(){
+		if(null == dbsMain){
+			dbsMain = this.dbFactory.getDbsMain();	
+		}
+		return dbsMain;		
 	}
 
 }

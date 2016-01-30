@@ -3,18 +3,19 @@ package com.iisi.core.component;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.iisi.api.db.DBFactory;
+import com.iisi.api.component.OperationLogComponent;
+import com.iisi.api.db.DBSMain;
+import com.iisi.api.db.DbFactory;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
-import com.iisi.api.component.OperationLogComponent;
 import com.iisi.core.utils.DateUtils;
 
 @Component("operationLogComponent")
 public class OperationLogComponentImpl implements OperationLogComponent{
 
 	@Autowired
-	private DBFactory dbFactory;
+	private transient DbFactory dbFactory;
 	
 	@Autowired
 	private FileSysUtil fileSysUtil;
@@ -23,7 +24,9 @@ public class OperationLogComponentImpl implements OperationLogComponent{
 	public void insertOperationLog(OperationLog operationLog) {
 		operationLog.setLogDate(DateUtils.getNowDate());
 		operationLog.setLogTime(DateUtils.getNowTime());
-		dbFactory.insert(operationLog);
+
+		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		dbsMain.insert(operationLog);
 	}
 
 	@Override
