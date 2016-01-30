@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	>
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+	<title>歡迎光臨</title>
+	
+	<h:outputStylesheet library="css" name="default.css" target="head" />
+	
+	<script src="http://maps.google.com/maps/api/js?sensor=false"
+    type="text/javascript"></script>
+	
+</h:head>
+<f:view>
+	<h:body bgcolor="#FFFFFF" leftmargin="0" topmargin="0" marginwidth="0"
+		marginheight="0">
+		<!-- 
+		<p:growl id="growl2" showDetail="true" autoUpdate="false" sticky="false" escape="false" life="3000" />
+		 -->
+		<!-- document start -->
+		<table id="fuSystemTableForm">
+			<tr>
+				<td colspan="2" id="headerBanner">
+					<p:outputPanel>
+						<h:form id="headerForm" prependId="false">
+							<ui:include src="/WEB-INF/templates/header.xhtml" />
+						</h:form>
+					</p:outputPanel>
+				</td>
+			</tr>			
+			<tr>
+				<!-- menu tree -->
+				<td id="funewleft" valign="top">
+					<table>
+						
+					</table>
+				</td>
+				<!-- content -->	
+				<td id="funewcontent" valign="top">
+					<table width="100%">
+						<tr>
+							<td id="funewcontentForm">
+								<!-- 
+								enctype="multipart/form-data"，此作法放這是因為要讓檔案能夠上傳，好一點的方法應該是要放在上傳的那個作業中，就可不用寫在共同檔中
+								 -->
+								<h:form id="masterForm" prependId="false" enctype="multipart/form-data">
+									<ui:insert name="right" />
+								</h:form>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<ui:include src="/WEB-INF/templates/footer.xhtml" />
+							</td>
+						</tr>
+					</table>				
+				</td>			
+			</tr>		
+		</table>
+	</h:body>
+</f:view>
+</html>
