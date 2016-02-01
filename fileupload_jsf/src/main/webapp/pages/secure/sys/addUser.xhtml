@@ -26,7 +26,7 @@
 							     	<f:selectItem itemLabel="戶籍作業科" itemValue="005" />
 							     	<f:selectItem itemLabel="戶政人員培訓科" itemValue="006" />
 							     	<f:selectItem itemLabel="戶政司" itemValue="111" />
-							     	<p:ajax event="change" update="@form" />
+							     	<p:ajax event="change" update="@form" listener="#{addUserController.officeListener}"/>
 							    </p:selectOneMenu>	
 							</td>
 						</tr>

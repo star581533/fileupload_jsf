@@ -10,6 +10,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
@@ -22,7 +23,8 @@ import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.execption.FileSysException;
 
 @ManagedBean
-@RequestScoped
+//@RequestScoped
+@ViewScoped
 public class AddUserController implements Serializable {
 
 	/** */
@@ -35,9 +37,12 @@ public class AddUserController implements Serializable {
 	@ManagedProperty(value="#{addUserService}")
 	private AddUserService addUserService;
 	
+	private String tmpOfficeId;
+		
 	@PostConstruct
 	public void init(){	
 		dto = new AddUserDTO();
+		dto.setOfficeId("000");
 	}
 	
 	/**
@@ -86,14 +91,20 @@ public class AddUserController implements Serializable {
 	 * 檢查使用者帳號是否存在
 	 */
 	public void userDataListener(){
+		System.out.println("dto.getOfficeId() = " + dto.getOfficeId());
 		this.addUserService.checkUser(dto);		
 		if(dto.getUserCount() > 0){
 			dto.setUserConfirm("使用者帳號已存在");
 		}else{
 			dto.setUserConfirm("使用者帳號未使用");
 		}
+		dto.setOfficeId(getTmpOfficeId());
 	}
 
+	public void officeListener(){
+		this.setTmpOfficeId(dto.getOfficeId());
+	}
+	
 	public AddUserDTO getDto() {
 		return dto;
 	}
@@ -117,5 +128,14 @@ public class AddUserController implements Serializable {
 	public void setAddUserService(AddUserService addUserService) {
 		this.addUserService = addUserService;
 	}
+
+	public String getTmpOfficeId() {
+		return tmpOfficeId;
+	}
+
+	public void setTmpOfficeId(String tmpOfficeId) {
+		this.tmpOfficeId = tmpOfficeId;
+	}	
+	
 	
 }

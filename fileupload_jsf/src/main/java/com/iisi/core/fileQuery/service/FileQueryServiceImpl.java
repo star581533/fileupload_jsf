@@ -13,6 +13,7 @@ import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.FileQueryDTO;
+import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
 import com.iisi.api.model.FileData;
 import com.iisi.core.utils.DateUtils;
@@ -87,9 +88,21 @@ public class FileQueryServiceImpl implements FileQueryService, Serializable {
 		DBSMain dbsMain = this.dbFactory.getDbsMain();
 		List<FileData> files = (List<FileData>) dbsMain.query(params, sql.toString(), FileData.class);
 		
-		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, content.toString());
+//		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, content.toString());
+		this.insertLog(content.toString());
 		
 		return files;
+	}
+
+	@Override
+	public void insertLog(String str) {
+		try{
+			operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, str);			
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 	}
 
 }

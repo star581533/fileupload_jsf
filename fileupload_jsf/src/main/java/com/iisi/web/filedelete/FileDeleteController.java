@@ -80,6 +80,8 @@ public class FileDeleteController implements Serializable {
 	    if(result.exists()){
 		    InputStream stream;
 			try {
+				String log = "download imageId=" + data.getImageId() + ", fileName=" + fileName;
+				service.insertLog(log);
 				stream = new FileInputStream(result.getAbsolutePath());
 				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
 			} catch (FileNotFoundException e) {

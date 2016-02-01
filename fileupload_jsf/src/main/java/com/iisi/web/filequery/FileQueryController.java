@@ -113,6 +113,8 @@ public class FileQueryController implements Serializable {
 	    if(result.exists()){
 		    InputStream stream;
 			try {
+				String log = "download imageId=" + imageId + ", fileName=" + fileName;
+				fileQueryService.insertLog(log);
 				stream = new FileInputStream(result.getAbsolutePath());
 				file = new DefaultStreamedContent(stream, "image/jpg", fileName);
 			} catch (FileNotFoundException e) {
