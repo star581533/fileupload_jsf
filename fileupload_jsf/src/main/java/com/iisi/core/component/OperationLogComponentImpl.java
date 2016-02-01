@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
+import com.iisi.api.execption.FileSysException;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
@@ -25,8 +26,14 @@ public class OperationLogComponentImpl implements OperationLogComponent{
 		operationLog.setLogDate(DateUtils.getNowDate());
 		operationLog.setLogTime(DateUtils.getNowTime());
 
-		DBSMain dbsMain = this.dbFactory.getDbsMain();
-		dbsMain.insert(operationLog);
+		try{
+			DBSMain dbsMain = this.dbFactory.getDbsMain();
+			dbsMain.insert(operationLog);	
+		}catch(FileSysException e){
+			e.printStackTrace();
+		}catch(Exception e){
+			e.printStackTrace();
+		}		
 	}
 
 	@Override

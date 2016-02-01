@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.addUser.AddUserService;
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.db.DBSMain;
@@ -14,6 +15,7 @@ import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
+import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.core.security.SecurityUtils;
 import com.iisi.core.utils.DateUtils;
@@ -28,6 +30,9 @@ public class AddUserServiceImpl implements AddUserService{
 	
 	@Autowired
 	private transient DbFactory dbFactory;
+	
+	@Autowired
+	private OperationLogComponent operationLogComponent;
 	
 	@Override
 	public void checkUser(AddUserDTO dto) {
@@ -52,7 +57,9 @@ public class AddUserServiceImpl implements AddUserService{
 			user.setRoleId(dto.getRoleId());
 			user.setCreateDate(DateUtils.getNowDate());
 			user.setCreateTime(DateUtils.getNowTime());			
-
+			
+			operationLogComponent.insertOperationLog(OperationLogComponent.NEW_USER, user.toString());
+						
 			DBSMain dbsMain = this.dbFactory.getDbsMain();
 			dbsMain.insert(user);
 			LOG.debug("============================AddUserServiceImpl doSave end!===============================");

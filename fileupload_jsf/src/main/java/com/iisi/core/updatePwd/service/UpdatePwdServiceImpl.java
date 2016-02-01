@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
@@ -15,6 +16,7 @@ import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UpdatePwdDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
+import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.api.updatePwd.UpdatePwdService;
 import com.iisi.core.security.SecurityUtils;
@@ -30,6 +32,9 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 	@Autowired
 	private transient DbFactory dbFactory;
 	
+	@Autowired
+	private OperationLogComponent operationLogComponent;
+	
 	
 	@Override
 	public void updatePassword(UpdatePwdDTO dto) {		
@@ -42,6 +47,9 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 			if(users.size() != 0){
 				User user = users.get(0);
 				user.setUserPwd(SecurityUtils.getMD5(dto.getNewPassWord()));
+				
+				operationLogComponent.insertOperationLog(OperationLogComponent.PASSWORD_MODIFY, "update passwrd");
+				
 				DBSMain dbsMain = dbFactory.getDbsMain();
 				dbsMain.update(user);
 			}

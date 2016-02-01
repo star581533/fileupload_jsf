@@ -144,15 +144,15 @@ public class User implements Serializable{
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("createDate = ").append(this.createDate).append(", ");
-		sb.append("createTime = ").append(this.createTime).append(", ");
-		sb.append("loginFail = ").append(this.loginFail).append(", ");
-		sb.append("officeId = ").append(this.officeId).append(", ");
-		sb.append("roleId = ").append(this.roleId).append(", ");
-		sb.append("state = ").append(this.state).append(", ");
-		sb.append("userId = ").append(this.userId).append(", ");
-		sb.append("userName = ").append(this.userName).append(", ");
-		sb.append("userPwd = ").append(this.userPwd);
+		sb.append("createDate=").append(this.createDate).append(",");
+		sb.append("createTime=").append(this.createTime).append(",");
+		sb.append("loginFail=").append(this.loginFail).append(",");
+		sb.append("officeId=").append(this.officeId).append(",");
+		sb.append("roleId=").append(this.roleId).append(",");
+		sb.append("state=").append(this.state).append(",");
+		sb.append("userId=").append(this.userId).append(",");
+		sb.append("userName=").append(this.userName).append(",");
+		sb.append("userPwd=").append(this.userPwd);
 		return sb.toString();
 	}
 }

@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
@@ -26,6 +27,9 @@ public class QueryUserServiceImpl implements QueryUserService, Serializable {
 	@Autowired
 	private transient UserDataComponent userDataComponent;
 	
+	@Autowired
+	private OperationLogComponent operationLogcomponent;
+	
 	@Override
 	public List<User> getUserList(QueryUserDTO dto) {
 		List<User> users = new ArrayList<User>();
@@ -41,7 +45,14 @@ public class QueryUserServiceImpl implements QueryUserService, Serializable {
 			userDto.setOfficeId(dto.getOfficeId());
 			userDto.setState(dto.getState());
 			users = userDataComponent.queryOfficeUsers(userDto);
-		}	
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("officeId=").append(dto.getOfficeId()).append(",");
+		sb.append("state=").append(dto.getState()).append(",");
+		
+		operationLogcomponent.insertOperationLog(OperationLogComponent.ACCOUNT_QUERY, sb.toString());
+		
 		return users;
 	}
 
