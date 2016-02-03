@@ -10,8 +10,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Inject;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -19,17 +17,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.iisi.api.component.UserDataComponent;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginDTO;
 import com.iisi.api.execption.FileSysException;
+import com.iisi.api.loginout.LoginOutService;
 import com.iisi.api.menu.MenuService;
-import com.iisi.api.model.User;
-import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
 import com.iisi.core.security.SecurityUtils;
 
@@ -54,11 +48,12 @@ public class LoginController implements Serializable{
 	
 	@ManagedProperty(value="#{authenticationManager}")
 	private AuthenticationManager authenticationManager = null;
-	
-	private FacesContext context = null;
-		
+			
 	@Autowired
 	private transient UserDataComponent userDataComponent;
+	
+	@ManagedProperty(value="#{loginOutService}")
+	private LoginOutService loginOutService;
 	
 	@PostConstruct
 	public void init(){
@@ -70,7 +65,6 @@ public class LoginController implements Serializable{
 	 * @throws FileUploadException 
 	 */
 	public void verify() {
-		context = FacesContext.getCurrentInstance();
 		//檢核使用者帳號
 		if(null == dto.getUserId() || dto.getUserId().length() == 0){
 			throw new FileSysException("W", ConstantObject.WARN_MSG_INPUT_USER_ID);
@@ -90,7 +84,10 @@ public class LoginController implements Serializable{
 			this.verify();
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
-			SecurityContextHolder.getContext().setAuthentication(result);								
+			SecurityContextHolder.getContext().setAuthentication(result);	
+			
+			UserInfo userInfo = (UserInfo)result.getPrincipal();
+			loginOutService.insertLoginOut(userInfo, ConstantObject.UPPER_CASE_I);
 		}catch(AuthenticationException e){			
 			this.handleException(e);
 			return "";		
@@ -174,5 +171,14 @@ public class LoginController implements Serializable{
 
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
-	}	
+	}
+
+	public LoginOutService getLoginOutService() {
+		return loginOutService;
+	}
+
+	public void setLoginOutService(LoginOutService loginOutService) {
+		this.loginOutService = loginOutService;
+	}
+	
 }

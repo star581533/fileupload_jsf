@@ -96,26 +96,28 @@
 						paginator="true"
 						rowsPerPageTemplate="5,10,15"
 						style="text-align:center">
-						<p:column headerText="作業日期">
+						<p:column headerText="作業日期" style="width:100px">
 							<h:outputText value="#{operationLog.logDateForm}" />
 						</p:column>
-						<p:column headerText="作業時間">
+						<p:column headerText="作業時間" style="width:100px">
 							<h:outputText value="#{operationLog.logTimeForm}" />
 						</p:column>
-						<p:column headerText="使用者帳號">
+						<p:column headerText="使用者帳號" style="width:100px">
 							<h:outputText value="#{operationLog.userId}" />
 						</p:column>
-						<p:column headerText="使用者姓名">
+						<p:column headerText="使用者姓名" style="width:100px">
 							<h:outputText value="#{operationLog.userName}" />
 						</p:column>
-						<p:column headerText="科別">
+						<p:column headerText="科別" style="width:100px">
 							<h:outputText value="#{operationLog.officeName}" />
 						</p:column>
-						<p:column headerText="作業名稱">
+						<p:column headerText="作業名稱" style="width:100px">
 							<h:outputText value="#{operationLog.typeName}" />
 						</p:column>
-						<p:column headerText="作業內容" style="text-align:left">
-							<h:outputText value="#{operationLog.operationContent}" />
+						<p:column headerText="作業內容" >
+							<div align="left">
+								<h:outputText value="#{operationLog.operationContent}" />
+							</div>							
 						</p:column>					
 					</p:dataTable>
 				</p:fieldset>

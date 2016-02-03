@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.model.LoginLog;
+import com.iisi.api.security.UserInfo;
 
 public interface LoginLogQueryService {
 
@@ -24,4 +25,5 @@ public interface LoginLogQueryService {
 	 * @param dto
 	 */
 	public void doPrintXls(LoginLogQueryDTO dto);
+	
 }

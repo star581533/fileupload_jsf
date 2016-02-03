@@ -70,8 +70,7 @@ public class QueryUserController implements Serializable{
 		
 	public void queryButton(){
 		try{
-			System.out.println("queryButton");
-			
+		
 			this.verifyData();
 			
 			dto.setUsers(queryUserService.getUserList(dto));
