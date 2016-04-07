@@ -20,6 +20,7 @@ import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.api.updatePwd.UpdatePwdService;
 import com.iisi.core.security.SecurityUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("updatePwdService")
 public class UpdatePwdServiceImpl implements UpdatePwdService{
@@ -48,7 +49,8 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 				User user = users.get(0);
 				user.setUserPwd(SecurityUtils.getMD5(dto.getNewPassWord()));
 				
-				operationLogComponent.insertOperationLog(OperationLogComponent.PASSWORD_MODIFY, "update passwrd");
+				EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+				operationLogComponent.insertOperationLog(code.getValue(), "update passwrd");
 				
 				DBSMain dbsMain = dbFactory.getDbsMain();
 				dbsMain.update(user);

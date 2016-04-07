@@ -12,6 +12,7 @@ import com.iisi.api.model.FileData;
 import com.iisi.api.security.UserInfo;
 import com.iisi.core.security.UserUtil;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("fileUploadService")
 public class FileUploadServiceImpl implements FileUploadService{
@@ -44,7 +45,8 @@ public class FileUploadServiceImpl implements FileUploadService{
 		fileData.setUserId(user.getUserId());
 		fileData.setUserName(user.getUserName());
 		
-		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_UPLOAD, fileData.toString());
+		EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+		operationLogComponent.insertOperationLog(code.getValue(), fileData.toString());
 		
 		DBSMain dbsMain = this.dbFactory.getDbsMain();
 		dbsMain.insert(fileData);

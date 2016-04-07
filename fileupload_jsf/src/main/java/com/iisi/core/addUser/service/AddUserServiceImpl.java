@@ -19,6 +19,7 @@ import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.core.security.SecurityUtils;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("addUserService")
 public class AddUserServiceImpl implements AddUserService{
@@ -58,7 +59,8 @@ public class AddUserServiceImpl implements AddUserService{
 			user.setCreateDate(DateUtils.getNowDate());
 			user.setCreateTime(DateUtils.getNowTime());			
 			
-			operationLogComponent.insertOperationLog(OperationLogComponent.NEW_USER, user.toString());
+			EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+			operationLogComponent.insertOperationLog(code.getValue(), user.toString());
 						
 			DBSMain dbsMain = this.dbFactory.getDbsMain();
 			dbsMain.insert(user);

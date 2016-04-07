@@ -15,6 +15,7 @@ import com.iisi.api.domain.QueryUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.model.User;
 import com.iisi.api.queryUser.QueryUserService;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("queryUserService")
 public class QueryUserServiceImpl implements QueryUserService, Serializable {
@@ -51,7 +52,8 @@ public class QueryUserServiceImpl implements QueryUserService, Serializable {
 		sb.append("officeId=").append(dto.getOfficeId()).append(",");
 		sb.append("state=").append(dto.getState()).append(",");
 		
-		operationLogcomponent.insertOperationLog(OperationLogComponent.ACCOUNT_QUERY, sb.toString());
+		EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+		operationLogcomponent.insertOperationLog(code.getValue(), sb.toString());
 		
 		return users;
 	}

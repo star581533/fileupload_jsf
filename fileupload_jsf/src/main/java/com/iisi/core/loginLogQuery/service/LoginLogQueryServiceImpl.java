@@ -19,6 +19,7 @@ import com.iisi.api.report.AbstractReport;
 import com.iisi.core.report.PdfReport;
 import com.iisi.core.report.XlsReport;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("loginLogQueryService")
 public class LoginLogQueryServiceImpl implements LoginLogQueryService {
@@ -30,6 +31,21 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 	
 	@Autowired
 	private OperationLogComponent operationComponent;
+	
+	public LoginLogQueryServiceImpl(){
+		System.out.println(this.getClass().getSimpleName());
+		
+		
+		
+		EnumOperationCode code =EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+		System.out.println(code.getValue());
+		
+
+	}
+	
+	public static void main(String args[]){
+		LoginLogQueryServiceImpl impl = new LoginLogQueryServiceImpl();
+	}
 	
 	
 	@Override
@@ -76,7 +92,8 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 		
 		this.setLoginLogPrint(dto);
 		
-		operationComponent.insertOperationLog("LQ", operationContent.toString());
+		EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());		
+		operationComponent.insertOperationLog(code.getValue(), operationContent.toString());
 	}
 	
 	private void setLoginLogPrint(LoginLogQueryDTO dto){

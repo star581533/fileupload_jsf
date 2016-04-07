@@ -89,8 +89,10 @@ public class LoginController implements Serializable{
 			UserInfo userInfo = (UserInfo)result.getPrincipal();
 			loginOutService.insertLoginOut(userInfo, ConstantObject.UPPER_CASE_I);
 		}catch(AuthenticationException e){			
-			this.handleException(e);
-			return "";		
+//			this.handleException(e);
+			throw new FileSysException(e);
+//			throw new FileSysException(ConstantObject.UPPER_CASE_E, ConstantObject.ERROR_USER_LOGIN);
+//			return "";		
 		}catch(FileSysException e){
 			e.printStackTrace();
 			return "";

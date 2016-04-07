@@ -21,10 +21,8 @@ public class FileSysException extends RuntimeException {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+		
 	
-//	public FileSysException(FileSysException e){
-//		
-//	}
 	
 	public FileSysException(String message){
 		super(genExceptionMessage(message, null));
@@ -62,14 +60,7 @@ public class FileSysException extends RuntimeException {
 	}
 	
 	private static void setMessage(String title, String msg){	
-//		try{
-//			System.out.println("--------growl start");
-////			FieldUtils.writeDeclaredField("aa", "message",  "bb", true);
-//			System.out.println("--------growl end");
-//		}catch(Exception e){
-//			e.printStackTrace();
-//		}
-		
+
 		Severity severity = null;
 		
 		System.out.println("title = " + title);

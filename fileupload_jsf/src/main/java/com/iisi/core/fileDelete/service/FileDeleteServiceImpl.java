@@ -16,6 +16,7 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileDelete.FileDeleteService;
 import com.iisi.api.model.FileData;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Service("fileDeleteService")
 public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
@@ -99,7 +100,8 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 	@Override
 	public void insertLog(String str) {
 		try{
-			operationLogComponent.insertOperationLog(OperationLogComponent.FILE_DELETE, str);
+			EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+			operationLogComponent.insertOperationLog(code.getValue(), str);
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){

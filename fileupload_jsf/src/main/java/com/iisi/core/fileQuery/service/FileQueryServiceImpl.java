@@ -17,6 +17,7 @@ import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileQuery.FileQueryService;
 import com.iisi.api.model.FileData;
 import com.iisi.core.utils.DateUtils;
+import com.iisi.core.utils.EnumOperationCode;
 
 @Component
 @Service("fileQueryService")
@@ -97,7 +98,8 @@ public class FileQueryServiceImpl implements FileQueryService, Serializable {
 	@Override
 	public void insertLog(String str) {
 		try{
-			operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, str);			
+			EnumOperationCode code = EnumOperationCode.getCodeName(this.getClass().getSimpleName());
+			operationLogComponent.insertOperationLog(code.getValue(), str);			
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){
