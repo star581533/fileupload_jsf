@@ -8,9 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.iisi.api.constant.ConstantMethod;
-import com.iisi.core.utils.FileSysUtils;
-
 @IdClass(OperationLogPK.class)
 @Entity
 @Table(name="operationlog")

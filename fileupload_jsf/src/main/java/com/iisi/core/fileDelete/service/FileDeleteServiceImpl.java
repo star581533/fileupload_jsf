@@ -21,6 +21,11 @@ import com.iisi.core.utils.EnumOperationCode;
 @Service("fileDeleteService")
 public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Autowired
 	private transient DbFactory dbFactory;
 	
@@ -80,6 +85,8 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 		}
 			
 		DBSMain dbsMain = this.dbFactory.getDbsMain();
+		
+		@SuppressWarnings("unchecked")
 		List<FileData> files = (List<FileData>)dbsMain.query(params, sql.toString(), FileData.class);
 		
 		this.insertLog(content.toString());

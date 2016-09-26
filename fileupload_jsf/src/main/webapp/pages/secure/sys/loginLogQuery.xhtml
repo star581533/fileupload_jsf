@@ -72,7 +72,7 @@
 				</p:fieldset>
 				<p:fieldset legend="" id="resultTable" rendered="#{loginLogQueryController.dto.loginLogPrints != null}">
 					<c:if test="#{fn:length(loginLogQueryController.dto.loginLogPrints) > 0}">
-						<table align="center">
+						<table style="align:center" >
 							<tr>
 								<td>
 									<p:commandButton value="列印PDF" action="#{loginLogQueryController.doPrint}" ajax="false" />

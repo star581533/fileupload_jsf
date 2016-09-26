@@ -21,9 +21,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 
 	@Autowired
 	private transient UserDataComponent userDataComponent;
-	
-	private UpdateUserDTO dto;
-		
+			
 	@Autowired
 	private transient DbFactory dbFactory;
 	

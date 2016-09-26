@@ -62,9 +62,9 @@ public class OperationLogPK implements Serializable{
 			return false;
 		}
 		
-		if(obj == null){
-			return false;
-		}
+//		if(obj == null){
+//			return false;
+//		}
 		
 		OperationLogPK pk = (OperationLogPK) obj;
 				

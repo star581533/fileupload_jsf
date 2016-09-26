@@ -100,7 +100,8 @@ public class LoginController implements Serializable{
 //			throw new FileSysException(ConstantObject.ERROR_USER_LOGIN);
 			this.handleException(e);
 		}
-		return MenuService.INDEX;
+//		return MenuService.INDEX;
+		return MenuService.lookupMenuPage(MenuService.INDEX);
 	}
 	
 	/**

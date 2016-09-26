@@ -1,6 +1,8 @@
 package com.iisi.api.domain;
 
-public class FileOutputDTO {
+import java.io.Serializable;
+
+public class FileOutputDTO implements Serializable{
 	
 	/**
 	 * 

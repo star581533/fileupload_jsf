@@ -43,9 +43,9 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 
 	}
 	
-	public static void main(String args[]){
-		LoginLogQueryServiceImpl impl = new LoginLogQueryServiceImpl();
-	}
+//	public static void main(String args[]){
+//		LoginLogQueryServiceImpl impl = new LoginLogQueryServiceImpl();
+//	}
 	
 	
 	@Override
@@ -84,6 +84,7 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 			
 		DBSMain dbsMain = dbFactory.getDbsMain();
 		
+		@SuppressWarnings("unchecked")
 		List<LoginLog> loginLogs = (List<LoginLog>) dbsMain.query(params, sql.toString(), LoginLog.class);
 		
 		System.out.println(loginLogs.size());
@@ -117,13 +118,13 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 	@Override
 	public void doPrintPdf(LoginLogQueryDTO dto) {
 		report = new PdfReport();
-		report.print(dto.getLoginLogPrints(), dto.getReportPath(), "LoginLog.pdf", new HashMap());		
+		report.print(dto.getLoginLogPrints(), dto.getReportPath(), "LoginLog.pdf", new HashMap<String, Object>());		
 	}
 
 	@Override
 	public void doPrintXls(LoginLogQueryDTO dto) {
 		report = new XlsReport();
-		report.print(dto.getLoginLogPrints(), dto.getReportPath(), "LoginLog.xls", new HashMap());
+		report.print(dto.getLoginLogPrints(), dto.getReportPath(), "LoginLog.xls", new HashMap<String, Object>());
 	}
 
 }

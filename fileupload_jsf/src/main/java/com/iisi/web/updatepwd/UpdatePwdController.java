@@ -8,10 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 
-
 import javax.faces.context.FacesContext;
 
-import org.springframework.beans.factory.annotation.Autowired;
 
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
@@ -21,7 +19,6 @@ import com.iisi.api.menu.MenuService;
 import com.iisi.api.security.FileSysUtil;
 import com.iisi.api.security.UserInfo;
 import com.iisi.api.updatePwd.UpdatePwdService;
-import com.iisi.core.security.UserUtil;
 
 
 
@@ -51,7 +48,8 @@ public class UpdatePwdController implements Serializable {
 	
 	public String error(){
 		System.out.println("error");
-		return MenuService.LOGIN;
+//		return MenuService.LOGIN;
+		return MenuService.lookupMenuPage(MenuService.LOGIN);
 	}
 	
 	public void saveData(){

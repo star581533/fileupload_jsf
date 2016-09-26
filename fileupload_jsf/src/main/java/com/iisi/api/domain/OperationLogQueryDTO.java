@@ -38,9 +38,9 @@ public class OperationLogQueryDTO implements Serializable {
 	
 	private ArrayList<OperationLogPrint> printLogs;
 	
-	private String dateStart;
-	
-	private String dateEnd;
+//	private String dateStart;
+//	
+//	private String dateEnd;
 	
 	private String type;
 	
@@ -113,20 +113,20 @@ public class OperationLogQueryDTO implements Serializable {
 	}
 	
 	public String getDateStart() {
-		return sf.format(startDate);
+		return sf.format(this.startDate);
 	}
 
-	public void setDateStart(String dateStart) {
-		this.dateStart = dateStart;
-	}
+//	public void setDateStart(String dateStart) {
+//		this.dateStart = dateStart;
+//	}
 
 	public String getDateEnd() {
 		return sf.format(endDate);
 	}
 
-	public void setDateEnd(String dateEnd) {
-		this.dateEnd = dateEnd;
-	}
+//	public void setDateEnd(String dateEnd) {
+//		this.dateEnd = dateEnd;
+//	}
 	
 	public String getType() {
 		return type;

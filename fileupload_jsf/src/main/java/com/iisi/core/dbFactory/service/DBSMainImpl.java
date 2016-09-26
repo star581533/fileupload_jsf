@@ -58,7 +58,7 @@ public class DBSMainImpl implements DBSMain{
 	@Transactional
 	public <T> void insert(T t){
 		try{
-			Class entityClass = t.getClass();
+			Class<? extends Object> entityClass = t.getClass();
 			String tableName = entityClass.getName();
 			System.out.println("tableName = " + tableName);
 			System.out.println("t.toString = " + t.toString());

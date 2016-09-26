@@ -17,15 +17,9 @@ import java.io.Serializable;
 
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.CustomScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.NoneScoped;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
 
 
@@ -33,13 +27,9 @@ import javax.faces.event.ActionEvent;
 
 
 
-
-import javax.inject.Inject;
-
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.QueryUserDTO;
-import com.iisi.api.domain.UserDataDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.menu.MenuService;
 import com.iisi.api.model.User;

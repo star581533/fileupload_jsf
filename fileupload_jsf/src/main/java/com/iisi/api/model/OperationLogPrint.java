@@ -5,9 +5,14 @@ import com.iisi.core.utils.FileSysUtils;
 
 public class OperationLogPrint extends OperationLog{
 
-	private String logDateForm;
-	
-	private String logTimeForm;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+//	private String logDateForm;
+//	
+//	private String logTimeForm;
 	
 	private String officeName;
 	
@@ -17,17 +22,17 @@ public class OperationLogPrint extends OperationLog{
 		return FileSysUtils.formatYyymmdd(this.getLogDate());
 	}
 
-	public void setLogDateForm(String logDateForm) {
-		this.logDateForm = logDateForm;
-	}
+//	public void setLogDateForm(String logDateForm) {
+//		this.logDateForm = logDateForm;
+//	}
 
 	public String getLogTimeForm() {
 		return FileSysUtils.formatHhmmss(this.getLogTime());
 	}
 
-	public void setLogTimeForm(String logTimeForm) {
-		this.logTimeForm = logTimeForm;
-	}
+//	public void setLogTimeForm(String logTimeForm) {
+//		this.logTimeForm = logTimeForm;
+//	}
 
 	public String getOfficeName() {
 		if(!ConstantMethod.verifyColumn(this.getOfficeId())){

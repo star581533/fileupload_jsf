@@ -12,17 +12,17 @@ public class DateUtils {
 	private static int rocYyy;
 	
 	
-	public static boolean startDateAfterEndDate(String startDate, String endDate){
-		boolean rtnBool = false;
-		final Date start = null;
-		final Date end = null;
-		
-		if(start.after(end)){
-			rtnBool = true;
-		}
-		
-		return rtnBool;
-	}
+//	public static boolean startDateAfterEndDate(String startDate, String endDate){
+//		boolean rtnBool = false;
+//		final Date start = null;
+//		final Date end = null;
+//		
+//		if(start.after(end)){
+//			rtnBool = true;
+//		}
+//		
+//		return rtnBool;
+//	}
 	
 	/**
 	 * 西元日期轉民國日期

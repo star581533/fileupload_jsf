@@ -42,9 +42,9 @@ public class LoginLogPrint {
 	
 	private String inOutMarkName;
 	
-	private String loginDateForm;
-	
-	private String loginTimeForm;
+//	private String loginDateForm;
+//	
+//	private String loginTimeForm;
 	
 	private String officeName;
 
@@ -123,17 +123,17 @@ public class LoginLogPrint {
 		return FileSysUtils.formatYyymmdd(loginDate);
 	}
 
-	public void setLoginDateForm(String loginDateForm) {
-		this.loginDateForm = loginDateForm;
-	}
+//	public void setLoginDateForm(String loginDateForm) {
+//		this.loginDateForm = loginDateForm;
+//	}
 
 	public String getLoginTimeForm() {
 		return FileSysUtils.formatHhmmss(loginTime);
 	}
 
-	public void setLoginTimeForm(String loginTimeForm) {
-		this.loginTimeForm = loginTimeForm;
-	}
+//	public void setLoginTimeForm(String loginTimeForm) {
+//		this.loginTimeForm = loginTimeForm;
+//	}
 
 	public String getOfficeName() {
 		if(!ConstantMethod.verifyColumn(officeId)){

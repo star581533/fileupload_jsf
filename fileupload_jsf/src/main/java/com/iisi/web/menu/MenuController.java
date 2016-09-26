@@ -78,43 +78,43 @@ public class MenuController {
 	}
 	
 	public String addUser(){
-		return MenuService.ADD_USER;
+		return MenuService.lookupMenuPage(MenuService.ADD_USER);
 	}
 	
 	public String fileDelete(){
-		return MenuService.FILE_DELETE;
+		return MenuService.lookupMenuPage(MenuService.FILE_DELETE);
 	}
 	
 	public String fileQuery(){
-		return MenuService.FILE_QUERY;
+		return MenuService.lookupMenuPage(MenuService.FILE_QUERY);
 	}
 	
 	public String fileUpload(){
-		return MenuService.FILE_UP_LOAD;
+		return MenuService.lookupMenuPage(MenuService.FILE_UP_LOAD);
 	}
 	
 	public String loginLogQuery(){
-		return MenuService.LOGIN_LOG_QUERY;
+		return MenuService.lookupMenuPage(MenuService.LOGIN_LOG_QUERY);
 	}
 	
 	public String operationLogQuery(){
-		return MenuService.OPERATION_LOG_QUERY;
+		return MenuService.lookupMenuPage(MenuService.OPERATION_LOG_QUERY);
 	}
 	
 	public String queryUser(){
-		return MenuService.QUERY_USER;
+		return MenuService.lookupMenuPage(MenuService.QUERY_USER);
 	}
 	
 	public String updatePwd(){
-		return MenuService.UPDATE_PWD;
+		return MenuService.lookupMenuPage(MenuService.UPDATE_PWD);
 	}
 	
 	public String updateUser(){
-		return MenuService.UPDATE_USER;
+		return MenuService.lookupMenuPage(MenuService.UPDATE_USER);
 	}
 	
 	public String login(){
-		return MenuService.LOGIN;
+		return MenuService.lookupMenuPage(MenuService.LOGIN);
 	}
 	
 	public MenuModel getModel() {

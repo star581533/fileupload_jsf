@@ -14,6 +14,11 @@ import javax.persistence.Table;
 public class User implements Serializable{
 	
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * 建立日期
 	 */
 	private String createDate;

@@ -16,7 +16,6 @@ import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UpdatePwdDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
-import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.api.updatePwd.UpdatePwdService;
 import com.iisi.core.security.SecurityUtils;

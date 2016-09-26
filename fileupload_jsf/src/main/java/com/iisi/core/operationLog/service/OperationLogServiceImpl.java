@@ -2,7 +2,6 @@ package com.iisi.core.operationLog.service;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -92,6 +91,7 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		
 		DBSMain dbsMain = this.dbFactory.getDbsMain();
 		
+		@SuppressWarnings("unchecked")
 		List<OperationLog> operationLogs = (List<OperationLog>) dbsMain.query(params, sql.toString(), OperationLog.class);
 		
 		dto.setOperationLogs(operationLogs);
@@ -137,13 +137,13 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	@Override
 	public void doPrintPdf(OperationLogQueryDTO dto) {
 		report = new PdfReport();
-		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.pdf", new HashMap());
+		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.pdf", new HashMap<String, Object>());
 	}
 
 	@Override
 	public void doPrintXls(OperationLogQueryDTO dto) {
 		report = new XlsReport();
-		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.xls", new HashMap());
+		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.xls", new HashMap<String, Object>());
 	}
 	
 	

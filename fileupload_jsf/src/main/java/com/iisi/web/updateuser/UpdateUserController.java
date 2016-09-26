@@ -16,7 +16,6 @@ import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.UpdateUserDTO;
 import com.iisi.api.updateUser.UpdateUserService;
 import com.iisi.core.utils.FileSysUtils;
-import com.iisi.core.utils.PropertiesContent;
 
 
 @ManagedBean

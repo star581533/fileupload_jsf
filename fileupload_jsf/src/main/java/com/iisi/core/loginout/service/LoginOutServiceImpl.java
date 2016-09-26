@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.LoginLogComponent;
-import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.loginout.LoginOutService;
 import com.iisi.api.security.UserInfo;
 

@@ -8,8 +8,6 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.iisi.core.utils.FileSysUtils;
-
 @IdClass(LoginLogPK.class)
 @Entity
 @Table(name="loginlog")

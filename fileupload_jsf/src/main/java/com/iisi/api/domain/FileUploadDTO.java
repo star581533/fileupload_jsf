@@ -5,7 +5,6 @@ import java.util.Date;
 
 import org.primefaces.model.UploadedFile;
 
-import com.iisi.api.model.FileData;
 import com.iisi.api.model.User;
 
 public class FileUploadDTO implements Serializable  {

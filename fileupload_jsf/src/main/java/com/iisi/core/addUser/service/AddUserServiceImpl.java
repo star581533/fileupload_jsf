@@ -15,7 +15,6 @@ import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.domain.UserDTO;
 import com.iisi.api.execption.FileSysException;
-import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.User;
 import com.iisi.core.security.SecurityUtils;
 import com.iisi.core.utils.DateUtils;

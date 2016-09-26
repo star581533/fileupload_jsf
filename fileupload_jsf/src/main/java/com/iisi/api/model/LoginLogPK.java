@@ -4,6 +4,11 @@ import java.io.Serializable;
 
 public class LoginLogPK implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private String loginDate;
 	
 	private String loginTime;
@@ -57,9 +62,9 @@ public class LoginLogPK implements Serializable{
 			return false;
 		}
 		
-		if(obj == null){
-			return false;
-		}
+//		if(obj == null){
+//			return false;
+//		}
 		
 		LoginLogPK pk = (LoginLogPK) obj;
 				

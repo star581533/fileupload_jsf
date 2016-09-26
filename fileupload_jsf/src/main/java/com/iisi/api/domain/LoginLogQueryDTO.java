@@ -30,9 +30,9 @@ public class LoginLogQueryDTO implements Serializable {
 	
 	private String userName;
 	
-	private String dateStart;
-	
-	private String dateEnd;
+//	private String dateStart;
+//	
+//	private String dateEnd;
 	
 	private String reportPath;
 	
@@ -110,17 +110,17 @@ public class LoginLogQueryDTO implements Serializable {
 		return sf.format(startDate);
 	}
 
-	public void setDateStart(String dateStart) {
-		this.dateStart = dateStart;
-	}
+//	public void setDateStart(String dateStart) {
+//		this.dateStart = dateStart;
+//	}
 
 	public String getDateEnd() {
 		return sf.format(endDate);
 	}
 
-	public void setDateEnd(String dateEnd) {
-		this.dateEnd = dateEnd;
-	}
+//	public void setDateEnd(String dateEnd) {
+//		this.dateEnd = dateEnd;
+//	}
 	
 	public String getReportPath() {
 		return reportPath;

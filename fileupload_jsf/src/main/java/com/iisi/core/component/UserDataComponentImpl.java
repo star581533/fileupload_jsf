@@ -30,6 +30,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		List<String> params = new ArrayList<String>();
 		params.add(dto.getUserId());
 		
+		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 	
 		return users;
@@ -56,6 +57,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 			params.add(dto.getState());
 		}
 		
+		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		return users;
 	}
@@ -71,6 +73,8 @@ public class UserDataComponentImpl implements UserDataComponent{
 			params.add(dto.getState());
 		}	
 		System.out.println("query All User sql = " + sql.toString());
+		
+		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		
 		return users;
@@ -82,6 +86,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from role");
 		
+		@SuppressWarnings("unchecked")
 		List<Role> roles = (List<Role>)getDbsMain().query(new ArrayList<String>(), sql.toString(), Role.class);
 		return roles;
 	}
@@ -94,6 +99,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		List<String> params = new ArrayList<String>();
 		params.add(role);
 		
+		@SuppressWarnings("unchecked")
 		List<Role> roles = (List<Role>)getDbsMain().query(params, sql.toString(), Role.class);
 		return roles.get(0);
 	}
@@ -117,7 +123,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		System.out.println("userId = " + dto.getUserId());
 		System.out.println("officeId = " + dto.getOfficeId());
 		
-
+		@SuppressWarnings("unchecked")
 		List<User> users = (List<User>) getDbsMain().query(params, sql.toString(), User.class);
 		return users;
 	}
