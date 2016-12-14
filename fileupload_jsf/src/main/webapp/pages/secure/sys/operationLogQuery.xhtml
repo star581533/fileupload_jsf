@@ -83,7 +83,7 @@
 				</p:fieldset>
 				<p:fieldset id="resultList" legend="" rendered="#{operationLogQueryController.dto.operationLogPrints != null}">
 					<c:if test="#{fn:length(operationLogQueryController.dto.operationLogPrints) > 0}">
-						<table align="center">
+						<table style="align:center" >
 							<tr>
 								<td>
 									<p:commandButton value="列印PDF" action="#{operationLogQueryController.doPrintPdf}" ajax="false" />

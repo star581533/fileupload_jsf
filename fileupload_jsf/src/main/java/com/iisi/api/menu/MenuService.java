@@ -4,7 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public enum MenuService {
 
-	ADD_USER("secure/work", "addUser.xhtml"), //
+	ADD_USER("secure/sys", "addUser.xhtml"), //
 	FILE_DELETE("secure/work", "fileDelete.xhtml"), //
 	FILE_QUERY("secure/work", "fileQuery.xhtml"), //
 	FILE_UP_LOAD("secure/work", "fileUpload.xhtml"), //
