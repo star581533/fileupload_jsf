@@ -116,7 +116,7 @@
 								ajax="false" 
 								actionListener="#{fileDeleteController.downloadFile(file)}" 
 								icon="ui-icon-arrowthick-1-s">
-								<p:fileDownload value="#{fileDeleteController.file}" />
+								<p:fileDownload value="#{fileDeleteController.dto.contentFile}" />
 							</p:commandButton>
 						</p:column>
 						<p:column headerText="">

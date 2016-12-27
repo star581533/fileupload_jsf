@@ -41,7 +41,7 @@ public class FileDeleteController implements Serializable {
 	@ManagedProperty(value="#{fileDeleteService}")
 	private FileDeleteService service;
 	
-	private StreamedContent file;
+//	private StreamedContent file;
 	
 	@PostConstruct
 	public void init(){
@@ -81,7 +81,8 @@ public class FileDeleteController implements Serializable {
 				String log = "download imageId=" + data.getImageId() + ", fileName=" + fileName;
 				service.insertLog(log);
 				stream = new FileInputStream(result.getAbsolutePath());
-				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+				StreamedContent file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+				dto.setContentFile(file);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}	
@@ -152,11 +153,11 @@ public class FileDeleteController implements Serializable {
 		this.service = service;
 	}
 
-	public StreamedContent getFile() {
-		return file;
-	}
-
-	public void setFile(StreamedContent file) {
-		this.file = file;
-	}	
+//	public StreamedContent getFile() {
+//		return file;
+//	}
+//
+//	public void setFile(StreamedContent file) {
+//		this.file = file;
+//	}	
 }

@@ -124,7 +124,7 @@
 								<f:attribute name="imageId" value="#{file.imageId}" />
 								<f:attribute name="fileName" value="#{file.fileName}" />
 								<!-- f:setPropertyActionListener 可以試試這個 -->
-								<p:fileDownload value="#{fileQueryController.file}" />
+								<p:fileDownload value="#{fileQueryController.dto.contentFile}" />
 							</p:commandButton>
 						</p:column>
 					</p:dataTable>				

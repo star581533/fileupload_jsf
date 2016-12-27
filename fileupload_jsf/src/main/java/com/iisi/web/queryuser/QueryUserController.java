@@ -45,9 +45,7 @@ public class QueryUserController implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
 	private QueryUserDTO dto = new QueryUserDTO();
-	
-	private String officeAll;
-					
+						
 	@ManagedProperty(value="#{queryUserService}")
 	private QueryUserService queryUserService;	
 	
@@ -92,7 +90,8 @@ public class QueryUserController implements Serializable{
 	 * @return
 	 */
 	public String userForward(User user){		
-		return MenuService.UPDATE_USER + "&id=" + user.getUserId() +"&officeid=" + user.getOfficeId();
+		final String updateUserUrl = MenuService.lookupMenuPage(MenuService.UPDATE_USER) + "&id=" + user.getUserId() +"&officeid=" + user.getOfficeId();
+		return updateUserUrl;
 	}
 
 	public QueryUserDTO getDto() {
@@ -103,17 +102,6 @@ public class QueryUserController implements Serializable{
 	public void setDto(QueryUserDTO dto) {
 		this.dto = dto;
 	}
-
-
-	public String getOfficeAll() {
-		return officeAll;
-	}
-
-
-	public void setOfficeAll(String officeAll) {
-		this.officeAll = officeAll;
-	}
-	
 
 	public QueryUserService getQueryUserService() {
 		return queryUserService;

@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.primefaces.model.StreamedContent;
+
 import com.iisi.api.model.FileData;
 import com.iisi.api.model.User;
 
@@ -35,6 +37,8 @@ public class FileDeleteDTO implements Serializable {
 	private User user;
 	
 	private FileData file;
+	
+	private StreamedContent contentFile;
 	
 	public String getType() {
 		return type;
@@ -123,4 +127,14 @@ public class FileDeleteDTO implements Serializable {
 	public void setFile(FileData file) {
 		this.file = file;
 	}
+
+	public StreamedContent getContentFile() {
+		return contentFile;
+	}
+
+	public void setContentFile(StreamedContent contentFile) {
+		this.contentFile = contentFile;
+	}
+	
+	
 }

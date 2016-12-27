@@ -8,49 +8,51 @@
 	<ui:define name="right">	
 		<p:growl id="growl" showDetail="true" sticky="true" />
 			<p:panel id="updatePwdController" header="密碼修改">
-				<table>
-					<tr>
-						<td>
-							 <h:outputText value="使用者帳號：" />
-						</td>
-						<td>
-							<h:outputText value="#{updatePwdController.dto.userId}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<fu:requiredSymbol />
-							<h:outputText value="舊密碼：" />
-						</td>
-						<td>
-							<p:password id="oldPassWord" value="#{updatePwdController.dto.oldPassWord}" />
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<fu:requiredSymbol />
-							<h:outputText value="新密碼：" />
-						</td>
-						<td>
-							<p:password id="newPassWord" value="#{updatePwdController.dto.newPassWord}"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<fu:requiredSymbol />
-							<h:outputText value="確認密碼：" />
-						</td>
-						<td>
-							<p:password id="confirmPassWord" value="#{updatePwdController.dto.confirmPassWord}"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<p:commandButton value="確定" action="#{updatePwdController.saveData}" update="@form" ajax="true" />
-	    					<p:commandButton value="重設" ajax="false"/>
-						</td>
-					</tr>
-				</table>
+				<p:fieldset legend="密碼修改">
+					<table>
+						<tr>
+							<td>
+								 <h:outputText value="使用者帳號：" />
+							</td>
+							<td>
+								<h:outputText value="#{updatePwdController.dto.userId}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<fu:requiredSymbol />
+								<h:outputText value="舊密碼：" />
+							</td>
+							<td>
+								<p:password id="oldPassWord" value="#{updatePwdController.dto.oldPassWord}" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<fu:requiredSymbol />
+								<h:outputText value="新密碼：" />
+							</td>
+							<td>
+								<p:password id="newPassWord" value="#{updatePwdController.dto.newPassWord}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<fu:requiredSymbol />
+								<h:outputText value="確認密碼：" />
+							</td>
+							<td>
+								<p:password id="confirmPassWord" value="#{updatePwdController.dto.confirmPassWord}"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<p:commandButton value="確定" action="#{updatePwdController.saveData}" update="@form" ajax="true" />
+		    					<p:commandButton value="重設" ajax="false"/>
+							</td>
+						</tr>
+					</table>
+				</p:fieldset>
 			</p:panel>
 	</ui:define>
 </ui:composition>

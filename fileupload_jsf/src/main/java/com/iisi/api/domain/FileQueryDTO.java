@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
+import org.primefaces.model.StreamedContent;
+
 import com.iisi.api.model.FileData;
 import com.iisi.api.model.User;
 
@@ -41,6 +43,8 @@ public class FileQueryDTO implements Serializable {
 	private List<FileOutputDTO> outputs;
 //	
 //	private List<FileOutputDTO> outputTemps;
+	
+	private StreamedContent contentFile;
 	
 	public String getType() {
 		return type;
@@ -155,6 +159,15 @@ public DownloadFileInfoDTO getDownloadFileInfo() {
 //	public void setOutputTemps(List<FileOutputDTO> outputTemps) {
 //		this.outputTemps = outputTemps;
 //	} 
+
+	public StreamedContent getContentFile() {
+		return contentFile;
+	}
+
+	public void setContentFile(StreamedContent contentFile) {
+		this.contentFile = contentFile;
+	}
+	
 	
 	
 }

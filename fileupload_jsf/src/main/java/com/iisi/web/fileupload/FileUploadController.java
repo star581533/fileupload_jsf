@@ -15,8 +15,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import org.primefaces.model.UploadedFile;
-
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileUploadDTO;
@@ -40,7 +38,7 @@ public class FileUploadController implements Serializable {
 
 	private FileUploadDTO dto;
 	
-	private UploadedFile uploadedFile;
+//	private UploadedFile uploadedFile;
 	
 	@ManagedProperty(value="#{fileUploadService}")
 	private FileUploadService service;
@@ -101,7 +99,7 @@ public class FileUploadController implements Serializable {
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
 		}				
 		//檔名
-		if(ConstantMethod.verifyColumn(this.uploadedFile.getFileName())){
+		if(ConstantMethod.verifyColumn(dto.getUploadFile().getFileName())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_FILE);
 		}	
 	}
@@ -129,12 +127,12 @@ public class FileUploadController implements Serializable {
 		dirPaths.add(officeId);
 		dirPaths.add(userId);
 		
-		dto.setUploadFile(this.uploadedFile);		
+//		dto.setUploadFile(this.uploadedFile);		
 		dto.setFullPath(FileSysUtils.genDirPath(dirPaths));		
 		dto.setFilePath(DateUtils.getNowYear() + File.separator + officeId + File.separator + userId);
 		
 		//取得檔案名稱
-		String fileName = uploadedFile.getFileName();
+		String fileName = dto.getUploadFile().getFileName();
 		//以亂數改檔名
 		dto.setImageId(DateUtils.getNowDate()+DateUtils.getNowTimeAndMicroSec());
 		String serverName = dto.getImageId() + fileName.substring(fileName.lastIndexOf("."));
@@ -148,7 +146,7 @@ public class FileUploadController implements Serializable {
 			byte[] buffer = new byte[1024];
 			
 			int bulk;
-			InputStream inputStream = uploadedFile.getInputstream();
+			InputStream inputStream = dto.getUploadFile().getInputstream();
 			while(true){
 				bulk = inputStream.read(buffer);
 				if(bulk < 0){
@@ -172,13 +170,13 @@ public class FileUploadController implements Serializable {
 		this.dto = dto;
 	}
 
-	public UploadedFile getUploadedFile() {
-		return uploadedFile;
-	}
-
-	public void setUploadedFile(UploadedFile uploadedFile) {
-		this.uploadedFile = uploadedFile;
-	}
+//	public UploadedFile getUploadedFile() {
+//		return uploadedFile;
+//	}
+//
+//	public void setUploadedFile(UploadedFile uploadedFile) {
+//		this.uploadedFile = uploadedFile;
+//	}
 
 	public FileUploadService getService() {
 		return service;

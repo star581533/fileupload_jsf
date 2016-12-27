@@ -41,9 +41,9 @@ public class FileQueryController implements Serializable {
 	@ManagedProperty(value="#{fileQueryService}")
 	private FileQueryService fileQueryService;
 	
-	private StreamedContent file;
+//	private StreamedContent file;
 	
-	private boolean checkAllBox;
+//	private boolean checkAllBox;
 		
 	@PostConstruct
 	public void init(){
@@ -114,7 +114,8 @@ public class FileQueryController implements Serializable {
 				String log = "download imageId=" + imageId + ", fileName=" + fileName;
 				fileQueryService.insertLog(log);
 				stream = new FileInputStream(result.getAbsolutePath());
-				file = new DefaultStreamedContent(stream, "image/jpg", fileName);
+				StreamedContent file = new DefaultStreamedContent(stream, "image/jpg", fileName);
+				dto.setContentFile(file);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}	
@@ -155,20 +156,20 @@ public class FileQueryController implements Serializable {
 		this.fileQueryService = fileQueryService;
 	}
 
-	public StreamedContent getFile() {
-		return file;
-	}
+//	public StreamedContent getFile() {
+//		return file;
+//	}
+//
+//	public void setFile(StreamedContent file) {
+//		this.file = file;
+//	}
 
-	public void setFile(StreamedContent file) {
-		this.file = file;
-	}
-
-	public boolean isCheckAllBox() {
-		return checkAllBox;
-	}
-
-	public void setCheckAllBox(boolean checkAllBox) {
-		this.checkAllBox = checkAllBox;
-	}
+//	public boolean isCheckAllBox() {
+//		return checkAllBox;
+//	}
+//
+//	public void setCheckAllBox(boolean checkAllBox) {
+//		this.checkAllBox = checkAllBox;
+//	}
 		
 }

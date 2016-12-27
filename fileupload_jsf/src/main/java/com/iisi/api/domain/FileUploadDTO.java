@@ -38,6 +38,7 @@ public class FileUploadDTO implements Serializable  {
 	
 	private String fullPath;
 	
+	
 	public String getType() {
 		return type;
 	}

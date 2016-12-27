@@ -1,12 +1,21 @@
 package com.iisi.core.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.List;
 
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+
+import org.primefaces.model.DefaultStreamedContent;
+import org.primefaces.model.StreamedContent;
+
+import com.iisi.api.constant.ConstantObject;
+import com.iisi.api.execption.FileSysException;
+import com.iisi.api.model.FileData;
 
 public class FileSysUtils {
 	
@@ -92,6 +101,38 @@ public class FileSysUtils {
 			str = "";
 		}
 		return str;
+	}
+	
+	public static StreamedContent downloadFile(FileData data){		
+		String directory = getUploadInitDir();
+		
+		File fileDir = new File(directory);
+		String path = fileDir.getAbsolutePath();
+		
+		StreamedContent file = null;
+		
+		
+		String fileName = data.getImageId() + ".jpg";
+		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+		System.out.println("filePath = " + filePath);
+				
+	    File result = new File(filePath);
+	    
+	    System.out.println("result.exists() = " + result.exists());
+	    
+	    if(result.exists()){
+		    InputStream stream;
+			try {
+				stream = new FileInputStream(result.getAbsolutePath());
+				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+//				return file;
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}	
+	    }else{
+	    	throw new FileSysException(ConstantObject.ERROR_MSG_FILE_NOT_EXIST);
+	    }
+		return file;
 	}
 	
 	public static String formatHhmmss(String hhmmss){

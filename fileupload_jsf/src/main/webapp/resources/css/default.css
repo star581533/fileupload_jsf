@@ -13,3 +13,6 @@
 	left: 50%;
 	padding-top: 10%;
 }
+body{
+    background-image: url(/JsfSpringSecurity/resources/css/background.jpg);
+}
