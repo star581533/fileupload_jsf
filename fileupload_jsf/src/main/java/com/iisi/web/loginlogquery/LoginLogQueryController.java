@@ -9,10 +9,12 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
 
+
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.LoginLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.loginLogQuery.LoginLogQueryService;
+import com.iisi.core.utils.DateUtils;
 import com.iisi.core.utils.FileSysUtils;
 
 @ManagedBean
@@ -29,14 +31,14 @@ public class LoginLogQueryController implements Serializable {
 	@ManagedProperty(value = "#{loginLogQueryService}")
 	private LoginLogQueryService loginLogQueryService;
 	
-	private String officeAll;	
+//	private String officeAll;	
 	
 	private final String REPORT_NAME = "LoginLog.jasper";
 		
 	@PostConstruct
 	public void init(){
 		dto = new LoginLogQueryDTO();
-		String reportPath = FileSysUtils.getReportPathDir() + File.separator + this.REPORT_NAME;
+		final String reportPath = FileSysUtils.getReportPathDir() + File.separator + this.REPORT_NAME;
 		dto.setReportPath(reportPath);		
 	}
 
@@ -74,11 +76,11 @@ public class LoginLogQueryController implements Serializable {
 	 */
 	public void verifyData(){
 		//起始日
-		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
+		if(DateUtils.checkDateValue(dto.getStartDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//迄止日
-		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
+		if(DateUtils.checkDateValue(dto.getEndDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}
 	}
@@ -91,13 +93,13 @@ public class LoginLogQueryController implements Serializable {
 		this.dto = dto;
 	}
 
-	public String getOfficeAll() {
-		return officeAll;
-	}
-
-	public void setOfficeAll(String officeAll) {
-		this.officeAll = officeAll;
-	}
+//	public String getOfficeAll() {
+//		return officeAll;
+//	}
+//
+//	public void setOfficeAll(String officeAll) {
+//		this.officeAll = officeAll;
+//	}
 
 	public LoginLogQueryService getLoginLogQueryService() {
 		return loginLogQueryService;

@@ -12,6 +12,7 @@ public class ConstantMethod {
 		if(source == null || source.length() == 0){
 			bool = true;
 		}
+		
 		return bool;
 	}
 	

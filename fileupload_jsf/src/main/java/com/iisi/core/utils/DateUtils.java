@@ -156,4 +156,16 @@ public class DateUtils {
 		return rocYyyStr;
 	}
 	
+	/**
+	 * 檢查日期是否為空
+	 * @param date
+	 * @return
+	 */
+	public static boolean checkDateValue(Date date){
+		if(null == date || date.toString().length() == 0){
+			return true;
+		}
+		return false;
+	}
+	
 }

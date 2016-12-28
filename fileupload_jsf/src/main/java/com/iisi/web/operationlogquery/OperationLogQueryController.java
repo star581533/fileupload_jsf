@@ -8,13 +8,11 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.operationLog.OperationLogService;
+import com.iisi.core.utils.DateUtils;
 import com.iisi.core.utils.FileSysUtils;
 
 
@@ -27,8 +25,6 @@ public class OperationLogQueryController implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private static final Logger LOG = LoggerFactory.getLogger(OperationLogQueryController.class);
-
 	private OperationLogQueryDTO dto;
 	
 	@ManagedProperty(value="#{operationLogService}")
@@ -44,7 +40,6 @@ public class OperationLogQueryController implements Serializable{
 	}
 	
 	public void doQuery(){
-		LOG.debug("************************* OperationLogQueryController doQuery start *************************");
 		try{
 			this.verifyData();
 			this.operationLogService.getOperationLogList(dto);	
@@ -53,17 +48,15 @@ public class OperationLogQueryController implements Serializable{
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-				
-		LOG.debug("************************* OperationLogQueryController doQuery end *************************");
 	}
 	
-	private void verifyData(){
+	private void verifyData(){		
 		//起始日
-		if(null == dto.getStartDate() || dto.getStartDate().toString().length() == 0){
+		if(DateUtils.checkDateValue(dto.getStartDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//迄止日
-		if(null == dto.getEndDate() || dto.getEndDate().toString().length() == 0){
+		if(DateUtils.checkDateValue(dto.getEndDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}	
 	}
