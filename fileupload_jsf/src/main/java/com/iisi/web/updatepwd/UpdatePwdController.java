@@ -7,9 +7,9 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
-
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang3.StringUtils;
 
 import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
@@ -71,11 +71,11 @@ public class UpdatePwdController implements Serializable {
 	 */
 	private void verifyData(){	
 		//新密碼
-		if(ConstantMethod.verifyColumn(dto.getNewPassWord())){
+		if(StringUtils.isBlank(dto.getNewPassWord())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_NEW_PASSWORD);
 		}		
 		//確認密碼
-		if(ConstantMethod.verifyColumn(dto.getConfirmPassWord())){
+		if(StringUtils.isBlank(dto.getConfirmPassWord())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_CONFIRM_PASSWORD);
 		}
 		//比對新密碼與確認密碼要相同
@@ -87,7 +87,7 @@ public class UpdatePwdController implements Serializable {
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
 		//舊密碼
-		if(ConstantMethod.verifyColumn(dto.getOldPassWord())){
+		if(StringUtils.isBlank(dto.getOldPassWord())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_OLD_PASSWORD);
 		}else{
 			//比對畫面舊密碼與資料庫密碼是否相同

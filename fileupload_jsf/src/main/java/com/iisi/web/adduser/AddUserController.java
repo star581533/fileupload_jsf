@@ -13,10 +13,10 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.context.RequestContext;
 
 import com.iisi.api.addUser.AddUserService;
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.AddUserDTO;
 import com.iisi.api.execption.FileSysException;
@@ -72,7 +72,7 @@ public class AddUserController implements Serializable {
 	 */
 	private void verifyData(){		
 		//驗證使用者代碼
-		if(ConstantMethod.verifyColumn(dto.getUserId())){
+		if(StringUtils.isBlank(dto.getUserId())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USER_ID);
 		}else{
 			this.addUserService.checkUser(dto);
@@ -81,7 +81,7 @@ public class AddUserController implements Serializable {
 			}
 		}
 		//驗證使用者姓名
-		if(ConstantMethod.verifyColumn(dto.getUserName())){
+		if(StringUtils.isBlank(dto.getUserName())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_USERNAME);
 		}			
 	}

@@ -2,27 +2,22 @@ package com.iisi.web.filedelete;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 import java.io.Serializable;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.context.ExternalContext;
-import javax.faces.context.FacesContext;
 
-import org.primefaces.model.DefaultStreamedContent;
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.StreamedContent;
 
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileDeleteDTO;
 import com.iisi.api.execption.FileSysException;
 import com.iisi.api.fileDelete.FileDeleteService;
 import com.iisi.api.model.FileData;
+import com.iisi.core.utils.DateUtils;
 import com.iisi.core.utils.FileSysUtils;
 
 
@@ -62,34 +57,44 @@ public class FileDeleteController implements Serializable {
 	}
 	
 	public void downloadFile(FileData data){
-		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-		String directory = externalContext.getInitParameter("uploadDirectory");
-		File fileDir = new File(directory);
-		String path = fileDir.getAbsolutePath();
+		final StreamedContent file = FileSysUtils.downloadFile(data);
 		
-		String fileName = data.getImageId() + ".jpg";
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
-		System.out.println("filePath = " + filePath);
-				
-	    File result = new File(filePath);
-	    
-	    System.out.println("result.exists() = " + result.exists());
-	    
-	    if(result.exists()){
-		    InputStream stream;
-			try {
-				String log = "download imageId=" + data.getImageId() + ", fileName=" + fileName;
-				service.insertLog(log);
-				stream = new FileInputStream(result.getAbsolutePath());
-				StreamedContent file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
-				dto.setContentFile(file);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			}	
-	    }else{
-	    	throw new FileSysException(ConstantObject.ERROR_MSG_FILE_NOT_EXIST);
-	    }
+		if(file != null){
+			String log = "download imageId=" + data.getImageId() + ", fileName=" + file.getName();
+			service.insertLog(log);
+			dto.setContentFile(file);
+		}
 	}
+	
+//	public void downloadFile(FileData data){
+//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+//		String directory = externalContext.getInitParameter("uploadDirectory");
+//		File fileDir = new File(directory);
+//		String path = fileDir.getAbsolutePath();
+//		
+//		String fileName = data.getImageId() + ".jpg";
+//		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+//		System.out.println("filePath = " + filePath);
+//				
+//	    File result = new File(filePath);
+//	    
+//	    System.out.println("result.exists() = " + result.exists());
+//	    
+//	    if(result.exists()){
+//		    InputStream stream;
+//			try {
+//				String log = "download imageId=" + data.getImageId() + ", fileName=" + fileName;
+//				service.insertLog(log);
+//				stream = new FileInputStream(result.getAbsolutePath());
+//				StreamedContent file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
+//				dto.setContentFile(file);
+//			} catch (FileNotFoundException e) {
+//				e.printStackTrace();
+//			}	
+//	    }else{
+//	    	throw new FileSysException(ConstantObject.ERROR_MSG_FILE_NOT_EXIST);
+//	    }
+//	}
 	
 	public void deleteFile(FileData data){
 		dto.setFile(data);	
@@ -99,8 +104,9 @@ public class FileDeleteController implements Serializable {
 		File fileDir = new File(directory);
 		String path = fileDir.getAbsolutePath();
 		
-		String fileName = data.getImageId() + ".jpg";
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+		String fileName = data.getImageId();
+		String extensionName = FileSysUtils.getExtensionFile(data.getFileName());
+		String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;
 		System.out.println("filePath = " + filePath);
 		
 		File result = new File(filePath);
@@ -124,15 +130,15 @@ public class FileDeleteController implements Serializable {
 	
 	private void verifyData(){	
 		//類型
-		if(ConstantMethod.verifyColumn(dto.getType())){
+		if(StringUtils.isBlank(dto.getType())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
 		//日期區間-起
-		if(ConstantMethod.verifyColumn(dto.getStartDate().toString())){
+		if(DateUtils.checkDateValue(dto.getStartDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_START_DATE);
 		}
 		//日期區間-迄
-		if(ConstantMethod.verifyColumn(dto.getEndDate().toString())){
+		if(DateUtils.checkDateValue(dto.getEndDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_END_DATE);
 		}	
 	}

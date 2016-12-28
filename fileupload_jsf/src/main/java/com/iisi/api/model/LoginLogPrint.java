@@ -1,6 +1,7 @@
 package com.iisi.api.model;
 
-import com.iisi.api.constant.ConstantMethod;
+import org.apache.commons.lang3.StringUtils;
+
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.core.utils.FileSysUtils;
 
@@ -136,7 +137,7 @@ public class LoginLogPrint {
 //	}
 
 	public String getOfficeName() {
-		if(!ConstantMethod.verifyColumn(officeId)){
+		if(!StringUtils.isBlank(officeId)){
 			officeName = FileSysUtils.getProperties("office.properties", officeId);
 		}else{
 			officeName = "";

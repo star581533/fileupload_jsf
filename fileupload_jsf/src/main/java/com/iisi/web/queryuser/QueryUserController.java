@@ -6,28 +6,14 @@ package com.iisi.web.queryuser;
 
 import java.io.Serializable;
 
-
-
-
-
-
-
-
-
-
-
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.event.ActionEvent;
 
+import org.apache.commons.lang3.StringUtils;
 
-
-
-
-
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.QueryUserDTO;
 import com.iisi.api.execption.FileSysException;
@@ -79,7 +65,7 @@ public class QueryUserController implements Serializable{
 	 */
 	private void verifyData(){	
 		//在職狀態
-		if(ConstantMethod.verifyColumn(dto.getState())){
+		if(StringUtils.isBlank(dto.getState())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_STATE);
 		}	
 	}	

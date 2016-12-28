@@ -1,6 +1,7 @@
 package com.iisi.api.model;
 
-import com.iisi.api.constant.ConstantMethod;
+import org.apache.commons.lang3.StringUtils;
+
 import com.iisi.core.utils.FileSysUtils;
 
 public class OperationLogPrint extends OperationLog{
@@ -35,7 +36,7 @@ public class OperationLogPrint extends OperationLog{
 //	}
 
 	public String getOfficeName() {
-		if(!ConstantMethod.verifyColumn(this.getOfficeId())){
+		if(!StringUtils.isBlank(this.getOfficeId())){
 			officeName = FileSysUtils.getProperties("office.properties", this.getOfficeId());
 		}
 		return officeName;
@@ -46,7 +47,7 @@ public class OperationLogPrint extends OperationLog{
 	}
 
 	public String getTypeName() {
-		if(!ConstantMethod.verifyColumn(this.getType())){
+		if(!StringUtils.isBlank(this.getType())){
 			typeName = FileSysUtils.getProperties("operationName.properties", this.getType());
 		}
 		return typeName;

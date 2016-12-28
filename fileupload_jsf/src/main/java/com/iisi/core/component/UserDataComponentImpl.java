@@ -3,11 +3,11 @@ package com.iisi.core.component;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.iisi.api.component.UserDataComponent;
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.UserDTO;
@@ -52,7 +52,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		sql.append("select * from user where officeid = ? ");		
 		params.add(dto.getOfficeId());
 		
-		if(!ConstantMethod.verifyColumn(dto.getState())){
+		if(!StringUtils.isBlank(dto.getState())){
 			sql.append("and state = ?");
 			params.add(dto.getState());
 		}
@@ -68,7 +68,7 @@ public class UserDataComponentImpl implements UserDataComponent{
 		List<String> params = new ArrayList<String>();
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * from user ");
-		if(!ConstantMethod.verifyColumn(dto.getState())){
+		if(!StringUtils.isBlank(dto.getState())){
 			sql.append("where state = ? ");
 			params.add(dto.getState());
 		}	

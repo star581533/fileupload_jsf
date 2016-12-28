@@ -5,18 +5,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.iisi.api.constant.ConstantMethod;
+import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.OperationLogQueryDTO;
 import com.iisi.api.model.OperationLog;
 import com.iisi.api.model.OperationLogPrint;
-import com.iisi.api.component.OperationLogComponent;
 import com.iisi.api.operationLog.OperationLogService;
 import com.iisi.api.report.AbstractReport;
 import com.iisi.api.security.FileSysUtil;
@@ -63,25 +63,25 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		operationContent.append("sLogDate=").append(startDate).append(",");
 		operationContent.append("eLogDate=").append(endDate).append(",");
 		
-		if(!ConstantMethod.verifyColumn(dto.getOfficeId())){
+		if(!StringUtils.isBlank(dto.getOfficeId())){
 			sql.append("and officeid = ? ");
 			params.add(dto.getOfficeId());
 			operationContent.append("officeId=").append(dto.getOfficeId()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getUserId())){
+		if(!StringUtils.isBlank(dto.getUserId())){
 			sql.append("and userid = ? ");
 			params.add(dto.getUserId());
 			operationContent.append("userId=").append(dto.getUserId()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getUserName())){
+		if(!StringUtils.isBlank(dto.getUserName())){
 			sql.append("and username = ? ");
 			params.add(dto.getUserName());
 			operationContent.append("userName=").append(dto.getUserName()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getType())){
+		if(!StringUtils.isBlank(dto.getType())){
 			if(!dto.getType().equals("AL")){
 				sql.append("and type = ? ");
 				params.add(dto.getType());

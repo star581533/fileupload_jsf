@@ -78,15 +78,15 @@
 							</td>
 						</tr>
 						<tr>
-							<td>
+							<td colspan="2">
 								<p:commandButton value="查詢" action="#{fileQueryController.doQuery}" update="@form"/>
 		   						<p:commandButton value="重設" ajax="false"/>
 							</td>
 						</tr>
 					</table>
 				</p:fieldset>
-				<p:fieldset legend="檔案資訊" id="resultList" rendered="#{fileQueryController.dto.outputs != null}">
-					<p:dataTable var="file" value="#{fileQueryController.dto.outputs}" rows="10"
+				<p:fieldset legend="檔案資訊" id="resultList" rendered="#{fileQueryController.dto.files != null}">
+					<p:dataTable var="file" value="#{fileQueryController.dto.files}" rows="10"
 						selection="#{fileQueryController.dto.downloadFileInfo}" 
 						paginator="true"
 						rowsPerPageTemplate="5,10,15"
@@ -119,10 +119,12 @@
 						<p:column headerText="">
 							<p:commandButton value="下載" 
 								ajax="false"
-								actionListener="#{fileQueryController.downloadFile}" icon="ui-icon-arrowthick-1-s">
+								actionListener="#{fileQueryController.downloadFile(file)}" icon="ui-icon-arrowthick-1-s">
+								<!-- 
 								<f:attribute name="list" value="#{file.list}" />
 								<f:attribute name="imageId" value="#{file.imageId}" />
 								<f:attribute name="fileName" value="#{file.fileName}" />
+								-->
 								<!-- f:setPropertyActionListener 可以試試這個 -->
 								<p:fileDownload value="#{fileQueryController.dto.contentFile}" />
 							</p:commandButton>

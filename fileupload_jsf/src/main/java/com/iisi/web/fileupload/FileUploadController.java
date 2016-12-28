@@ -15,7 +15,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-import com.iisi.api.constant.ConstantMethod;
+import org.apache.commons.lang.StringUtils;
+
 import com.iisi.api.constant.ConstantObject;
 import com.iisi.api.domain.FileUploadDTO;
 import com.iisi.api.execption.FileSysException;
@@ -75,31 +76,32 @@ public class FileUploadController implements Serializable {
 	 */
 	private void verifyData(){
 		//類型
-		if(ConstantMethod.verifyColumn(dto.getType())){
+//		if(ConstantMethod.verifyColumn(dto.getType())){
+		if(StringUtils.isBlank(dto.getType())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
 		//密件
-		if(ConstantMethod.verifyColumn(dto.getSecret())){
+		if(StringUtils.isBlank(dto.getSecret())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_SECRET);
 		}
 		//日期
-		if(ConstantMethod.verifyColumn(dto.getDisPatchDate().toString())){
+		if(StringUtils.isBlank(dto.getDisPatchDate().toString())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_DATE);
 		}
 		//分類號
-		if(ConstantMethod.verifyColumn(dto.getClassNum())){
+		if(StringUtils.isBlank(dto.getClassNum())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_CLASSNUM);
 		}
 		//公文文號
-		if(ConstantMethod.verifyColumn(dto.getDisPatchNum())){
+		if(StringUtils.isBlank(dto.getDisPatchNum())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_DISPATCHNUM);
 		}
 		//主旨
-		if(ConstantMethod.verifyColumn(dto.getSubject())){
+		if(StringUtils.isBlank(dto.getSubject())){
 			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
 		}				
 		//檔名
-		if(ConstantMethod.verifyColumn(dto.getUploadFile().getFileName())){
+		if(StringUtils.isBlank(dto.getUploadFile().getFileName())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_FILE);
 		}	
 	}

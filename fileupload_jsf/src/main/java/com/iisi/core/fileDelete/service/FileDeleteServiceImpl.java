@@ -4,11 +4,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.OperationLogComponent;
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.FileDeleteDTO;
@@ -54,31 +54,31 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 		content.append("eUploaddate=").append(endDate).append(",");
 		content.append("type=").append(type).append(",");
 		
-		if(!ConstantMethod.verifyColumn(dto.getSecret())){
+		if(!StringUtils.isBlank(dto.getSecret())){
 			sql.append("and secret = ? ");
 			params.add(dto.getSecret());
 			content.append("secret=").append(dto.getSecret()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getClassNum())){
+		if(!StringUtils.isBlank(dto.getClassNum())){
 			sql.append("and classnum = ? ");
 			params.add(dto.getClassNum());
 			content.append("classnum=").append(dto.getClassNum()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getDisPatchNum())){
+		if(!StringUtils.isBlank(dto.getDisPatchNum())){
 			sql.append("and dispatchnum = ? ");
 			params.add(dto.getDisPatchNum());
 			content.append("dispatchnum=").append(dto.getDisPatchNum()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getSubject())){
+		if(!StringUtils.isBlank(dto.getSubject())){
 			sql.append("and subject = ? ");
 			params.add(dto.getSubject());
 			content.append("subject=").append(dto.getSubject()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getGovernment())){
+		if(!StringUtils.isBlank(dto.getGovernment())){
 			sql.append("and government = ? ");
 			params.add(dto.getGovernment());
 			content.append("government=").append(dto.getGovernment());			
@@ -88,6 +88,13 @@ public class FileDeleteServiceImpl implements FileDeleteService, Serializable {
 		
 		@SuppressWarnings("unchecked")
 		List<FileData> files = (List<FileData>)dbsMain.query(params, sql.toString(), FileData.class);
+		
+		try {
+			// FIXME 刪除完資料後，會再做一次查詢，因查詢時間太快，在寫LOG會發生資料相同問題，所以這先等1秒
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		
 		this.insertLog(content.toString());
 		

@@ -1,5 +1,7 @@
 package com.iisi.api.constant;
 
+import org.apache.commons.lang3.StringUtils;
+
 public class ConstantMethod {
 
 	/**
@@ -7,14 +9,14 @@ public class ConstantMethod {
 	 * @param source 來源資料
 	 * @return boolean
 	 */
-	public static boolean verifyColumn(String source){
-		boolean bool = false;
-		if(source == null || source.length() == 0){
-			bool = true;
-		}
-		
-		return bool;
-	}
+//	public static boolean verifyColumn(String source){
+//		boolean bool = false;
+//		if(source == null || source.length() == 0){
+//			bool = true;
+//		}
+//		
+//		return bool;
+//	}
 	
 	/**
 	 * 比對兩個欄位資料是否相同
@@ -25,11 +27,11 @@ public class ConstantMethod {
 	public static boolean compareTwoColumn(String one, String two){
 		boolean bool = false;
 		//判斷資料是否為空
-		if(verifyColumn(one)){
+		if(StringUtils.isBlank(one)){
 			return false;
 		}
 		//判斷資料是否為空
-		if(verifyColumn(two)){
+		if(StringUtils.isBlank(two)){
 			return false;
 		}
 		//比對資料

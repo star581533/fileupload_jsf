@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.iisi.api.component.OperationLogComponent;
-import com.iisi.api.constant.ConstantMethod;
 import com.iisi.api.db.DBSMain;
 import com.iisi.api.db.DbFactory;
 import com.iisi.api.domain.LoginLogQueryDTO;
@@ -64,19 +64,19 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 		operationContent.append("sLoginDate=").append(startDate).append(",");
 		operationContent.append("eLoginDate=").append(endDate).append(",");
 		
-		if(!ConstantMethod.verifyColumn(dto.getOfficeId())){
+		if(!StringUtils.isBlank(dto.getOfficeId())){
 			sql.append("and officeid = ? ");
 			params.add(dto.getOfficeId());
 			operationContent.append("officeId=").append(dto.getOfficeId()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getUserId())){
+		if(!StringUtils.isBlank(dto.getUserId())){
 			sql.append("and userid = ? ");
 			params.add(dto.getUserId());
 			operationContent.append("userId=").append(dto.getUserId()).append(",");
 		}
 		
-		if(!ConstantMethod.verifyColumn(dto.getUserName())){
+		if(!StringUtils.isBlank(dto.getUserName())){
 			sql.append("and username = ? ");
 			params.add(dto.getUserName());
 			operationContent.append("userName=").append(dto.getUserName());

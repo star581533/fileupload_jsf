@@ -112,8 +112,18 @@ public class FileSysUtils {
 		StreamedContent file = null;
 		
 		
-		String fileName = data.getImageId() + ".jpg";
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
+//		String fileName = data.getImageId() + ".jpg";
+		String fileName = data.getImageId();
+		
+//		final int extensionSymbol = data.getFileName().indexOf(".");
+//		if(extensionSymbol > 0){
+//			String extensionName = data.getFileName().substring(extensionSymbol);
+//			fileName = fileName + extensionName;
+//		}		
+//		
+		final String extensionName = getExtensionFile(data.getFileName());
+		
+		String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;
 		System.out.println("filePath = " + filePath);
 				
 	    File result = new File(filePath);
@@ -135,7 +145,14 @@ public class FileSysUtils {
 		return file;
 	}
 	
-	
+	public static String getExtensionFile(final String fileName){
+		String extensionName = "";
+		final int extensionSymbol = fileName.indexOf(".");
+		if(extensionSymbol > 0){
+			extensionName = fileName.substring(extensionSymbol);
+		}
+		return extensionName;
+	}
 	
 	
 	public static String formatHhmmss(String hhmmss){
