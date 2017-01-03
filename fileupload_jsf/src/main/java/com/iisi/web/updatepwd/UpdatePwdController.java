@@ -48,7 +48,6 @@ public class UpdatePwdController implements Serializable {
 	
 	public String error(){
 		System.out.println("error");
-//		return MenuService.LOGIN;
 		return MenuService.lookupMenuPage(MenuService.LOGIN);
 	}
 	

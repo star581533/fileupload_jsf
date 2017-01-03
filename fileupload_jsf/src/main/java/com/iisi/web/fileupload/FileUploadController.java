@@ -38,9 +38,7 @@ public class FileUploadController implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private FileUploadDTO dto;
-	
-//	private UploadedFile uploadedFile;
-	
+		
 	@ManagedProperty(value="#{fileUploadService}")
 	private FileUploadService service;
 	
@@ -76,7 +74,6 @@ public class FileUploadController implements Serializable {
 	 */
 	private void verifyData(){
 		//類型
-//		if(ConstantMethod.verifyColumn(dto.getType())){
 		if(StringUtils.isBlank(dto.getType())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_TYPE);
 		}
@@ -109,15 +106,9 @@ public class FileUploadController implements Serializable {
 	/**
 	 * 將檔案上傳
 	 */
-	public void sendFile(){			
-		String directory = FileSysUtils.getUploadInitDir();
+	private void sendFile(){					
 		
-		File file = new File(directory);
-		//完整路徑
-		String path = file.getAbsolutePath();
-		
-		System.out.println("path = " + path);
-	
+		String path = FileSysUtils.getFileDirPath();			
 		UserInfo userInfo = this.fileSysUtil.getUser();
 		String userId = userInfo.getUserId();
 		String officeId = userInfo.getOfficeId();
@@ -129,7 +120,6 @@ public class FileUploadController implements Serializable {
 		dirPaths.add(officeId);
 		dirPaths.add(userId);
 		
-//		dto.setUploadFile(this.uploadedFile);		
 		dto.setFullPath(FileSysUtils.genDirPath(dirPaths));		
 		dto.setFilePath(DateUtils.getNowYear() + File.separator + officeId + File.separator + userId);
 		
@@ -138,10 +128,7 @@ public class FileUploadController implements Serializable {
 		//以亂數改檔名
 		dto.setImageId(DateUtils.getNowDate()+DateUtils.getNowTimeAndMicroSec());
 		String serverName = dto.getImageId() + fileName.substring(fileName.lastIndexOf("."));
-		
-		System.out.println("serverName = " + serverName);
-		System.out.println("dto.getFilePath() = " + dto.getFilePath());
-		
+				
 		//上傳檔案 
 		try{
 			FileOutputStream fileOutputStream = new FileOutputStream(new File(dto.getFullPath(), serverName));
@@ -172,14 +159,6 @@ public class FileUploadController implements Serializable {
 		this.dto = dto;
 	}
 
-//	public UploadedFile getUploadedFile() {
-//		return uploadedFile;
-//	}
-//
-//	public void setUploadedFile(UploadedFile uploadedFile) {
-//		this.uploadedFile = uploadedFile;
-//	}
-
 	public FileUploadService getService() {
 		return service;
 	}
@@ -195,6 +174,5 @@ public class FileUploadController implements Serializable {
 	public void setFileSysUtil(FileSysUtil fileSysUtil) {
 		this.fileSysUtil = fileSysUtil;
 	}
-	
 	
 }

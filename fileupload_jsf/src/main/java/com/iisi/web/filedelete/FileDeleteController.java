@@ -36,26 +36,29 @@ public class FileDeleteController implements Serializable {
 	@ManagedProperty(value="#{fileDeleteService}")
 	private FileDeleteService service;
 	
-//	private StreamedContent file;
-	
 	@PostConstruct
 	public void init(){
 		dto = new FileDeleteDTO();
 	}
 	
+	/**
+	 * 查詢資料
+	 */
 	public void doQuery(){
 		try{
-			this.verifyData();
-			
+			this.verifyData();			
 			dto.setFiles(service.doQuery(dto));
 		}catch(FileSysException e){
 			e.printStackTrace();
 		}catch(Exception e){
 			e.printStackTrace();
 		}
-
 	}
 	
+	/**
+	 * 下載檔案
+	 * @param data
+	 */
 	public void downloadFile(FileData data){
 		final StreamedContent file = FileSysUtils.downloadFile(data);
 		
@@ -66,54 +69,20 @@ public class FileDeleteController implements Serializable {
 		}
 	}
 	
-//	public void downloadFile(FileData data){
-//		ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-//		String directory = externalContext.getInitParameter("uploadDirectory");
-//		File fileDir = new File(directory);
-//		String path = fileDir.getAbsolutePath();
-//		
-//		String fileName = data.getImageId() + ".jpg";
-//		String filePath = path + File.separator + data.getList() + File.separator+ fileName;
-//		System.out.println("filePath = " + filePath);
-//				
-//	    File result = new File(filePath);
-//	    
-//	    System.out.println("result.exists() = " + result.exists());
-//	    
-//	    if(result.exists()){
-//		    InputStream stream;
-//			try {
-//				String log = "download imageId=" + data.getImageId() + ", fileName=" + fileName;
-//				service.insertLog(log);
-//				stream = new FileInputStream(result.getAbsolutePath());
-//				StreamedContent file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
-//				dto.setContentFile(file);
-//			} catch (FileNotFoundException e) {
-//				e.printStackTrace();
-//			}	
-//	    }else{
-//	    	throw new FileSysException(ConstantObject.ERROR_MSG_FILE_NOT_EXIST);
-//	    }
-//	}
-	
+	/**
+	 * 刪除檔案
+	 * @param data
+	 */
 	public void deleteFile(FileData data){
 		dto.setFile(data);	
 		
-		String directory = FileSysUtils.getUploadInitDir();
-		
-		File fileDir = new File(directory);
-		String path = fileDir.getAbsolutePath();
-		
-		String fileName = data.getImageId();
-		String extensionName = FileSysUtils.getExtensionFile(data.getFileName());
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;
-		System.out.println("filePath = " + filePath);
-		
-		File result = new File(filePath);
-		    
-		System.out.println("result.exists() = " + result.exists());
-		
+		final String path = FileSysUtils.getFileDirPath();		
+		final String fileName = data.getImageId();
+		final String extensionName = FileSysUtils.getExtensionFile(data.getFileName());
+		final String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;
+				    		
 		service.doDelete(dto);
+		File result = new File(filePath);
 		
 		if(result.exists()){
 			if(result.delete()){
@@ -128,6 +97,9 @@ public class FileDeleteController implements Serializable {
 		dto.setFiles(service.doQuery(dto));
 	}
 	
+	/**
+	 * 資料驗證
+	 */
 	private void verifyData(){	
 		//類型
 		if(StringUtils.isBlank(dto.getType())){
@@ -158,12 +130,5 @@ public class FileDeleteController implements Serializable {
 	public void setService(FileDeleteService service) {
 		this.service = service;
 	}
-
-//	public StreamedContent getFile() {
-//		return file;
-//	}
-//
-//	public void setFile(StreamedContent file) {
-//		this.file = file;
-//	}	
+	
 }

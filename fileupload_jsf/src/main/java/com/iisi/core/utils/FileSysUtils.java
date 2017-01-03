@@ -10,6 +10,7 @@ import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.primefaces.model.DefaultStreamedContent;
 import org.primefaces.model.StreamedContent;
 
@@ -97,45 +98,44 @@ public class FileSysUtils {
 		
 		PropertiesContent properties = new PropertiesContent();
 		String str = properties.getPropertiesByCode(is, code);
-		if(str == null || str.length() == 0){
+		
+		if(StringUtils.isBlank(str)){
 			str = "";
 		}
 		return str;
 	}
 	
+	/**
+	 * 取得絕對路徑
+	 * @return
+	 */
+	public static String getFileDirPath(){		
+		final String directory = getUploadInitDir();
+		final File fileDir = new File(directory);
+		final String path = fileDir.getAbsolutePath();
+		return path;
+	}
+	
+	/**
+	 * 下載檔案
+	 * @param data FileData
+	 * @return StreamedContent
+	 */
 	public static StreamedContent downloadFile(FileData data){		
-		String directory = getUploadInitDir();
-		
-		File fileDir = new File(directory);
-		String path = fileDir.getAbsolutePath();
-		
+
 		StreamedContent file = null;
-		
-		
-//		String fileName = data.getImageId() + ".jpg";
-		String fileName = data.getImageId();
-		
-//		final int extensionSymbol = data.getFileName().indexOf(".");
-//		if(extensionSymbol > 0){
-//			String extensionName = data.getFileName().substring(extensionSymbol);
-//			fileName = fileName + extensionName;
-//		}		
-//		
+		final String path = getFileDirPath();
+		final String fileName = data.getImageId();
 		final String extensionName = getExtensionFile(data.getFileName());
-		
-		String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;
-		System.out.println("filePath = " + filePath);
-				
-	    File result = new File(filePath);
+		final String filePath = path + File.separator + data.getList() + File.separator+ fileName + extensionName;				
+	    final File result = new File(filePath);
 	    
-	    System.out.println("result.exists() = " + result.exists());
-	    
+	    //檔案存在
 	    if(result.exists()){
 		    InputStream stream;
 			try {
 				stream = new FileInputStream(result.getAbsolutePath());
 				file = new DefaultStreamedContent(stream, "image/jpg", data.getFileName());
-//				return file;
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}	
@@ -145,6 +145,11 @@ public class FileSysUtils {
 		return file;
 	}
 	
+	/**
+	 * 取得副檔名
+	 * @param fileName
+	 * @return String
+	 */
 	public static String getExtensionFile(final String fileName){
 		String extensionName = "";
 		final int extensionSymbol = fileName.indexOf(".");
@@ -152,13 +157,22 @@ public class FileSysUtils {
 			extensionName = fileName.substring(extensionSymbol);
 		}
 		return extensionName;
-	}
+	}	
 	
-	
+	/**
+	 * 時間格式，hh:mm:ss
+	 * @param hhmmss
+	 * @return String
+	 */
 	public static String formatHhmmss(String hhmmss){
 		return hhmmss.substring(0,2) + ":" + hhmmss.substring(2, 4) + ":" + hhmmss.substring(4, 6);
 	}
 	
+	/**
+	 * 日期格式，yyy/mm/dd
+	 * @param yyymmdd
+	 * @return String
+	 */
 	public static String formatYyymmdd(String yyymmdd){
 		return yyymmdd.substring(0,3) + "/" + yyymmdd.substring(3,5) + "/" + yyymmdd.substring(5,7);
 	}

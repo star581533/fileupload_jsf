@@ -39,6 +39,9 @@ public class OperationLogQueryController implements Serializable{
 		dto.setReportPath(reportPath);
 	}
 	
+	/**
+	 * 查詢資料
+	 */
 	public void doQuery(){
 		try{
 			this.verifyData();
@@ -50,6 +53,9 @@ public class OperationLogQueryController implements Serializable{
 		}
 	}
 	
+	/**
+	 * 資料驗證
+	 */
 	private void verifyData(){		
 		//起始日
 		if(DateUtils.checkDateValue(dto.getStartDate())){

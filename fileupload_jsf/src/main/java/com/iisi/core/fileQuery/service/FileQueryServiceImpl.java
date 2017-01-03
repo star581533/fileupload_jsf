@@ -91,7 +91,6 @@ public class FileQueryServiceImpl implements FileQueryService, Serializable {
 		@SuppressWarnings("unchecked")
 		List<FileData> files = (List<FileData>) dbsMain.query(params, sql.toString(), FileData.class);
 		
-//		operationLogComponent.insertOperationLog(OperationLogComponent.FILE_QUERY, content.toString());
 		this.insertLog(content.toString());
 		
 		return files;

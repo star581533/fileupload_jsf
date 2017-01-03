@@ -39,15 +39,24 @@ public class UpdateUserController implements Serializable {
 		dto.setOfficeName(FileSysUtils.getProperties("office.properties", dto.getUser().getOfficeId()));
 	}
 	
+	/**
+	 * 
+	 */
 	public void doPwdReset(){
 		dto.setResetFlag(ConstantObject.UPPER_CASE_Y);
 	}
 	
+	/**
+	 * 
+	 */
 	public void doReset(){
 		dto = new UpdateUserDTO();
 		this.getWebParameUserId();
 	}
 	
+	/**
+	 * 
+	 */
 	public void doUpdate(){
 		service.doUpdate(dto);
 		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "更新成功", "使用者資料更新成功"));

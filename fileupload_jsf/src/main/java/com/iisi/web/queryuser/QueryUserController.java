@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
-import javax.faces.event.ActionEvent;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -41,12 +40,13 @@ public class QueryUserController implements Serializable{
 		dto = new QueryUserDTO();
 	}
 	
-		
-	public void queryButton(){
-		try{
-		
+	
+	/**
+	 * 查詢資料
+	 */
+	public void doQuery(){
+		try{		
 			this.verifyData();
-			
 			dto.setUsers(queryUserService.getUserList(dto));
 			System.out.println("dto.getUsers().size() = " + dto.getUsers().size());	
 		}catch(FileSysException e){
@@ -56,9 +56,9 @@ public class QueryUserController implements Serializable{
 		}
 	}
 	
-	public void userDataLink(ActionEvent event){
-
-	}
+//	public void userDataLink(ActionEvent event){
+//
+//	}
 	
 	/**
 	 * 資料驗證
@@ -73,7 +73,7 @@ public class QueryUserController implements Serializable{
 	/**
 	 * 導向修改使用者資料畫面
 	 * @param user
-	 * @return
+	 * @return String
 	 */
 	public String userForward(User user){		
 		final String updateUserUrl = MenuService.lookupMenuPage(MenuService.UPDATE_USER) + "&id=" + user.getUserId() +"&officeid=" + user.getOfficeId();

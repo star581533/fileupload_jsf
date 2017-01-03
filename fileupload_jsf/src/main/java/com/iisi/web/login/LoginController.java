@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -66,11 +67,11 @@ public class LoginController implements Serializable{
 	 */
 	public void verify() {
 		//檢核使用者帳號
-		if(null == dto.getUserId() || dto.getUserId().length() == 0){
+		if(StringUtils.isBlank(dto.getUserId())){
 			throw new FileSysException("W", ConstantObject.WARN_MSG_INPUT_USER_ID);
 		}
 		//檢核使用者密碼
-		if(null == dto.getPassword() || dto.getPassword().length() == 0){
+		if(StringUtils.isBlank(dto.getPassword())){
 			throw new FileSysException("W",ConstantObject.WARN_MSG_INPUT_USER_PWD);
 		}
 	}

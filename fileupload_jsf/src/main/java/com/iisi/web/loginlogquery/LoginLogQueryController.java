@@ -30,9 +30,7 @@ public class LoginLogQueryController implements Serializable {
 	
 	@ManagedProperty(value = "#{loginLogQueryService}")
 	private LoginLogQueryService loginLogQueryService;
-	
-//	private String officeAll;	
-	
+		
 	private final String REPORT_NAME = "LoginLog.jasper";
 		
 	@PostConstruct
@@ -92,14 +90,6 @@ public class LoginLogQueryController implements Serializable {
 	public void setDto(LoginLogQueryDTO dto) {
 		this.dto = dto;
 	}
-
-//	public String getOfficeAll() {
-//		return officeAll;
-//	}
-//
-//	public void setOfficeAll(String officeAll) {
-//		this.officeAll = officeAll;
-//	}
 
 	public LoginLogQueryService getLoginLogQueryService() {
 		return loginLogQueryService;
