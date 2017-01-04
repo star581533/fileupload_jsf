@@ -26,11 +26,11 @@ public class LoginLogQueryController implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private LoginLogQueryDTO dto;
-	
 	@ManagedProperty(value = "#{loginLogQueryService}")
 	private LoginLogQueryService loginLogQueryService;
 		
+	private LoginLogQueryDTO dto;
+
 	private final String REPORT_NAME = "LoginLog.jasper";
 		
 	@PostConstruct
@@ -51,8 +51,7 @@ public class LoginLogQueryController implements Serializable {
 			e.printStackTrace();
 		}catch(Exception e){
 			e.printStackTrace();
-		}
-		
+		}		
 	}
 	
 	/**

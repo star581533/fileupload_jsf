@@ -30,8 +30,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Autowired
 	private transient UserDataComponent userDataComponent;
     
-//    private Map<String, UserInfo> userMap = null;
-
     
     //OK
 //    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
@@ -101,32 +99,6 @@ public class CustomUserDetailsService implements UserDetailsService {
     	
     	return userInfo;
     }
-   
-//    public void fillMap(String userId){
-//    	userMap = new HashMap<String, UserInfo>();
-//    	UserDTO dto = new UserDTO();
-//    	dto.setUserId(userId);
-//    	
-//    	com.iisi.api.model.User domainUser = userDataComponent.queryOneUser(dto).get(0);
-//    	
-//    	boolean enabled = true;
-//        boolean accountNonExpired = true;
-//        boolean credentialsNonExpired = true;
-//        boolean accountNonLocked = true;
-//    
-//        UserInfo userInfo = new UserInfo(
-//    			domainUser.getUserId(), 
-//    			domainUser.getUserPwd(), 
-//    			enabled, 
-//    			accountNonExpired, 
-//    			credentialsNonExpired, 
-//    			accountNonLocked, 
-//    			getAuthorities(domainUser.getRoleId()));
-//    	
-//    	userInfo.setOfficeId(domainUser.getOfficeId());
-//    	userMap.put(userInfo.getUsername(), userInfo); 
-//    	
-//    }
     
     public Collection<? extends GrantedAuthority> getAuthorities(Integer role) {
         List<GrantedAuthority> authList = getGrantedAuthorities(getRoles(role));

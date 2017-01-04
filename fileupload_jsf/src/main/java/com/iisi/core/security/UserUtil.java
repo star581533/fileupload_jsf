@@ -7,6 +7,10 @@ import com.iisi.api.security.UserInfo;
 
 public final class UserUtil {
 
+	/**
+	 * 取得使用者資料
+	 * @return
+	 */
 	public static UserInfo getUser(){
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		if(authentication != null){

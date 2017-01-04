@@ -34,10 +34,10 @@ public abstract class AbstractReport {
 	
 	/**
 	 * 取得畫面設定
-	 * @return
+	 * @return ExternalContext
 	 */
 	public ExternalContext getExternalContext(){
-		ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
+		final ExternalContext context = FacesContext.getCurrentInstance().getExternalContext();
 		return context;
 	}
 
@@ -50,7 +50,7 @@ public abstract class AbstractReport {
 	public void setJasperReportData(String reportPath, Map<String, Object> map, List<?> lists){
 		try{
 			//取得一個絕對路徑
-			String tempReportPath = getExternalContext().getRealPath(reportPath);
+			final String tempReportPath = getExternalContext().getRealPath(reportPath);
 			//把指定的報表填入資料後，產生報表物件並回傳
 			jasperPrint = JasperFillManager.fillReport(tempReportPath, map, new JRBeanCollectionDataSource(lists));
 		}catch(JRException e){
@@ -67,7 +67,7 @@ public abstract class AbstractReport {
 	 * @return
 	 */
 	public HttpServletResponse getResponseAndSetContent(String reportName, ReportType reportType){
-		HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
+		final HttpServletResponse response = (HttpServletResponse) getExternalContext().getResponse();
 		this.setReponseContentData(response, reportName, reportType);
 		return response;
 	}

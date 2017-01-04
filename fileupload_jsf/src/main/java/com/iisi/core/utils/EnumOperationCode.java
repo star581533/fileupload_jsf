@@ -26,6 +26,11 @@ public enum EnumOperationCode {
 		this.value = value;
 	}
 	
+	/**
+	 * 取得作業代碼
+	 * @param operationName
+	 * @return EnumOperationCode
+	 */
 	public static EnumOperationCode getCodeName(String operationName){
 		EnumOperationCode rtnCode = null;
 		for(EnumOperationCode code : EnumOperationCode.values()){

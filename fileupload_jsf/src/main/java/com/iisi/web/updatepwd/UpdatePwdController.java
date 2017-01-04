@@ -35,22 +35,28 @@ public class UpdatePwdController implements Serializable {
 	@ManagedProperty(value="#{updatePwdService}")
 	private UpdatePwdService service;
 	
-	private UpdatePwdDTO dto;
-	
 	@ManagedProperty(value="#{fileSysUtil}")
 	private transient FileSysUtil fileSysUtil;
 
+	private UpdatePwdDTO dto;
 	
 	@PostConstruct
 	public void init(){				
 		this.setDto();
 	}
 	
-	public String error(){
+	/**
+	 * 畫面載入使用者資料有誤導至登入畫面
+	 * @return String
+	 */
+	private String error(){
 		System.out.println("error");
 		return MenuService.lookupMenuPage(MenuService.LOGIN);
 	}
 	
+	/**
+	 * 確定
+	 */
 	public void saveData(){
 		try{
 			this.verifyData();					

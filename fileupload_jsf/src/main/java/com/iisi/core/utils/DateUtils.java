@@ -6,23 +6,10 @@ import java.util.Date;
 
 public class DateUtils {
 	
-	private static int adYyy;
-	private static int mm;
-	private static int dd;
-	private static int rocYyy;
-	
-	
-//	public static boolean startDateAfterEndDate(String startDate, String endDate){
-//		boolean rtnBool = false;
-//		final Date start = null;
-//		final Date end = null;
-//		
-//		if(start.after(end)){
-//			rtnBool = true;
-//		}
-//		
-//		return rtnBool;
-//	}
+//	private static int adYyy;
+//	private static int mm;
+//	private static int dd;
+//	private static int rocYyy;
 	
 	/**
 	 * 西元日期轉民國日期
@@ -36,10 +23,10 @@ public class DateUtils {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			
-			adYyy = cal.get(Calendar.YEAR);
-			mm = cal.get(Calendar.MONTH) + 1;
-			dd = cal.get(Calendar.DATE);			
-			rocYyy = adYyy - 1911;
+			int adYyy = cal.get(Calendar.YEAR);
+			int mm = cal.get(Calendar.MONTH) + 1;
+			int dd = cal.get(Calendar.DATE);			
+			int rocYyy = adYyy - 1911;
 			
 			String rocYyyStr = checkDateLength(String.valueOf(rocYyy), 3);
 			String rocMmStr = checkDateLength(String.valueOf(mm), 2);
@@ -150,8 +137,8 @@ public class DateUtils {
 	 */
 	public static String getNowYear(){
 		Calendar cal = Calendar.getInstance();
-		adYyy = cal.get(Calendar.YEAR);
-		rocYyy = adYyy - 1911;		
+		int adYyy = cal.get(Calendar.YEAR);
+		int rocYyy = adYyy - 1911;		
 		String rocYyyStr = checkDateLength(String.valueOf(rocYyy), 3);
 		return rocYyyStr;
 	}

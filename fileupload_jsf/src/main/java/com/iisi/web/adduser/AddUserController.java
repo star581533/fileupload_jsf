@@ -90,7 +90,6 @@ public class AddUserController implements Serializable {
 	 * 檢查使用者帳號是否存在
 	 */
 	public void userDataListener(){
-		System.out.println("dto.getOfficeId() = " + dto.getOfficeId());
 		this.addUserService.checkUser(dto);		
 		if(dto.getUserCount() > 0){
 			dto.setUserConfirm("使用者帳號已存在");

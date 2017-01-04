@@ -20,7 +20,6 @@ public class LoginLogComponentImpl implements LoginLogComponent{
 	@Override
 	public void insertLoginLog(UserInfo userInfo, String inOutMark) {
 		try{
-			System.out.println("------------------------insertLoginLog");
 			DBSMain dbsMain = dbFactory.getDbsMain();
 			
 			LoginLog loginLog = new LoginLog();
@@ -31,8 +30,6 @@ public class LoginLogComponentImpl implements LoginLogComponent{
 			loginLog.setUserName(userInfo.getUserName());
 			loginLog.setLoginDate(DateUtils.getNowDate());
 			loginLog.setLoginTime(DateUtils.getNowTime());
-			
-			System.out.println("dbsMain = " + dbsMain);
 			
 			dbsMain.insert(loginLog);
 		}catch(FileSysException e){

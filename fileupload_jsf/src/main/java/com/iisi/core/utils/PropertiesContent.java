@@ -6,6 +6,12 @@ import java.util.Properties;
 
 public class PropertiesContent {
 	
+	/**
+	 * 依Properties取得對應代碼
+	 * @param properName
+	 * @param code
+	 * @return String
+	 */
 	public String getPropertiesByCode(InputStream properName, String code){
 		String rtn = "";
 		Properties properties = new Properties();

@@ -1,8 +1,6 @@
 package com.iisi.core.addUser.service;
 
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +21,7 @@ import com.iisi.core.utils.EnumOperationCode;
 @Service("addUserService")
 public class AddUserServiceImpl implements AddUserService{
 
-	private static Logger LOG = LoggerFactory.getLogger(AddUserServiceImpl.class);
+//	private static Logger LOG = LoggerFactory.getLogger(AddUserServiceImpl.class);
 	
 	@Autowired
 	private transient UserDataComponent userDataComponent;
@@ -46,7 +44,6 @@ public class AddUserServiceImpl implements AddUserService{
 	@Override
 	public void doSave(AddUserDTO dto) {
 		try{
-			LOG.debug("============================AddUserServiceImpl doSave start!===============================");
 			User user = new User();
 			user.setUserId(dto.getUserId());
 			user.setUserPwd(SecurityUtils.getMD5(dto.getUserId()));
@@ -63,7 +60,6 @@ public class AddUserServiceImpl implements AddUserService{
 						
 			DBSMain dbsMain = this.dbFactory.getDbsMain();
 			dbsMain.insert(user);
-			LOG.debug("============================AddUserServiceImpl doSave end!===============================");
 		}catch(FileSysException e){
 			e.printStackTrace();
 			throw e;

@@ -25,11 +25,12 @@ public class OperationLogQueryController implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 	
-	private OperationLogQueryDTO dto;
 	
 	@ManagedProperty(value="#{operationLogService}")
 	private OperationLogService operationLogService;
 		
+	private OperationLogQueryDTO dto;
+
 	private final String REPORT_NAME = "OperationLog.jasper";
 	
 	@PostConstruct

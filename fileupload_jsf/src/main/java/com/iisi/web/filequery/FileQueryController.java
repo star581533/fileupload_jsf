@@ -38,6 +38,9 @@ public class FileQueryController implements Serializable {
 		dto = new FileQueryDTO();
 	}
 	
+	/**
+	 * 查詢資料
+	 */
 	public void doQuery(){
 		try{			
 			this.verifyData();
@@ -66,6 +69,9 @@ public class FileQueryController implements Serializable {
 		}		
 	}
 	
+	/**
+	 * 資料驗證
+	 */
 	private void verifyData(){
 		//類型
 		if(StringUtils.isBlank(dto.getType())){

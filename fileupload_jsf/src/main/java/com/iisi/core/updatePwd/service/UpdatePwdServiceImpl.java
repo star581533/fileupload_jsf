@@ -39,7 +39,6 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 	@Override
 	public void updatePassword(UpdatePwdDTO dto) {		
 		try{
-			LOG.debug("============================UpdatePwdServiceImpl updatePassword start!===============================");
 			UserDTO userDto = new UserDTO();
 			userDto.setUserId(dto.getUserId());
 			//取得使用者資料
@@ -54,7 +53,6 @@ public class UpdatePwdServiceImpl implements UpdatePwdService{
 				DBSMain dbsMain = dbFactory.getDbsMain();
 				dbsMain.update(user);
 			}
-			LOG.debug("============================UpdatePwdServiceImpl updatePassword end!===============================");
 		}catch(FileSysException e){
 			LOG.error(e.getMessage(), e);
 			throw e;

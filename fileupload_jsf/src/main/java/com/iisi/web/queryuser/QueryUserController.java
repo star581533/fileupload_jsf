@@ -56,10 +56,6 @@ public class QueryUserController implements Serializable{
 		}
 	}
 	
-//	public void userDataLink(ActionEvent event){
-//
-//	}
-	
 	/**
 	 * 資料驗證
 	 */

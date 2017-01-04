@@ -49,7 +49,10 @@ public class FileUploadController implements Serializable {
 	public void init(){		
 		dto = new FileUploadDTO();			
 	}
-		
+	
+	/**
+	 * 確定
+	 */
 	public void uploadData(){
 		try{
 			//驗證

@@ -34,14 +34,20 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 		dto.setUser(user);
 	}
 	
+	/**
+	 * 取得使用者資料
+	 * @param userDto
+	 * @return User
+	 */
 	private User getUser(UserDTO userDto){
 		List<User> users = userDataComponent.queryOneUser(userDto);
 		User user = new User();
+		System.out.println("users.size() = " + users.size());
+		
 		if(users.size() > 0){
 			user = users.get(0);
 		}
 		
-		System.out.println("users.size() = " + users.size());
 		return user;
 	}
 
@@ -54,12 +60,7 @@ public class UpdateUserServiceImpl implements UpdateUserService {
 		}	
 		user.setOfficeId(dto.getUser().getOfficeId());
 		user.setState(dto.getUser().getState());
-		
-		System.out.println("user.getUserPwd() = " + user.getUserPwd());
-		System.out.println("user.getUserName() = " + user.getUserName());
-		System.out.println("user.getOfficeId() = " + user.getOfficeId());
-		System.out.println("user.getState() = " + user.getState());
-		
+				
 		DBSMain dbsMain = this.dbFactory.getDbsMain();
 		dbsMain.update(user);
 		

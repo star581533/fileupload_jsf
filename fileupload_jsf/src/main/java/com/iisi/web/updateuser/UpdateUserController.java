@@ -40,14 +40,14 @@ public class UpdateUserController implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * 密碼重設
 	 */
 	public void doPwdReset(){
 		dto.setResetFlag(ConstantObject.UPPER_CASE_Y);
 	}
 	
 	/**
-	 * 
+	 * 重設
 	 */
 	public void doReset(){
 		dto = new UpdateUserDTO();
@@ -55,7 +55,7 @@ public class UpdateUserController implements Serializable {
 	}
 	
 	/**
-	 * 
+	 * 確定
 	 */
 	public void doUpdate(){
 		service.doUpdate(dto);

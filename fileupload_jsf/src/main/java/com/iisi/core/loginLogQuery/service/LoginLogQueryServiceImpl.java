@@ -43,11 +43,6 @@ public class LoginLogQueryServiceImpl implements LoginLogQueryService {
 
 	}
 	
-//	public static void main(String args[]){
-//		LoginLogQueryServiceImpl impl = new LoginLogQueryServiceImpl();
-//	}
-	
-	
 	@Override
 	public void getLoginLogList(LoginLogQueryDTO dto) {
 		StringBuilder sql = new StringBuilder();

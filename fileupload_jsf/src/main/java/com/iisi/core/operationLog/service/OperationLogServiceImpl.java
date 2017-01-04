@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,9 +30,7 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	
-	private static final Logger LOG = LoggerFactory.getLogger(OperationLogServiceImpl.class);	
-	
+		
 	@Autowired
 	private transient DbFactory dbFactory;
 	
@@ -48,7 +44,7 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 	
 	@Override
 	public void getOperationLogList(OperationLogQueryDTO dto) {
-		LOG.debug("************************* OperationLogServiceImpl getOperationLogList start *************************");
+
 		StringBuilder operationContent = new StringBuilder();		
 		StringBuilder sql = new StringBuilder();
 		List<String> params = new ArrayList<String>();
@@ -109,7 +105,6 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		
 		operationLogComponent.insertOperationLog(operationLog);
 		
-		LOG.debug("************************* OperationLogServiceImpl getOperationLogList end *************************");
 	}
 			
 	/**
@@ -145,7 +140,5 @@ public class OperationLogServiceImpl implements OperationLogService, Serializabl
 		report = new XlsReport();
 		report.print(dto.getOperationLogPrints(), dto.getReportPath(), "OperationLog.xls", new HashMap<String, Object>());
 	}
-	
-	
 	
 }
