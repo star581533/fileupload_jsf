@@ -38,15 +38,7 @@ public class LoginController implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	private LoginDTO dto;
-	
-	private String message;	
 		
-//	private String userName = null;
-//	
-//	private String userId = null;
-//	
-//	private String password = null;
-	
 	@ManagedProperty(value="#{authenticationManager}")
 	private AuthenticationManager authenticationManager = null;
 			
@@ -80,29 +72,34 @@ public class LoginController implements Serializable{
 	 * 登入
 	 * @return
 	 */
-	public String login(){						
+	public String login(){
+		
+		UserInfo userInfo = null;
+		
 		try{
 			this.verify();
 			Authentication auth = new UsernamePasswordAuthenticationToken(this.dto.getUserId(), SecurityUtils.getMD5(this.dto.getPassword()));
 			Authentication result = authenticationManager.authenticate(auth);
 			SecurityContextHolder.getContext().setAuthentication(result);	
 			
-			UserInfo userInfo = (UserInfo)result.getPrincipal();
+			userInfo = (UserInfo)result.getPrincipal();
 			loginOutService.insertLoginOut(userInfo, ConstantObject.UPPER_CASE_I);
 		}catch(AuthenticationException e){			
 //			this.handleException(e);
-			throw new FileSysException(e);
-//			throw new FileSysException(ConstantObject.UPPER_CASE_E, ConstantObject.ERROR_USER_LOGIN);
-//			return "";		
+			e.printStackTrace();			
+			FacesMessage faceMessage = new FacesMessage(ConstantObject.ERROR_INPUT_USER_PASSWORD);
+			FacesContext.getCurrentInstance().addMessage(null, faceMessage);
 		}catch(FileSysException e){
 			e.printStackTrace();
-			return "";
 		}catch(Exception e){
-//			throw new FileSysException(ConstantObject.ERROR_USER_LOGIN);
 			this.handleException(e);
-		}
-//		return MenuService.INDEX;
-		return MenuService.lookupMenuPage(MenuService.INDEX);
+		}	
+		
+		if(userInfo == null){
+			return "";
+		}else{
+			return MenuService.lookupMenuPage(MenuService.INDEX);
+		}	
 	}
 	
 	/**
@@ -136,38 +133,6 @@ public class LoginController implements Serializable{
 	public void setDto(LoginDTO dto) {
 		this.dto = dto;
 	}
-
-	public String getMessage() {
-		return message;
-	}
-
-	public void setMessage(String message) {
-		this.message = message;
-	}
-
-//	public String getUserName() {
-//		return userName;
-//	}
-//
-//	public void setUserName(String userName) {
-//		this.userName = userName;
-//	}
-//
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
-//	
-//	public String getUserId() {
-//		return userId;
-//	}
-//
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
 
 	public AuthenticationManager getAuthenticationManager() {
 		return authenticationManager;
