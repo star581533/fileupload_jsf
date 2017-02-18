@@ -85,7 +85,7 @@ public class FileUploadController implements Serializable {
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_SECRET);
 		}
 		//日期
-		if(StringUtils.isBlank(dto.getDisPatchDate().toString())){
+		if(DateUtils.checkDateValue(dto.getDisPatchDate())){
 			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_DATE);
 		}
 		//分類號
@@ -98,7 +98,7 @@ public class FileUploadController implements Serializable {
 		}
 		//主旨
 		if(StringUtils.isBlank(dto.getSubject())){
-			throw new FileSysException(ConstantObject.WARN_MSG_INPUT_SUBJECT);
+			throw new FileSysException(ConstantObject.UPPER_CASE_W, ConstantObject.WARN_MSG_INPUT_SUBJECT);
 		}				
 		//檔名
 		if(StringUtils.isBlank(dto.getUploadFile().getFileName())){
